@@ -1,0 +1,46 @@
+{
+    "name": "gent/qa",
+    "description": "Provide tools to assure quality.",
+    "keywords": ["gent", "qa"],
+    "homepage": "https://github.com/digipolisgent/php_package_qa",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maarten Segers",
+            "email": "maarten.segers@digipolis.gent"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@github.com:digipolisgent/php_package_gent-services.git"
+        },
+        {
+            "type": "vcs",
+            "url":  "git@github.com:digipolisgent/php_package_gent-services-club-youth.git"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=7.2"
+    },
+    "require-dev": {
+        "phpro/grumphp": "^0.15.2",
+        "phpstan/phpstan": "^0.11.15",
+        "phpunit/phpunit": "^8",
+        "phpmd/phpmd": "^3",
+        "sebastian/phpcpd": "^4.1",
+        "sensiolabs/security-checker": "^6.0",
+        "squizlabs/php_codesniffer": "^2.3"
+    },
+    "scripts": {
+        "grumphp": "vendor/bin/grumphp run --ansi",
+        "phpcs": "vendor/bin/phpcs",
+        "test": "vendor/bin/phpunit",
+        "coverage": "vendor/bin/phpunit --coverage-html ./build/coverage",
+        "phpstan": "vendor/bin/phpstan analyse --level=7 ./src",
+        "post-install-cmd": "vendor/bin/grumphp git:init"
+    }
+}
