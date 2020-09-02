@@ -11,16 +11,6 @@
             "email": "maarten.segers@digipolis.gent"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url":  "git@github.com:digipolisgent/php_package_gent-services.git"
-        },
-        {
-            "type": "vcs",
-            "url":  "git@github.com:digipolisgent/php_package_gent-services-club-youth.git"
-        }
-    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
