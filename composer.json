@@ -17,8 +17,8 @@
         "php": ">=7.2"
     },
     "require": {
-        "metadrop/grumphp-drupal-check": "^0.1.4",
-        "phpro/grumphp": "^0.18",
+        "digipolisgent/grumphp-drupal-check": "^0.2.0",
+        "phpro/grumphp": "^0.19",
         "phpunit/phpunit": "^8",
         "phpmd/phpmd": "^2.7",
         "sebastian/phpcpd": "^4.1",
