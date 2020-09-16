@@ -2,7 +2,7 @@
     "name": "gent/qa",
     "description": "Provide tools to assure quality.",
     "keywords": ["gent", "qa"],
-    "homepage": "https://github.com/digipolisgent/php_package_qa",
+    "homepage": "https://github.com/digipolisgent/php_package_qa-drupal",
     "type": "library",
     "license": "MIT",
     "authors": [
