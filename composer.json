@@ -14,9 +14,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.2"
-    },
-    "require": {
         "digipolisgent/grumphp-drupal-check": "^0.2.1",
         "phpro/grumphp": "^0.19",
         "phpunit/phpunit": "^8",
