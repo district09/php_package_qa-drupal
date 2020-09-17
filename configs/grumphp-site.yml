@@ -1,0 +1,124 @@
+parameters:
+  hooks_dir: ~
+  hooks_preset: local
+  stop_on_failure: true
+  hide_circumvention_tip: true
+  ascii: ~
+  fixer:
+    enabled: true
+    fix_by_default: false
+  environment:
+    file:
+      - .env
+      - .env.local
+  testsuites:
+    git_commit_msg:
+      tasks:
+        - git_commit_message
+    git_pre_commit:
+      tasks:
+        - git_blacklist
+        - git_branch_name
+        - phpcs
+        - phpmd
+  tasks:
+    behat:
+      config: vendor/gent/qa-drupal/configs/behat.yml
+    composer: ~
+    composer_normalize:
+      indent_size: ~
+      indent_style: ~
+    git_blacklist:
+      keywords:
+        - " die\\("
+        - " exit;"
+        - " exit\\("
+        - "\\$_[A-Z_]+\\["
+      whitelist_patterns:
+        - "#^web/modules/custom/#"
+        - "#^web/profiles/custom/#"
+        - "#^web/themes/custom/#"
+      triggered_by:
+        - php
+        - inc
+        - install
+        - module
+        - theme
+        - profile
+    git_branch_name:
+      whitelist:
+        - "#^feature/[A-Z]+-\\d+$#"
+        - "#^feature/[a-z\\-]+$#"
+        - "#^release/\\d+\\.\\d+\\.\\d+$#"
+        - "#^hotfix/\\d+\\.\\d+\\.\\d+$#"
+        - develop
+    git_commit_message:
+      enforce_no_subject_trailing_period: false
+      max_body_width: 80
+      max_subject_width: 80
+      matchers:
+        - "/^[A-Z]+-\\d+(, [A-Z]+-\\d+)*: (Add|Change|Fix|Update|Remove) /"
+        - "/^(Add|Change|Fix|Update|Remove) /"
+      case_insensitive: false
+    phpcpd: ~
+    phpcs:
+      standard:
+        - vendor/gent/qa-drupal/configs/phpcs.xml
+      report_width: 120
+      whitelist_patterns:
+        - "#^web/modules/custom/#"
+        - "#^web/profiles/custom/#"
+        - "#^web/themes/custom/#"
+      ignore_patterns:
+        - node_modules/
+      triggered_by:
+        - php
+        - inc
+        - install
+        - module
+        - theme
+        - profile
+        - yml
+    phpmd:
+      whitelist_patterns:
+        - "#^web/modules/custom/#"
+        - "#^web/profiles/custom/#"
+        - "#^web/themes/custom/#"
+      report_format: ansi
+      ruleset:
+        - vendor/gent/qa-drupal/configs/phpmd.xml
+      triggered_by:
+        - php
+        - inc
+        - install
+        - module
+        - theme
+        - profile
+    phpstan:
+      configuration: vendor/gent/qa-drupal/configs/phpstan-site.neon
+      level: 8
+      force_patterns:
+        - "#^web/modules/custom/#"
+        - "#^web/profiles/custom/#"
+        - "#^web/themes/custom/#"
+      ignore_patterns:
+        - "#.*#"
+      triggered_by:
+        - php
+        - inc
+        - install
+        - module
+        - theme
+        - profile
+    phpunit:
+      config_file: vendor/gent/qa-drupal/configs/phpunit-site.xml
+    yamllint:
+      whitelist_patterns:
+        - "#^[^/]+\\.yml$#"
+        - "#^\\.[^/]+/[^/]+\\.yml$#"
+        - "#^config/#"
+        - "#^web/modules/custom/#"
+        - "#^web/profiles/custom/#"
+        - "#^web/themes/custom/#"
+      ignore_patterns:
+        - node_modules/

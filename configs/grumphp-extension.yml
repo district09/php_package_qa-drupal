@@ -1,0 +1,93 @@
+parameters:
+  hooks_dir: ~
+  hooks_preset: local
+  stop_on_failure: true
+  hide_circumvention_tip: true
+  ascii: ~
+  fixer:
+    enabled: true
+    fix_by_default: false
+  testsuites:
+    git_commit_msg:
+      tasks:
+        - git_commit_message
+    git_pre_commit:
+      tasks:
+        - git_blacklist
+        - git_branch_name
+        - phpcs
+        - phpmd
+  tasks:
+    behat:
+      config: vendor/gent/qa-drupal/configs/behat.yml
+    composer: ~
+    composer_normalize:
+      indent_size: ~
+      indent_style: ~
+    git_blacklist:
+      keywords:
+        - " die\\("
+        - " exit;"
+        - " exit\\("
+        - "\\$_[A-Z_]+\\["
+      triggered_by:
+        - php
+        - inc
+        - install
+        - module
+        - theme
+        - profile
+    git_branch_name:
+      whitelist:
+        - "#^feature/[A-Z]+-\\d+$#"
+        - "#^feature/[a-z\\-]+$#"
+        - "#^\\d+\\.\\d+\\.x$#"
+    git_commit_message:
+      enforce_no_subject_trailing_period: false
+      max_body_width: 80
+      max_subject_width: 80
+      matchers:
+        - "/^[A-Z]+-\\d+(, [A-Z]+-\\d+): (Add|Change|Fix|Update|Remove) /"
+        - "/^(Add|Change|Fix|Update|Remove) /"
+      case_insensitive: false
+    phpcpd: ~
+    phpcs:
+      standard:
+        - vendor/gent/qa-drupal/configs/phpcs.xml
+      report_width: 120
+      ignore_patterns:
+        - node_modules/
+      triggered_by:
+        - php
+        - inc
+        - install
+        - module
+        - theme
+        - profile
+        - yml
+    phpmd:
+      report_format: ansi
+      ruleset:
+        - vendor/gent/qa-drupal/configs/phpmd.xml
+      triggered_by:
+        - php
+        - inc
+        - install
+        - module
+        - theme
+        - profile
+    phpstan:
+      configuration: vendor/gent/qa-drupal/configs/phpstan-extension.neon
+      level: 8
+      triggered_by:
+        - php
+        - inc
+        - install
+        - module
+        - theme
+        - profile
+    phpunit:
+      config_file: vendor/gent/qa-drupal/configs/phpunit-extension.xml
+    yamllint:
+      ignore_patterns:
+        - node_modules/

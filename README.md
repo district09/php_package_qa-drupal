@@ -1,11 +1,38 @@
-# Digipolis QA package for Drupal
+This package provides a set of Quality Assurance tools and configuration files for
+Drupal websites and extensions (modules, themes or profiles).
 
-This package provides tools to assist in assuring quality for Drupal projects.
 
-## Installation
+# Requirements
 
-Install with dependencies:
+* [Composer](https://getcomposer.org)
 
+
+# Versions
+
+| Package | Drupal |
+| ------- | ------ |
+| 1       | 8      |
+
+
+# Installation
+
+First add one of following `grumphp` entries to the `extra` section of your `composer.json`.
+
+For a website:
+
+```json
+"grumphp": {
+    "config-default-path": "/vendor/gent/qa-drupal/configs/grumphp-site.yml"
+}
 ```
-composer require --dev gent/qa
+
+For an extension:
+
+```json
+"grumphp": {
+    "config-default-path": "/vendor/gent/qa-drupal/configs/grumphp-extension.yml"
+}
 ```
+
+Now install this package and its requirements by executing execute following command:
+<pre><code>composer require --dev gent/qa-drupal:^1.0</code></pre>
