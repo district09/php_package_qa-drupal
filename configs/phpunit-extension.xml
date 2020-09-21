@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- TODO set checkForUnintentionallyCoveredCode="true" once https://www.drupal.org/node/2626832 is resolved. -->
-<phpunit bootstrap="web/core/tests/bootstrap.php" colors="true"
+<phpunit bootstrap="../../../drupal/core/tests/bootstrap.php" colors="true"
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutChangesToGlobalState="true"
@@ -13,19 +13,16 @@
 
   <testsuites>
     <testsuite name="unit">
-      <file>./vendor/drupal/core/tests/TestSuites/UnitTestSuite.php</file>
+      <file>../src/PHPUnit/TestSuites/UnitTestSuite.php</file>
     </testsuite>
     <testsuite name="kernel">
-      <file>./vendor/drupal/core/tests/TestSuites/KernelTestSuite.php</file>
+      <file>../src/PHPUnit/TestSuites/KernelTestSuite.php</file>
     </testsuite>
     <testsuite name="functional">
-      <file>./vendor/drupal/core/tests/TestSuites/FunctionalTestSuite.php</file>
+      <file>../src/PHPUnit/TestSuites/FunctionalTestSuite.php</file>
     </testsuite>
     <testsuite name="functional-javascript">
-      <file>./vendor/drupal/core/tests/TestSuites/FunctionalJavascriptTestSuite.php</file>
-    </testsuite>
-    <testsuite name="build">
-      <file>./vendor/drupal/core/tests/TestSuites/BuildTestSuite.php</file>
+      <file>../src/PHPUnit/TestSuites/FunctionalJavascriptTestSuite.php</file>
     </testsuite>
   </testsuites>
 

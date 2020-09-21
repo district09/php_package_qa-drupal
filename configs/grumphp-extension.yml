@@ -6,24 +6,31 @@ parameters:
   ascii: ~
   fixer:
     enabled: true
-    fix_by_default: false
+    fix_by_default: true
+  extensions:
+    - Gent\QA\Drupal\GrumPHPExtension
   testsuites:
     git_commit_msg:
       tasks:
         - git_commit_message
     git_pre_commit:
       tasks:
+        - composer
         - git_blacklist
         - git_branch_name
+        - phpcpd
         - phpcs
         - phpmd
+        - phpstan
+        - yamllint
+    tests:
+      tasks:
+        - behat
+        - phpunit
   tasks:
     behat:
-      config: vendor/gent/qa-drupal/configs/behat.yml
+      config: .behat-merged.yml
     composer: ~
-    composer_normalize:
-      indent_size: ~
-      indent_style: ~
     git_blacklist:
       keywords:
         - " die\\("
@@ -39,18 +46,28 @@ parameters:
         - profile
     git_branch_name:
       whitelist:
-        - "#^feature/[A-Z]+-\\d+$#"
-        - "#^feature/[a-z\\-]+$#"
-        - "#^\\d+\\.\\d+\\.x$#"
+        - "#^\\d+\\.\\d+\\.x|feature/([A-Z]+-\\d+|[a-z]+(-[a-z]+)*)$#"
     git_commit_message:
       enforce_no_subject_trailing_period: false
       max_body_width: 80
       max_subject_width: 80
       matchers:
-        - "/^[A-Z]+-\\d+(, [A-Z]+-\\d+): (Add|Change|Fix|Update|Remove) /"
-        - "/^(Add|Change|Fix|Update|Remove) /"
+        - "/^([A-Z]+-\\d+(, [A-Z]+-\\d+): )?(Add|Change|Fix|Update|Remove) /"
       case_insensitive: false
-    phpcpd: ~
+    phpcpd:
+      names_exclude:
+        - "*.api.php"
+        - "*Test.php"
+        - "*TestBase.php"
+        - "*TestCase.php"
+      min_lines: 10
+      triggered_by:
+        - php
+        - inc
+        - install
+        - module
+        - theme
+        - profile
     phpcs:
       standard:
         - vendor/gent/qa-drupal/configs/phpcs.xml
@@ -66,7 +83,6 @@ parameters:
         - profile
         - yml
     phpmd:
-      report_format: ansi
       ruleset:
         - vendor/gent/qa-drupal/configs/phpmd.xml
       triggered_by:

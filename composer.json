@@ -1,14 +1,13 @@
 {
     "name": "gent/qa-drupal",
     "description": "Quality Assurance tools and configuration for Drupal websites and extensions.",
-    "type": "composer-plugin",
+    "type": "library",
     "autoload": {
         "psr-4": {
             "Gent\\QA\\Drupal\\": "src/"
         }
     },
     "require": {
-        "composer-plugin-api": "^1.0",
         "drupal/coder": "^8.3",
         "drupal/core": "^8.9",
         "drupal/drupal-extension": "^4.1",
@@ -18,14 +17,9 @@
         "phpro/grumphp": "^0.18.1",
         "phpspec/prophecy": "^1.10",
         "phpstan/phpstan-deprecation-rules": "^0.12.5",
-        "phpunit/phpunit": "^8.4",
-        "sebastian/phpcpd": "^4.0"
-    },
-    "require-dev": {
-        "composer/composer": "^1.10"
-    },
-    "extra": {
-        "class": "Gent\\QA\\Drupal\\ComposerPlugin"
+        "phpunit/phpunit": "^7.5",
+        "sebastian/phpcpd": "^4.0",
+        "symfony/dotenv": "^3.4"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

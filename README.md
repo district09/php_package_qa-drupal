@@ -22,7 +22,7 @@ For a website:
 
 ```json
 "grumphp": {
-    "config-default-path": "/vendor/gent/qa-drupal/configs/grumphp-site.yml"
+    "config-default-path": "vendor/gent/qa-drupal/configs/grumphp-site.yml"
 }
 ```
 
@@ -30,7 +30,7 @@ For an extension:
 
 ```json
 "grumphp": {
-    "config-default-path": "/vendor/gent/qa-drupal/configs/grumphp-extension.yml"
+    "config-default-path": "vendor/gent/qa-drupal/configs/grumphp-extension.yml"
 }
 ```
 
