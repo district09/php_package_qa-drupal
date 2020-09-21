@@ -1,0 +1,3 @@
+includes:
+  - ../../../mglaman/phpstan-drupal/extension.neon
+  - ../../../phpstan/phpstan-deprecation-rules/rules.neon

@@ -1,0 +1,43 @@
+default:
+  gherkin:
+    filters:
+      tags: ~@javascript
+  suites:
+    default:
+      paths:
+        - %paths.base%/tests/features
+      contexts:
+        - Drupal\DrupalExtension\Context\ConfigContext
+        - Drupal\DrupalExtension\Context\DrupalContext
+        - Drupal\DrupalExtension\Context\MarkupContext
+        - Drupal\DrupalExtension\Context\MessageContext
+        - Drupal\DrupalExtension\Context\MinkContext
+        - Gent\QA\Drupal\Behat\Context\AccessContext
+        - Gent\QA\Drupal\Behat\Context\DebugContext:
+            path: %paths.base%/tests/features/dumps
+        - Gent\QA\Drupal\Behat\Context\UriContext
+        - Gent\QA\Drupal\Behat\Context\SelectorContext
+  extensions:
+    Behat\MinkExtension:
+      goutte: ~
+      selenium2: ~
+      sessions:
+        default:
+          goutte: ~
+        javascript:
+          selenium2:
+            wd_host: "http://localhost:4444/wd/hub"
+    Drupal\DrupalExtension:
+      blackbox: ~
+      api_driver: "drupal"
+      drush:
+        root: %paths.base%/web
+      drupal:
+        drupal_root: %paths.base%/web
+      region_map:
+        header: ".header"
+        content: ".region-content"
+      selectors:
+        message_selector: ".messages"
+        error_message_selector: ".messages.messages--error"
+        success_message_selector: ".messages.messages--status"

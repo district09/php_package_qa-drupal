@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TODO set checkForUnintentionallyCoveredCode="true" once https://www.drupal.org/node/2626832 is resolved. -->
+<phpunit bootstrap="../../../drupal/core/tests/bootstrap.php" colors="true"
+         beStrictAboutTestsThatDoNotTestAnything="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutChangesToGlobalState="true"
+         printerClass="\Drupal\Tests\Listeners\HtmlOutputPrinter">
+
+  <php>
+    <ini name="error_reporting" value="32767"/>
+    <ini name="memory_limit" value="-1"/>
+  </php>
+
+  <testsuites>
+    <testsuite name="unit">
+      <file>../src/PHPUnit/TestSuites/UnitTestSuite.php</file>
+    </testsuite>
+    <testsuite name="kernel">
+      <file>../src/PHPUnit/TestSuites/KernelTestSuite.php</file>
+    </testsuite>
+    <testsuite name="functional">
+      <file>../src/PHPUnit/TestSuites/FunctionalTestSuite.php</file>
+    </testsuite>
+    <testsuite name="functional-javascript">
+      <file>../src/PHPUnit/TestSuites/FunctionalJavascriptTestSuite.php</file>
+    </testsuite>
+  </testsuites>
+
+  <listeners>
+    <listener class="\Drupal\Tests\Listeners\DrupalListener">
+    </listener>
+    <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener">
+    </listener>
+  </listeners>
+
+  <filter>
+    <whitelist>
+      <directory suffix=".php">./</directory>
+      <exclude>
+        <directory suffix=".api.php">./</directory>
+        <directory suffix="Test.php">./</directory>
+        <directory suffix="TestBase.php">./</directory>
+        <directory suffix="TestCase.php">./</directory>
+      </exclude>
+    </whitelist>
+  </filter>
+</phpunit>
