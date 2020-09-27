@@ -14,7 +14,7 @@ class GrumPHPExtension implements ExtensionInterface
     public function load(ContainerBuilder $container)
     {
         /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher */
-        $event_dispatcher = $container->get('symfony\component\eventdispatcher\eventdispatcher');
+        $event_dispatcher = $container->get('Symfony\Component\EventDispatcher\EventDispatcher');
         $event_dispatcher->addSubscriber(new GrumphpEventSubscriber());
     }
 }
