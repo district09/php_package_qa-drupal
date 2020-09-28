@@ -25,11 +25,8 @@ parameters:
         - yamllint
     tests:
       tasks:
-        - behat
         - phpunit
   tasks:
-    behat:
-      config: .behat-merged.yml
     composer: ~
     git_blacklist:
       keywords:
