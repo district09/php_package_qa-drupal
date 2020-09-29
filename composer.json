@@ -8,13 +8,14 @@
         }
     },
     "require": {
+        "digipolisgent/grumphp-drupal-check": "^0.2.1",
         "drupal/coder": "^8.3",
-        "drupal/core": "^8.9 || ^9",
+        "drupal/core": "^9",
         "drupal/drupal-extension": "^4.1",
         "ergebnis/composer-normalize": "^2.8",
         "mglaman/phpstan-drupal": "^0.12.5",
         "phpmd/phpmd": "^2.9",
-        "phpro/grumphp": "^0.18.1",
+        "phpro/grumphp": "^0.19",
         "phpspec/prophecy": "^1.10",
         "phpstan/phpstan": "0.12.42",
         "phpstan/phpstan-deprecation-rules": "^0.12.5",
