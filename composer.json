@@ -8,6 +8,7 @@
         }
     },
     "require": {
+        "digipolisgent/grumphp-drupal-check": "^0.2.1",
         "drupal/coder": "^8.3",
         "drupal/core": "^8.9 || ^9",
         "drupal/drupal-extension": "^4.1",
