@@ -8,6 +8,7 @@ parameters:
     enabled: true
     fix_by_default: true
   extensions:
+    - GrumphpDrupalCheck\ExtensionLoader
     - Gent\QA\Drupal\GrumPHPExtension
   testsuites:
     git_commit_msg:
@@ -16,6 +17,7 @@ parameters:
     git_pre_commit:
       tasks:
         - composer
+        - drupalcheck
         - git_blacklist
         - git_branch_name
         - phpcpd
@@ -28,6 +30,9 @@ parameters:
         - phpunit
   tasks:
     composer: ~
+    drupalcheck:
+      drupal_root: ../drupal/web
+      exclude_dir: vendor
     git_blacklist:
       keywords:
         - " die\\("
