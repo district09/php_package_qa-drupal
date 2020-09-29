@@ -1,4 +1,4 @@
-parameters:
+grumphp:
   hooks_dir: ~
   hooks_preset: local
   stop_on_failure: true
