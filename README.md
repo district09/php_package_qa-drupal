@@ -5,7 +5,7 @@ Drupal websites and extensions (modules, themes or profiles).
 # Requirements
 
 * [Composer](https://getcomposer.org)
-* [Drupal](https://www.drupal.org/docs/develop/using-composer/using-composer-to-install-drupal-and-manage-dependencies) should be installed using composer. Note: when using for an extension Drupal should be installed in ../drupal.
+* [Drupal 9](https://www.drupal.org/docs/develop/using-composer/using-composer-to-install-drupal-and-manage-dependencies) should be installed using composer. Note: when using for an extension Drupal should be installed in ../drupal.
 
 
 # Versions
