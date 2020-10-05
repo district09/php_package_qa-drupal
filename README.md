@@ -5,7 +5,7 @@ Drupal websites and extensions (modules, themes or profiles).
 # Requirements
 
 * [Composer](https://getcomposer.org)
-* [Drupal 9](https://www.drupal.org/docs/develop/using-composer/using-composer-to-install-drupal-and-manage-dependencies) should be installed using composer. Note: when using for an extension Drupal should be installed in ../drupal.
+* [Drupal](https://www.drupal.org/docs/develop/using-composer/using-composer-to-install-drupal-and-manage-dependencies) (Should be installed using composer. Note: for extensions Drupal should be installed in `../drupal`).
 
 
 # Versions
@@ -13,7 +13,7 @@ Drupal websites and extensions (modules, themes or profiles).
 | Package | Drupal |
 | ------- | ------ |
 | 1       | 8      |
-| 2       | 9      |
+| 1       | 9      |
 
 
 # Installation
@@ -37,4 +37,4 @@ For an extension:
 ```
 
 Now install this package and its requirements by executing the following command:
-<pre><code>composer require --dev gent/qa-drupal:^2.0</code></pre>
+<pre><code>composer require --dev gent/qa-drupal</code></pre>
