@@ -12,7 +12,8 @@ Drupal websites and extensions (modules, themes or profiles).
 
 | Package | Drupal |
 | ------- | ------ |
-| 1       | 9      |
+| 1       | 8      |
+| 2       | 9      |
 
 
 # Installation
