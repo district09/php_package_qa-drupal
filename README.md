@@ -35,4 +35,4 @@ For an extension:
 ```
 
 Now install this package and its requirements by executing execute following command:
-<pre><code>composer require --dev gent/qa-drupal:^1.0</code></pre>
+<pre><code>composer require --dev digipolisgent/qa-drupal:^1.0</code></pre>
