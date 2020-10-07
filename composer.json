@@ -2,6 +2,18 @@
     "name": "digipolisgent/qa-drupal",
     "description": "Quality Assurance tools and configuration for Drupal websites and extensions.",
     "type": "library",
+    "authors": [
+        {
+            "name": "Van Assche Matthijs",
+            "email": "matthijs.vanassche@digipolis.gent",
+            "role": "developer"
+        },
+        {
+            "name": "Maarten Segers",
+            "email": "maarten.segers@digipolis.gent",
+            "role": "developer"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Gent\\QA\\Drupal\\": "src/"

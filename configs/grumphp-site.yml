@@ -82,7 +82,7 @@ grumphp:
         - profile
     phpcs:
       standard:
-        - vendor/gent/qa-drupal/configs/phpcs.xml
+        - vendor/digipolisgent/qa-drupal/configs/phpcs.xml
       report_width: 120
       whitelist_patterns:
         - "#^web/(modules|themes|profiles)/custom/#"
@@ -98,7 +98,7 @@ grumphp:
         - yml
     phpmd:
       ruleset:
-        - vendor/gent/qa-drupal/configs/phpmd.xml
+        - vendor/digipolisgent/qa-drupal/configs/phpmd.xml
       whitelist_patterns:
         - "#^web/(modules|themes|profiles)/custom/#"
       triggered_by:
@@ -109,7 +109,7 @@ grumphp:
         - theme
         - profile
     phpstan:
-      configuration: vendor/gent/qa-drupal/configs/phpstan-site.neon
+      configuration: vendor/digipolisgent/qa-drupal/configs/phpstan-site.neon
       level: 8
       force_patterns:
         - "#^web/(modules|themes|profiles)/custom/#"
@@ -123,7 +123,7 @@ grumphp:
         - theme
         - profile
     phpunit:
-      config_file: vendor/gent/qa-drupal/configs/phpunit-site.xml
+      config_file: vendor/digipolis/qa-drupal/configs/phpunit-site.xml
     yamllint:
       whitelist_patterns:
         - "#^(\\.[^/]+/)?[^/]+\\.yml$#"

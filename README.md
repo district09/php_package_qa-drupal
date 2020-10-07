@@ -24,7 +24,7 @@ For a website:
 
 ```json
 "grumphp": {
-    "config-default-path": "vendor/gent/qa-drupal/configs/grumphp-site.yml"
+    "config-default-path": "vendor/digipolisgent/qa-drupal/configs/grumphp-site.yml"
 }
 ```
 
@@ -32,9 +32,9 @@ For an extension:
 
 ```json
 "grumphp": {
-    "config-default-path": "vendor/gent/qa-drupal/configs/grumphp-extension.yml"
+    "config-default-path": "vendor/digipolisgent/qa-drupal/configs/grumphp-extension.yml"
 }
 ```
 
 Now install this package and its requirements by executing the following command:
-<pre><code>composer require --dev gent/qa-drupal</code></pre>
+<pre><code>composer require --dev digipolisgent/qa-drupal</code></pre>
