@@ -82,7 +82,7 @@ parameters:
         - profile
     phpcs:
       standard:
-        - vendor/gent/qa-drupal/configs/phpcs.xml
+        - vendor/digipolisgent/qa-drupal/configs/phpcs.xml
       report_width: 120
       whitelist_patterns:
         - "#^web/(modules|themes|profiles)/custom/#"
@@ -98,7 +98,7 @@ parameters:
         - yml
     phpmd:
       ruleset:
-        - vendor/gent/qa-drupal/configs/phpmd.xml
+        - vendor/digipolisgent/qa-drupal/configs/phpmd.xml
       whitelist_patterns:
         - "#^web/(modules|themes|profiles)/custom/#"
       triggered_by:
@@ -123,7 +123,7 @@ parameters:
         - theme
         - profile
     phpunit:
-      config_file: vendor/gent/qa-drupal/configs/phpunit-site.xml
+      config_file: vendor/digipolisgent/qa-drupal/configs/phpunit-site.xml
     yamllint:
       whitelist_patterns:
         - "#^(\\.[^/]+/)?[^/]+\\.yml$#"
