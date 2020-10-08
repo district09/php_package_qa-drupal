@@ -67,7 +67,7 @@ parameters:
         - profile
     phpcs:
       standard:
-        - vendor/gent/qa-drupal/configs/phpcs.xml
+        - vendor/digipolisgent/qa-drupal/configs/phpcs.xml
       report_width: 120
       ignore_patterns:
         - node_modules/
@@ -81,7 +81,7 @@ parameters:
         - yml
     phpmd:
       ruleset:
-        - vendor/gent/qa-drupal/configs/phpmd.xml
+        - vendor/digipolisgent/qa-drupal/configs/phpmd.xml
       triggered_by:
         - php
         - inc
@@ -90,7 +90,7 @@ parameters:
         - theme
         - profile
     phpstan:
-      configuration: vendor/gent/qa-drupal/configs/phpstan-extension.neon
+      configuration: vendor/digipolisgent/qa-drupal/configs/phpstan-extension.neon
       level: 8
       triggered_by:
         - php
@@ -100,7 +100,7 @@ parameters:
         - theme
         - profile
     phpunit:
-      config_file: vendor/gent/qa-drupal/configs/phpunit-extension.xml
+      config_file: vendor/digipolisgent/qa-drupal/configs/phpunit-extension.xml
     yamllint:
       ignore_patterns:
         - node_modules/
