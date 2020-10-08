@@ -123,7 +123,7 @@ grumphp:
         - theme
         - profile
     phpunit:
-      config_file: vendor/digipolis/qa-drupal/configs/phpunit-site.xml
+      config_file: vendor/digipolisgent/qa-drupal/configs/phpunit-site.xml
     yamllint:
       whitelist_patterns:
         - "#^(\\.[^/]+/)?[^/]+\\.yml$#"
