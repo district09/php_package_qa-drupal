@@ -1,6 +1,6 @@
 <?php
 
-namespace Gent\QA\Drupal\Behat\Context;
+namespace Digipolisgent\QA\Drupal\Behat\Context;
 
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 

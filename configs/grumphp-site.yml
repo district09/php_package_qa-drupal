@@ -8,7 +8,7 @@ parameters:
     enabled: true
     fix_by_default: true
   extensions:
-    - Gent\QA\Drupal\GrumPHPExtension
+    - Digipolisgent\QA\Drupal\GrumPHPExtension
   testsuites:
     git_commit_msg:
       tasks:
@@ -29,7 +29,7 @@ parameters:
         - phpunit
   tasks:
     behat:
-      config: .behat-merged.yml
+      config: .behat.qa-drupal.yml
     composer:
       no_check_publish: true
     git_blacklist:
@@ -82,7 +82,7 @@ parameters:
         - profile
     phpcs:
       standard:
-        - vendor/digipolisgent/qa-drupal/configs/phpcs.xml
+        - .phpcs.qa-drupal.xml
       report_width: 120
       whitelist_patterns:
         - "#^web/(modules|themes|profiles)/custom/#"
@@ -98,7 +98,7 @@ parameters:
         - yml
     phpmd:
       ruleset:
-        - vendor/digipolisgent/qa-drupal/configs/phpmd.xml
+        - .phpmd.qa-drupal.xml
       whitelist_patterns:
         - "#^web/(modules|themes|profiles)/custom/#"
       triggered_by:
@@ -109,7 +109,7 @@ parameters:
         - theme
         - profile
     phpstan:
-      configuration: vendor/gent/qa-drupal/configs/phpstan-site.neon
+      configuration: .phpstan.qa-drupal.neon
       level: 8
       force_patterns:
         - "#^web/(modules|themes|profiles)/custom/#"
@@ -123,7 +123,7 @@ parameters:
         - theme
         - profile
     phpunit:
-      config_file: vendor/digipolisgent/qa-drupal/configs/phpunit-site.xml
+      config_file: .phpunit.qa-drupal.xml
     yamllint:
       whitelist_patterns:
         - "#^(\\.[^/]+/)?[^/]+\\.yml$#"

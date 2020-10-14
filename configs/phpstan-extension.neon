@@ -1,7 +1,4 @@
-includes:
-  - ../../../mglaman/phpstan-drupal/extension.neon
-  - ../../../phpstan/phpstan-deprecation-rules/rules.neon
-
 parameters:
   drupal:
-    drupal_root: vendor/drupal/core
+    drupal_root: ../drupal
+

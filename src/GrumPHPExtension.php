@@ -1,8 +1,8 @@
 <?php
 
-namespace Gent\QA\Drupal;
+namespace Digipolisgent\QA\Drupal;
 
-use Gent\QA\Drupal\EventSubscriber\GrumphpEventSubscriber;
+use Digipolisgent\QA\Drupal\EventSubscriber\GrumphpEventSubscriber;
 use GrumPHP\Extension\ExtensionInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

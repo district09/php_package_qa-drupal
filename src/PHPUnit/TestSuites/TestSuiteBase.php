@@ -1,6 +1,6 @@
 <?php
 
-namespace Gent\QA\Drupal\PHPUnit\TestSuites;
+namespace Digipolisgent\QA\Drupal\PHPUnit\TestSuites;
 
 use Drupal\Core\Test\TestDiscovery;
 use PHPUnit\Framework\TestSuite;

@@ -8,7 +8,7 @@ parameters:
     enabled: true
     fix_by_default: true
   extensions:
-    - Gent\QA\Drupal\GrumPHPExtension
+    - Digipolisgent\QA\Drupal\GrumPHPExtension
   testsuites:
     git_commit_msg:
       tasks:
@@ -67,7 +67,7 @@ parameters:
         - profile
     phpcs:
       standard:
-        - vendor/digipolisgent/qa-drupal/configs/phpcs.xml
+        - .phpcs.qa-drupal.xml
       report_width: 120
       ignore_patterns:
         - node_modules/
@@ -81,7 +81,7 @@ parameters:
         - yml
     phpmd:
       ruleset:
-        - vendor/digipolisgent/qa-drupal/configs/phpmd.xml
+        - .phpmd.qa-drupal.xml
       triggered_by:
         - php
         - inc
@@ -90,7 +90,7 @@ parameters:
         - theme
         - profile
     phpstan:
-      configuration: vendor/digipolisgent/qa-drupal/configs/phpstan-extension.neon
+      configuration: .phpstan.qa-drupal.neon
       level: 8
       triggered_by:
         - php
@@ -100,7 +100,7 @@ parameters:
         - theme
         - profile
     phpunit:
-      config_file: vendor/digipolisgent/qa-drupal/configs/phpunit-extension.xml
+      config_file: .phpunit.qa-drupal.xml
     yamllint:
       ignore_patterns:
         - node_modules/

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- TODO set checkForUnintentionallyCoveredCode="true" once https://www.drupal.org/node/2626832 is resolved. -->
-<phpunit bootstrap="../../../../web/core/tests/bootstrap.php" colors="true"
+<phpunit bootstrap="web/core/tests/bootstrap.php" colors="true"
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutChangesToGlobalState="true"
@@ -13,16 +13,16 @@
 
   <testsuites>
     <testsuite name="unit">
-      <file>../src/PHPUnit/TestSuites/UnitTestSuite.php</file>
+      <file>vendor/digipolisgent/qa-drupal/src/PHPUnit/TestSuites/UnitTestSuite.php</file>
     </testsuite>
     <testsuite name="kernel">
-      <file>../src/PHPUnit/TestSuites/KernelTestSuite.php</file>
+      <file>vendor/digipolisgent/qa-drupal/src/PHPUnit/TestSuites/KernelTestSuite.php</file>
     </testsuite>
     <testsuite name="functional">
-      <file>../src/PHPUnit/TestSuites/FunctionalTestSuite.php</file>
+      <file>vendor/digipolisgent/qa-drupal/src/PHPUnit/TestSuites/FunctionalTestSuite.php</file>
     </testsuite>
     <testsuite name="functional-javascript">
-      <file>../src/PHPUnit/TestSuites/FunctionalJavascriptTestSuite.php</file>
+      <file>vendor/digipolisgent/qa-drupal/src/PHPUnit/TestSuites/FunctionalJavascriptTestSuite.php</file>
     </testsuite>
   </testsuites>
 
@@ -35,9 +35,9 @@
 
   <filter>
     <whitelist>
-      <directory suffix=".php">../../../../web/modules/custom</directory>
-      <directory suffix=".php">../../../../web/profiles/custom</directory>
-      <directory suffix=".php">../../../../web/themes/custom</directory>
+      <directory suffix=".php">web/modules/custom</directory>
+      <directory suffix=".php">web/profiles/custom</directory>
+      <directory suffix=".php">web/themes/custom</directory>
       <exclude>
         <directory suffix=".api.php">./</directory>
         <directory suffix="Test.php">./</directory>

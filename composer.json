@@ -16,7 +16,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Gent\\QA\\Drupal\\": "src/"
+            "Digipolisgent\\QA\\Drupal\\": "src/"
         }
     },
     "require": {
@@ -25,10 +25,11 @@
         "drupal/drupal-extension": "^4.1",
         "ergebnis/composer-normalize": "^2.8",
         "mglaman/phpstan-drupal": "^0.12.5",
+        "nette/neon": "^3.2",
         "phpmd/phpmd": "^2.9",
         "phpro/grumphp": "^0.18.1",
         "phpspec/prophecy": "^1.10",
-        "phpstan/phpstan": "0.12.42",
+        "phpstan/phpstan": "0.12.48",
         "phpstan/phpstan-deprecation-rules": "^0.12.5",
         "phpunit/phpunit": "^7.5",
         "sebastian/phpcpd": "^4.0",

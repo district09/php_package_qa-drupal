@@ -1,6 +1,6 @@
 <?php
 
-namespace Gent\QA\Drupal\Behat\Context;
+namespace Digipolisgent\QA\Drupal\Behat\Context;
 
 use Behat\Behat\Hook\Scope\AfterStepScope;
 use Behat\Mink\Driver\Selenium2Driver;
