@@ -65,7 +65,7 @@ class UriContext extends RawDrupalContext
     /**
      * Get the base URL of the site.
      *
-     * @return string
+     * @return string The base URL of the site.
      */
     public function getBaseUrl()
     {
@@ -73,9 +73,9 @@ class UriContext extends RawDrupalContext
     }
 
     /**
-     * Get the full URL of the current page.
+     * Get the URL of the current page.
      *
-     * @return string
+     * @return string The URL of the current page.
      */
     public function getCurrentUrl()
     {
@@ -83,9 +83,9 @@ class UriContext extends RawDrupalContext
     }
 
     /**
-     * Get the current full URI without the base URL.
+     * Get the current URI without the base URL.
      *
-     * @return string
+     * @return string The current URI.
      */
     public function getCurrentUri()
     {

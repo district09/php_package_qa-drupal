@@ -13,10 +13,8 @@ abstract class TestSuiteBase extends TestSuite
     /**
      * Class constructor.
      *
-     * @param string $name
-     *   The suite name.
-     * @param string $suite_namespace
-     *   Subnamespace used to separate test suite.
+     * @param string $name The suite name.
+     * @param string $suite_namespace Subnamespace used to separate test suite.
      */
     public function __construct($name, $suite_namespace)
     {
@@ -47,10 +45,8 @@ abstract class TestSuiteBase extends TestSuite
     /**
      * Find and add tests to the suites.
      *
-     * @param string $root
-     *   Path to the root of the Drupal installation.
-     * @param string $suite_namespace
-     *   Subnamespace used to separate test suite.
+     * @param string $root Path to the root of the Drupal installation.
+     * @param string $suite_namespace Subnamespace used to separate test suite.
      */
     protected function addTestsBySuiteNamespace($root, $suite_namespace)
     {
