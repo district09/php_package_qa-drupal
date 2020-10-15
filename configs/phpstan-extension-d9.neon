@@ -4,9 +4,11 @@ includes:
 
 parameters:
   tipsOfTheDay: false
+  customRulesetUsed: true
   reportUnmatchedIgnoredErrors: false
   ignoreErrors:
-    - '#Unsafe usage of new static\(\)#'
-    - '#\Drupal calls should be avoided in classes#'
+    - '#^(?:(?!deprecated).)*$#'
   excludes_analyse:
-    - '*/node_modules/*'
+    - 'tests/*'
+  drupal:
+    drupal_root: ../drupal
