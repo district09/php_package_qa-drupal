@@ -4,7 +4,6 @@ includes:
 
 parameters:
   tipsOfTheDay: false
-  checkMissingIterableValueType: false
   reportUnmatchedIgnoredErrors: false
   ignoreErrors:
     - "#Unsafe usage of new static\\(\\)#"
