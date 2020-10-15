@@ -1,4 +1,3 @@
 parameters:
   drupal:
     drupal_root: ../drupal
-
