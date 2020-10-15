@@ -38,6 +38,7 @@ parameters:
         - " exit;"
         - " exit\\("
         - "\\$_[A-Z_]+\\["
+      regexp_type: E
       whitelist_patterns:
         - "#^web/(modules|themes|profiles)/custom/#"
       triggered_by:
