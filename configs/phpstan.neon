@@ -7,29 +7,7 @@ parameters:
   checkMissingIterableValueType: false
   reportUnmatchedIgnoredErrors: false
   ignoreErrors:
-    - "#^Unsafe usage of new static\\(\\)#"
-    - "#^\\Drupal calls should be avoided in classes#"
-    - '#^(Function |Method Drupal\\[a-zA-Z0-9_\\]+::)[a-zA-Z0-9_]+\(\) has parameter .* no typehint specified#'
-    - '#^(Function |Method Drupal\\[a-zA-Z0-9_\\]+::)[a-zA-Z0-9_]+\(\) has no return typehint specified#'
-    - message: '#^Function [a-zA-Z0-9\\_]+\(\) has parameter .* no value type specified#'
-      path: *.module
-    - message: '#^Function [a-zA-Z0-9\\_]+\(\) return type has no value type specified#'
-      path: *.module
-    - message: '#^Function [a-zA-Z0-9\\_]+\(\) has parameter .* no value type specified#'
-      path: *.install
-    - message: '#^Function [a-zA-Z0-9\\_]+\(\) return type has no value type specified#'
-      path: *.install
-    - message: '#^Function [a-zA-Z0-9\\_]+\(\) has parameter .* no value type specified#'
-      path: *.theme
-    - message: '#^Function [a-zA-Z0-9\\_]+\(\) return type has no value type specified#'
-      path: *.theme
-    - message: '#^Function [a-zA-Z0-9\\_]+\(\) has parameter .* no value type specified#'
-      path: *.profile
-    - message: '#^Function [a-zA-Z0-9\\_]+\(\) return type has no value type specified#'
-      path: *.profile
-    - message: '#^Function [a-zA-Z0-9\\_]+\(\) has parameter .* no value type specified#'
-      path: *.inc
-    - message: '#^Function [a-zA-Z0-9\\_]+\(\) return type has no value type specified#'
-      path: *.inc
+    - "#Unsafe usage of new static\\(\\)#"
+    - "#\\Drupal calls should be avoided in classes#"
   excludes_analyse:
     - "*/node_modules/*"

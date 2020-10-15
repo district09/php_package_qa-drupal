@@ -110,7 +110,7 @@ parameters:
         - profile
     phpstan:
       configuration: .phpstan.qa-drupal.neon
-      level: 8
+      level: 4
       force_patterns:
         - "#^web/(modules|themes|profiles)/custom/#"
       ignore_patterns:

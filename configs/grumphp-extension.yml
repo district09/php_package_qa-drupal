@@ -91,7 +91,7 @@ parameters:
         - profile
     phpstan:
       configuration: .phpstan.qa-drupal.neon
-      level: 8
+      level: 4
       triggered_by:
         - php
         - inc
