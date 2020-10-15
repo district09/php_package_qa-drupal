@@ -98,15 +98,16 @@ class GrumphpEventSubscriber implements EventSubscriberInterface
         $data_merged = NULL;
 
         foreach ($candidates as $env_var => $file) {
-            // Skip if configured or missing.
+            // Ignore if configured to skip or if the file is missing.
             if (!empty($_SERVER[$env_var]) || !$fs->exists($file)) {
                 continue;
             }
 
-            // Parse the file contents. Just copy the file if this isn't possible.
+            // Read and parse the configuration file.
             $data = $this->readTaskConfigFile($info['type'], $file);
 
             if ($data === FALSE) {
+                // Just copy it if not readable.
                 $fs->copy($file, $info['grumphp']);
                 return;
             }
@@ -150,7 +151,8 @@ class GrumphpEventSubscriber implements EventSubscriberInterface
      * @return array|null The task configuration info (filename, extension, type and name of the
      *                    temporary merged file for GrumPHP) as associative array.
      */
-    protected function getTaskConfigFileInfo(TaskInterface $task) {
+    protected function getTaskConfigFileInfo(TaskInterface $task)
+    {
         $info = null;
 
         if ($task instanceof Behat) {
@@ -204,7 +206,8 @@ class GrumphpEventSubscriber implements EventSubscriberInterface
      *
      * @return array|false The configuration data or false if not supported.
      */
-    protected function readTaskConfigFile($type, $file) {
+    protected function readTaskConfigFile($type, $file)
+    {
         switch ($type) {
             case self::FILETYPE_YAML:
                 return Yaml::parseFile($file);
@@ -224,7 +227,8 @@ class GrumphpEventSubscriber implements EventSubscriberInterface
      *
      * @param array|null $data The configuration data.
      */
-    protected function writeTaskConfigFile($type, $file, array $data) {
+    protected function writeTaskConfigFile($type, $file, array $data)
+    {
         switch ($type) {
             case self::FILETYPE_YAML:
                 $data = Yaml::dump($data);
