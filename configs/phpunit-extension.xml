@@ -29,7 +29,7 @@
   <listeners>
     <listener class="\Drupal\Tests\Listeners\DrupalListener">
     </listener>
-    <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener">
+    <listener class="\Symfony\Bridge\PhpUnit\SymfonyTestsListener">
     </listener>
   </listeners>
 
