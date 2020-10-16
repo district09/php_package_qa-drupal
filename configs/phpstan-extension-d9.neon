@@ -1,6 +1,6 @@
 includes:
-  - vendor/mglaman/phpstan-drupal/extension.neon
-  - vendor/phpstan/phpstan-deprecation-rules/rules.neon
+  - ../../../mglaman/phpstan-drupal/extension.neon
+  - ../../../phpstan/phpstan-deprecation-rules/rules.neon
 
 parameters:
   tipsOfTheDay: false
@@ -8,7 +8,5 @@ parameters:
   reportUnmatchedIgnoredErrors: false
   ignoreErrors:
     - '#^(?:(?!deprecated).)*$#'
-  excludes_analyse:
-    - 'tests/*'
   drupal:
     drupal_root: ../drupal
