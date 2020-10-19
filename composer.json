@@ -32,7 +32,8 @@
         "phpstan/phpstan-deprecation-rules": "^0.12.5",
         "phpunit/phpunit": "^7.5",
         "sebastian/phpcpd": "^4.0",
-        "symfony/dotenv": "^3.4"
+        "symfony/dotenv": "^3.4",
+        "symfony/phpunit-bridge": "^3.4.3"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

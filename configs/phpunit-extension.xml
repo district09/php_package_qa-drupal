@@ -4,7 +4,7 @@
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutChangesToGlobalState="true"
-         printerClass="\Drupal\Tests\Listeners\HtmlOutputPrinter">
+         printerClass="Drupal\Tests\Listeners\HtmlOutputPrinter">
 
   <php>
     <ini name="error_reporting" value="32767"/>
@@ -27,9 +27,9 @@
   </testsuites>
 
   <listeners>
-    <listener class="\Drupal\Tests\Listeners\DrupalListener">
+    <listener class="Drupal\Tests\Listeners\DrupalListener">
     </listener>
-    <listener class="\Symfony\Bridge\PhpUnit\SymfonyTestsListener">
+    <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener">
     </listener>
   </listeners>
 
