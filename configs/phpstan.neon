@@ -7,6 +7,7 @@ parameters:
   reportUnmatchedIgnoredErrors: false
   ignoreErrors:
     - '#Unsafe usage of new static\(\)#'
-    - '#\Drupal calls should be avoided in classes#'
+    - '#\\Drupal calls should be avoided in classes#'
+    - '#Method Drupal\\Core\\Form\\FormBuilderInterface::getForm\(\) invoked with#'
   excludes_analyse:
     - '*/node_modules/*'

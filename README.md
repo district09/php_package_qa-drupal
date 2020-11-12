@@ -34,38 +34,45 @@ For an extension:
 }
 ```
 
-For an extension (to check only for D9 deprecations):
-
-```json
-"grumphp": {
-    "config-default-path": "vendor/digipolisgent/qa-drupal/configs/grumphp-extension-d9.yml"
-}
-```
-
 Now install this package and its requirements by executing execute following command:
 <pre><code>composer require --dev digipolisgent/qa-drupal:^1.0</code></pre>
 
 
 # Configuration
 
-**This section only applies to the site and extension configuration of GrumPHP.**
+## General
 
-You can optionally extend or override the task configuration files by creating
-them in your project root. For example: create a `phpcs.xml` or `phpcs.local.xml`
-file to override the configuration provided by this package.
+If required you can extend or override the provided configuration file of a task.
+Simply create the matching configuration file in the root of your project.
 
-Note that Yaml and Neon files will be merged with your local files. So if you create
-a `phpstan.neon` file it will be merged with the `phpstan.neon` file of this package.
+For example, to override the provided `phpcs.xml` file you can either create a
+`phpcs.xml` or `phpcs.local.xml` file. Note that the latter one should only be
+used for changes that shouldn't be comitted.
 
-To prevent this, create a `.env` or `.env.local` file and add following contents:
+Yaml and Neon files will extend (merged into) the provided configuration file by default.
+Create a `.env` or `.env.local` file and add following contents to change this behaviour:
+
 ```
-PHPSTAN_SKIP_PACKAGE_GLOBAL=1
+[FILENAME]_SKIP_[TYPE]=1
 ```
 
-The skip variable name is always the same `[FILENAME]_SKIP_[TYPE]`, wherin `[FILENAME]`
-if the file name and `[TYPE]` is either:
+Wherein `[FILENAME]` matches the configuration filename and `[TYPE]` is either:
 
-- `LOCAL` to skip `phpstan.local.neon`.
-- `PROJECT` to skip `phpstan.neon`.
-- `PACKAGE_TYPE` to skip `phpstan-extension.neon` (if in an extension) of this package.
-- `PACKAGE_GLOBAL` to skip `phpstan.neon` of this package.
+- `LOCAL` to skip for example your `phpstan.local.neon` file.
+- `PROJECT` to skip for example your `phpstan.neon` file.
+- `PACKAGE_TYPE` to skip for example the provided `phpstan-extension.neon` or `phpstan-site.neon` file.
+- `PACKAGE_GLOBAL` to skip for example the provided `phpstan.neon` file.
+
+Other file types cannot be merged and will just override all other less specific files.
+
+
+## PHPStan in deprecations only mode
+
+Create a `phpstan.neon` file and add following contents to ignore everything except deprecations.
+
+```
+parameters:
+  customRulesetUsed: true
+  ignoreErrors:
+    - '#^(?:(?!deprecated).)*$#'
+```

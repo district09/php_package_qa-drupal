@@ -185,7 +185,7 @@ class GrumphpEventSubscriber implements EventSubscriberInterface
         }
         elseif ($task instanceof Phpunit) {
             $info = [
-                'filename' => 'phpmd',
+                'filename' => 'phpunit',
                 'extension' => 'xml',
                 'type' => self::FILETYPE_XML,
             ];

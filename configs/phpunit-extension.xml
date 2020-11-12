@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- TODO set checkForUnintentionallyCoveredCode="true" once https://www.drupal.org/node/2626832 is resolved. -->
-<phpunit bootstrap="../drupal/core/tests/bootstrap.php" colors="true"
+<phpunit bootstrap="../drupal/core/tests/bootstrap.php"
+         printerClass="Drupal\Tests\Listeners\HtmlOutputPrinter"
+         colors="true"
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
-         beStrictAboutChangesToGlobalState="true"
-         printerClass="Drupal\Tests\Listeners\HtmlOutputPrinter">
+         beStrictAboutChangesToGlobalState="true">
 
   <php>
     <ini name="error_reporting" value="32767"/>
@@ -37,6 +38,7 @@
     <whitelist>
       <directory suffix=".php">./</directory>
       <exclude>
+        <directory>./vendor</directory>
         <directory suffix=".api.php">./</directory>
         <directory suffix="Test.php">./</directory>
         <directory suffix="TestBase.php">./</directory>
@@ -44,4 +46,9 @@
       </exclude>
     </whitelist>
   </filter>
+
+  <logging>
+    <log type="coverage-html" target="build/coverage" />
+    <log type="coverage-clover" target="build/logs/clover.xml"/>
+  </logging>
 </phpunit>

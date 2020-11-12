@@ -21,7 +21,8 @@ abstract class TestSuiteBase extends TestSuite
         parent::__construct('', $name);
 
         // Get the project root.
-        $root = dirname(__DIR__, 6);
+        $reflection = new \ReflectionClass(get_class($this));
+        $root = dirname($reflection->getFileName(), 7);
 
         if (!file_exists($root . '/web/index.php')) {
             // The project is an extension, add all tests.
@@ -29,9 +30,9 @@ abstract class TestSuiteBase extends TestSuite
         } else {
             // The project is a site, add the tests of all custom extensions.
             $roots = [
-                $root . '/web/modules/custom',
-                $root . '/web/themes/custom',
-                $root . '/web/profiles/custom',
+                "$root/web/modules/custom",
+                "$root/web/themes/custom",
+                "$root/web/profiles/custom",
             ];
 
             foreach ($roots as $root) {
@@ -50,7 +51,14 @@ abstract class TestSuiteBase extends TestSuite
      */
     protected function addTestsBySuiteNamespace($root, $suite_namespace)
     {
+        $vendor = "$root/vendor";
+
         foreach (drupal_phpunit_find_extension_directories($root) as $extension_name => $dir) {
+            if (strpos($dir, $vendor) === 0) {
+                // Exclude the vendor directory.
+                continue;
+            }
+
             $tests_path = "$dir/tests/src/$suite_namespace";
 
             if (is_dir($tests_path)) {

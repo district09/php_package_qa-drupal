@@ -50,7 +50,7 @@ parameters:
       max_body_width: 80
       max_subject_width: 80
       matchers:
-        - "/^([A-Z]+-\\d+(, [A-Z]+-\\d+): )?(Add|Change|Fix|Update|Remove) /"
+        - "/^([A-Z]+-\\d+(, [A-Z]+-\\d+)*: )?(Add|Change|Fix|Update|Remove) /"
       case_insensitive: false
     phpcpd:
       names_exclude:
@@ -93,6 +93,8 @@ parameters:
     phpstan:
       configuration: .phpstan.qa-drupal.neon
       level: 4
+      ignore_patterns:
+        - "#^tests/#"
       triggered_by:
         - php
         - inc
