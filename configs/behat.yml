@@ -12,11 +12,11 @@ default:
         - Drupal\DrupalExtension\Context\MarkupContext
         - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\DrupalExtension\Context\MinkContext
-        - Gent\QA\Drupal\Behat\Context\AccessContext
-        - Gent\QA\Drupal\Behat\Context\DebugContext:
+        - Digipolisgent\QA\Drupal\Behat\Context\AccessContext
+        - Digipolisgent\QA\Drupal\Behat\Context\DebugContext:
             path: %paths.base%/tests/features/dumps
-        - Gent\QA\Drupal\Behat\Context\UriContext
-        - Gent\QA\Drupal\Behat\Context\SelectorContext
+        - Digipolisgent\QA\Drupal\Behat\Context\UriContext
+        - Digipolisgent\QA\Drupal\Behat\Context\SelectorContext
   extensions:
     Behat\MinkExtension:
       goutte: ~
