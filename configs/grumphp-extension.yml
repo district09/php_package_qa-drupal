@@ -44,13 +44,13 @@ parameters:
         - profile
     git_branch_name:
       whitelist:
-        - "#^\\d+\\.\\d+\\.x|feature/([A-Z]+-\\d+|[a-z]+(-[a-z]+)*)$#"
+        - "#^\\d+\\.\\d+\\.x|feature/([A-Z][A-Z0-9]+-\\d+|[a-z]+(-[a-z]+)*)$#"
     git_commit_message:
       enforce_no_subject_trailing_period: false
       max_body_width: 80
       max_subject_width: 80
       matchers:
-        - "/^([A-Z]+-\\d+(, [A-Z]+-\\d+)*: )?(Add|Change|Fix|Update|Remove) /"
+        - "/^([A-Z][A-Z0-9]+-\\d+(, [A-Z]+-\\d+)*: )?(Add|Change|Fix|Update|Remove) /"
       case_insensitive: false
     phpcpd:
       names_exclude:
