@@ -1,14 +1,15 @@
-parameters:
-  hooks_dir: ~
-  hooks_preset: local
-  stop_on_failure: true
+grumphp:
   hide_circumvention_tip: true
-  ascii: ~
+  ascii:
+    failed: ~
+    succeeded: ~
   fixer:
     enabled: true
     fix_by_default: true
-  extensions:
-    - Digipolisgent\QA\Drupal\GrumPHPExtension
+  environment:
+    paths:
+      - .env
+      - .env.local
   testsuites:
     git_commit_msg:
       tasks:
@@ -53,11 +54,8 @@ parameters:
         - "/^([A-Z][A-Z0-9]+-\\d+(, [A-Z]+-\\d+)*: )?(Add|Change|Fix|Update|Remove) /"
       case_insensitive: false
     phpcpd:
-      names_exclude:
-        - "*.api.php"
-        - "*Test.php"
-        - "*TestBase.php"
-        - "*TestCase.php"
+      exclude:
+        - tests
       min_lines: 10
       triggered_by:
         - php
@@ -92,7 +90,6 @@ parameters:
         - profile
     phpstan:
       configuration: .phpstan.qa-drupal.neon
-      level: 4
       ignore_patterns:
         - "#(^|/)tests/#"
       triggered_by:
@@ -107,3 +104,11 @@ parameters:
     yamllint:
       ignore_patterns:
         - node_modules/
+
+services:
+  listener.qa_drupal.task:
+    class: Digipolisgent\QA\Drupal\GrumPHP\EventListener\TaskEventListener
+    tags:
+      - { name: grumphp.event_listener, event: grumphp.task.run, method: createTaskConfig, priority: 100 }
+      - { name: grumphp.event_listener, event: grumphp.task.complete, method: removeTaskConfig }
+      - { name: grumphp.event_listener, event: grumphp.task.failed, method: removeTaskConfig }

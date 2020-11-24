@@ -1,11 +1,8 @@
 <?php
 
-namespace Digipolisgent\QA\Drupal\EventSubscriber;
+namespace Digipolisgent\QA\Drupal\GrumPHP\EventListener;
 
-use GrumPHP\Event\RunnerEvent;
-use GrumPHP\Event\RunnerEvents;
 use GrumPHP\Event\TaskEvent;
-use GrumPHP\Event\TaskEvents;
 use GrumPHP\Task\Behat;
 use GrumPHP\Task\Phpcs;
 use GrumPHP\Task\PhpMd;
@@ -13,15 +10,13 @@ use GrumPHP\Task\PhpStan;
 use GrumPHP\Task\Phpunit;
 use GrumPHP\Task\TaskInterface;
 use Nette\Neon\Neon;
-use Symfony\Component\Dotenv\Dotenv;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Event subscriber for GrumPHP events.
+ * Listener for GrumPHP task events.
  */
-class GrumphpEventSubscriber implements EventSubscriberInterface
+class TaskEventListener
 {
     /**
      * Configuration file types.
@@ -38,39 +33,6 @@ class GrumphpEventSubscriber implements EventSubscriberInterface
     protected $isExtension;
 
     /**
-     * @inheritDoc
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            RunnerEvents::RUNNER_RUN => 'loadEnvironmentFiles',
-            TaskEvents::TASK_RUN => 'createTaskConfig',
-            TaskEvents::TASK_SKIPPED => 'removeTaskConfig',
-            TaskEvents::TASK_FAILED => 'removeTaskConfig',
-            TaskEvents::TASK_COMPLETE => 'removeTaskConfig',
-        ];
-    }
-
-    /**
-     * Load the environment files.
-     *
-     * @param RunnerEvent $eventThe GrumPHP runner event.
-     */
-    public function loadEnvironmentFiles(RunnerEvent $event)
-    {
-        $fs = new Filesystem();
-        $env = new Dotenv();
-
-        if ($fs->exists('.env')) {
-            $env->load('.env');
-        }
-
-        if ($fs->exists('.env.local')) {
-            $env->load('.env.local');
-        }
-    }
-
-    /**
      * Create the task configuration file.
      *
      * @param TaskEvent $event The GrumPHP task event.
@@ -84,7 +46,7 @@ class GrumphpEventSubscriber implements EventSubscriberInterface
         // Candidate configuration files.
         $key_prefix = strtoupper($info['filename']) . '_SKIP_';
         $type_suffix = ($this->isExtension() ? 'extension' : 'site');
-        $package_path = __DIR__ . '/../../configs/';
+        $package_path = __DIR__ . '/../../../configs/';
 
         $candidates = [
             $key_prefix . 'LOCAL' => $info['filename'] . '.local.' . $info['extension'],
