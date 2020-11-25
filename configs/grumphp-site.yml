@@ -51,7 +51,7 @@ grumphp:
         - profile
     git_branch_name:
       whitelist:
-        - "#^develop|feature/([A-Z][A-Z0-9]+-\\d+|[a-z][a-z0-9]*(-[a-z0-9]+)*)|(release|hotfix)/\\d+(\\.\\d+){2}$#"
+        - "#^master|develop|feature/([A-Z][A-Z0-9]+-\\d+|[a-z][a-z0-9]*(-[a-z0-9]+)*)|(release|hotfix)/\\d+(\\.\\d+){2}$#"
     git_commit_message:
       enforce_no_subject_trailing_period: false
       max_body_width: 80
