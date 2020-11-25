@@ -140,26 +140,6 @@ final class TaskEventListener
     }
 
     /**
-     * Remove the task configuration file.
-     *
-     * @param \GrumPHP\Event\TaskEvent $event
-     *   The GrumPHP task event.
-     */
-    public function removeTaskConfig(TaskEvent $event): void
-    {
-        $info = $this->getTaskConfigFileInfo($event->getTask());
-        if (!$info) {
-            return;
-        }
-
-        $filesystem = new Filesystem();
-
-        if ($filesystem->exists($info['grumphp'])) {
-            $filesystem->remove($info['grumphp']);
-        }
-    }
-
-    /**
      * Get some information about the task configuration file.
      *
      * @param \GrumPHP\Task\TaskInterface $task
