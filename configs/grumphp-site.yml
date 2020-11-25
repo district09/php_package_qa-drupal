@@ -1,7 +1,4 @@
 grumphp:
-  hooks_dir: ~
-  hooks_preset: local
-  stop_on_failure: false
   process_timeout: 3600
   hide_circumvention_tip: true
   ascii:
