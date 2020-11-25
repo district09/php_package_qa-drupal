@@ -21,16 +21,49 @@ final class TaskEventListener
     /**
      * Configuration file types.
      */
-    protected const FILETYPE_XML = 'xml';
-    protected const FILETYPE_YAML = 'yaml';
-    protected const FILETYPE_NEON = 'neon';
+    private const FILETYPE_XML = 'xml';
+    private const FILETYPE_YAML = 'yaml';
+    private const FILETYPE_NEON = 'neon';
 
     /**
      * Indicates whether the project is an extension.
      *
      * @var bool
      */
-    protected $isExtension;
+    private $isExtension;
+
+    /**
+     * Mapping of task types and their configuration files.
+     *
+     * @var array
+     */
+    private $taskInfo = [
+        Behat::class => [
+            'filename' => 'behat',
+            'extension' => 'yml',
+            'type' => self::FILETYPE_YAML,
+        ],
+        Phpcs::class => [
+            'filename' => 'phpcs',
+            'extension' => 'xml',
+            'type' => self::FILETYPE_XML,
+        ],
+        PhpMd::class => [
+            'filename' => 'phpmd',
+            'extension' => 'xml',
+            'type' => self::FILETYPE_XML,
+        ],
+        PhpStan::class => [
+            'filename' => 'phpstan',
+            'extension' => 'neon',
+            'type' => self::FILETYPE_NEON,
+        ],
+        Phpunit::class => [
+            'filename' => 'phpunit',
+            'extension' => 'xml',
+            'type' => self::FILETYPE_XML,
+        ],
+    ];
 
     /**
      * Create the task configuration file.
@@ -138,51 +171,17 @@ final class TaskEventListener
      */
     private function getTaskConfigFileInfo(TaskInterface $task): ?array
     {
-        $info = null;
-
-        if ($task instanceof Behat) {
-            $info = [
-                'filename' => 'behat',
-                'extension' => 'yml',
-                'type' => self::FILETYPE_YAML,
-            ];
-        }
-        if ($task instanceof Phpcs) {
-            $info = [
-                'filename' => 'phpcs',
-                'extension' => 'xml',
-                'type' => self::FILETYPE_XML,
-            ];
-        }
-        if ($task instanceof PhpMd) {
-            $info = [
-                'filename' => 'phpmd',
-                'extension' => 'xml',
-                'type' => self::FILETYPE_XML,
-            ];
-        }
-        if ($task instanceof PhpStan) {
-            $info = [
-                'filename' => 'phpstan',
-                'extension' => 'neon',
-                'type' => self::FILETYPE_NEON,
-            ];
-        }
-        if ($task instanceof Phpunit) {
-            $info = [
-                'filename' => 'phpunit',
-                'extension' => 'xml',
-                'type' => self::FILETYPE_XML,
-            ];
+        $taskClass = get_class($task);
+        if (empty($this->taskInfo[$taskClass])) {
+            return null;
         }
 
-        if ($info) {
-            $info['grumphp'] = sprintf(
-                '%s.qa-drupal.%s',
-                $info['filename'],
-                $info['extension']
-            );
-        }
+        $info = $this->taskInfo[$taskClass];
+        $info['grumphp'] = sprintf(
+            '%s.qa-drupal.%s',
+            $info['filename'],
+            $info['extension']
+        );
 
         return $info;
     }
