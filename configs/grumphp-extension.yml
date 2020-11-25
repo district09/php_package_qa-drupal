@@ -56,6 +56,7 @@ grumphp:
     phpcpd:
       exclude:
         - tests
+        - vendor
       min_lines: 10
       triggered_by:
         - php
@@ -70,6 +71,7 @@ grumphp:
       report_width: 120
       ignore_patterns:
         - node_modules/
+        - "#^vendor/#"
       triggered_by:
         - php
         - inc
@@ -81,6 +83,8 @@ grumphp:
     phpmd:
       ruleset:
         - .phpmd.qa-drupal.xml
+      exclude:
+        - vendor
       triggered_by:
         - php
         - inc
@@ -92,6 +96,7 @@ grumphp:
       configuration: .phpstan.qa-drupal.neon
       ignore_patterns:
         - "#(^|/)tests/#"
+        - "#^vendor/#"
       triggered_by:
         - php
         - inc
@@ -104,6 +109,7 @@ grumphp:
     yamllint:
       ignore_patterns:
         - node_modules/
+        - "#^vendor/#"
 
 services:
   listener.qa_drupal.task:
