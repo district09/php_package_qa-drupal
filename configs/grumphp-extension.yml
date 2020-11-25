@@ -46,7 +46,7 @@ grumphp:
         - theme
     git_branch_name:
       whitelist:
-        - "#^\\d+(.\\d+)?\\.x|master|develop|feature/([A-Z][A-Z0-9]+-\\d+|[a-z][a-z0-9]*(-[a-z0-9]+)*)$#"
+        - "#^\\d+(\\.\\d+)?\\.x|feature/([A-Z][A-Z0-9]+-\\d+|[a-z][a-z0-9]*(-[a-z0-9]+)*)$#"
     git_commit_message:
       matchers:
         - "/^([A-Z][A-Z0-9]+-\\d+(, [A-Z][A-Z0-9]+-\\d+)*: )?(Add|Change|Fix|Update|Remove|Refactor) /"
@@ -75,7 +75,6 @@ grumphp:
         - build/
         - node_modules/
         - vendor/
-        - "*.md"
       triggered_by:
         - css
         - inc

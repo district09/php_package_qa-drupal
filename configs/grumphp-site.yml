@@ -88,7 +88,6 @@ grumphp:
         - build/
         - node_modules/
         - sassdocs/
-        - "*.md"
       triggered_by:
         - css
         - inc
