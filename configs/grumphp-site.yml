@@ -1,4 +1,8 @@
 grumphp:
+  hooks_dir: ~
+  hooks_preset: local
+  stop_on_failure: false
+  process_timeout: 3600
   hide_circumvention_tip: true
   ascii:
     failed: ~
@@ -30,7 +34,7 @@ grumphp:
         - phpunit
   tasks:
     behat:
-      config: .behat.qa-drupal.yml
+      config: qa-drupal.behat.yml
     composer:
       no_check_publish: true
     git_blacklist:
@@ -43,21 +47,18 @@ grumphp:
       whitelist_patterns:
         - "#^web/(modules|themes|profiles)/custom/#"
       triggered_by:
-        - php
         - inc
         - install
         - module
-        - theme
+        - php
         - profile
+        - theme
     git_branch_name:
       whitelist:
-        - "#^develop|feature/([A-Z][A-Z0-9]+-\\d+|[a-z][a-z0-9]*(-[a-z0-9]+)*)|(release|hotfix)/\\d+(\\.\\d+){2}$#"
+        - "#^master|develop|feature/([A-Z][A-Z0-9]+-\\d+|[a-z][a-z0-9]*(-[a-z0-9]+)*)|(release|hotfix)/\\d+(\\.\\d+){2}$#"
     git_commit_message:
-      enforce_no_subject_trailing_period: false
-      max_body_width: 80
-      max_subject_width: 80
       matchers:
-        - "/^([A-Z][A-Z0-9]+-\\d+(, [A-Z][A-Z0-9]+-\\d+)*: )?(Add|Change|Fix|Update|Remove) /"
+        - "/^([A-Z][A-Z0-9]+-\\d+(, [A-Z][A-Z0-9]+-\\d+)*: )?(Add|Change|Fix|Update|Remove|Refactor) /"
       case_insensitive: false
     phpcpd:
       directory:
@@ -68,58 +69,68 @@ grumphp:
         - web/*/contrib
         - web/modules/custom/*/tests
         - web/sites
+        - "*.api.php"
+        - "*Test.php"
+        - "*TestBase.php"
+        - "*TestCase.php"
       min_lines: 10
       triggered_by:
-        - php
         - inc
         - install
         - module
-        - theme
+        - php
         - profile
+        - theme
     phpcs:
       standard:
-        - .phpcs.qa-drupal.xml
+        - phpcs.qa-drupal.xml
       report_width: 120
       whitelist_patterns:
         - "#^web/(modules|themes|profiles)/custom/#"
       ignore_patterns:
+        - build/
         - node_modules/
+        - sassdocs/
+        - "*.md"
       triggered_by:
-        - php
+        - css
         - inc
         - install
+        - js
         - module
-        - theme
+        - php
         - profile
+        - theme
+        - twig
         - yml
     phpmd:
       ruleset:
-        - .phpmd.qa-drupal.xml
+        - phpmd.qa-drupal.xml
       whitelist_patterns:
         - "#^web/(modules|themes|profiles)/custom/#"
       triggered_by:
-        - php
         - inc
         - install
         - module
-        - theme
+        - php
         - profile
+        - theme
     phpstan:
-      configuration: .phpstan.qa-drupal.neon
+      configuration: phpstan.qa-drupal.neon
       level: 4
       force_patterns:
         - "#^web/(modules|themes|profiles)/custom/((?:(?!tests)[^/])+/)+[^/]+$#"
       ignore_patterns:
         - "#.*#"
       triggered_by:
-        - php
         - inc
         - install
         - module
-        - theme
+        - php
         - profile
+        - theme
     phpunit:
-      config_file: .phpunit.qa-drupal.xml
+      config_file: phpunit.qa-drupal.xml
     yamllint:
       whitelist_patterns:
         - "#^(\\.[^/]+/)?[^/]+\\.yml$#"
@@ -133,5 +144,3 @@ services:
     class: Digipolisgent\QA\Drupal\GrumPHP\EventListener\TaskEventListener
     tags:
       - { name: grumphp.event_listener, event: grumphp.task.run, method: createTaskConfig, priority: 100 }
-      - { name: grumphp.event_listener, event: grumphp.task.complete, method: removeTaskConfig }
-      - { name: grumphp.event_listener, event: grumphp.task.failed, method: removeTaskConfig }

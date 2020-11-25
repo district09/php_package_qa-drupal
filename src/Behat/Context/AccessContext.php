@@ -14,7 +14,7 @@ class AccessContext extends RawDrupalContext
      *
      * @Then I should have access to the page
      */
-    public function assertAccess()
+    public function assertAccess(): void
     {
         $this->assertSession()->statusCodeEquals(200);
     }
@@ -24,7 +24,7 @@ class AccessContext extends RawDrupalContext
      *
      * @Then I should get an access denied error
      */
-    public function assertAccessDenied()
+    public function assertAccessDenied(): void
     {
         $this->assertSession()->statusCodeEquals(403);
     }

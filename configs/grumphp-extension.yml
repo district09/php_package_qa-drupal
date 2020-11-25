@@ -1,4 +1,7 @@
 grumphp:
+  hooks_dir: ~
+  hooks_preset: local
+  process_timeout: 3600
   hide_circumvention_tip: true
   ascii:
     failed: ~
@@ -37,75 +40,85 @@ grumphp:
         - "\\$_[A-Z_]+\\["
       regexp_type: E
       triggered_by:
-        - php
         - inc
         - install
         - module
-        - theme
+        - php
         - profile
+        - theme
     git_branch_name:
       whitelist:
-        - "#^\\d+\\(.\\d+)?\\.x|feature/([A-Z][A-Z0-9]+-\\d+|[a-z][a-z0-9]*(-[a-z0-9]+)*)$#"
+        - "#^\\d+(.\\d+)?\\.x|master|develop|feature/([A-Z][A-Z0-9]+-\\d+|[a-z][a-z0-9]*(-[a-z0-9]+)*)$#"
     git_commit_message:
-      enforce_no_subject_trailing_period: false
-      max_body_width: 80
-      max_subject_width: 80
       matchers:
-        - "/^([A-Z][A-Z0-9]+-\\d+(, [A-Z][A-Z0-9]+-\\d+)*: )?(Add|Change|Fix|Update|Remove) /"
+        - "/^([A-Z][A-Z0-9]+-\\d+(, [A-Z][A-Z0-9]+-\\d+)*: )?(Add|Change|Fix|Update|Remove|Refactor) /"
       case_insensitive: false
     phpcpd:
       exclude:
         - tests
         - vendor
+        - "*.api.php"
+        - "*Test.php"
+        - "*TestBase.php"
+        - "*TestCase.php"
       min_lines: 10
       triggered_by:
-        - php
         - inc
         - install
         - module
-        - theme
+        - php
         - profile
+        - theme
     phpcs:
+      severity: 6
       standard:
-        - .phpcs.qa-drupal.xml
+        - phpcs.qa-drupal.xml
       report_width: 120
       ignore_patterns:
+        - build/
         - node_modules/
-        - "#^vendor/#"
+        - vendor/
+        - "*.md"
       triggered_by:
-        - php
+        - css
         - inc
         - install
+        - js
         - module
-        - theme
+        - php
         - profile
+        - theme
+        - twig
         - yml
     phpmd:
       ruleset:
-        - .phpmd.qa-drupal.xml
+        - phpmd.qa-drupal.xml
       exclude:
-        - vendor
+        - "build/*"
+        - "tests/*"
+        - "vendor/*"
       triggered_by:
-        - php
         - inc
         - install
         - module
-        - theme
+        - php
         - profile
+        - theme
     phpstan:
-      configuration: .phpstan.qa-drupal.neon
+      configuration: phpstan.qa-drupal.neon
+      level: 4
       ignore_patterns:
         - "#(^|/)tests/#"
         - "#^vendor/#"
       triggered_by:
-        - php
         - inc
         - install
         - module
-        - theme
+        - php
         - profile
+        - theme
     phpunit:
-      config_file: .phpunit.qa-drupal.xml
+      config_file: phpunit.qa-drupal.xml
     yamllint:
       ignore_patterns:
         - node_modules/
@@ -116,5 +129,3 @@ services:
     class: Digipolisgent\QA\Drupal\GrumPHP\EventListener\TaskEventListener
     tags:
       - { name: grumphp.event_listener, event: grumphp.task.run, method: createTaskConfig, priority: 100 }
-      - { name: grumphp.event_listener, event: grumphp.task.complete, method: removeTaskConfig }
-      - { name: grumphp.event_listener, event: grumphp.task.failed, method: removeTaskConfig }

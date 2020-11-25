@@ -20,7 +20,7 @@ class UriContext extends RawDrupalContext
      *
      * @Then the :link link should point to :uri
      */
-    public function assertLinkUri($link, $uri)
+    public function assertLinkUri($link, $uri): void
     {
         $link_clean = str_replace('\\"', '"', $link);
         $link_found = $this
@@ -48,14 +48,15 @@ class UriContext extends RawDrupalContext
      *
      * @then the current URI should be :uri
      */
-    public function assertCurrentUri($uri)
+    public function assertCurrentUri($uri): void
     {
         $current_uri = $this->getCurrentUri();
 
         Assert::assertEquals(
             $uri,
             $current_uri,
-            sprintf('The uri "%s" is not equal to current uri "%uri".',
+            sprintf(
+                'The uri "%s" is not equal to current uri "%uri".',
                 $uri,
                 $current_uri
             )
@@ -67,7 +68,7 @@ class UriContext extends RawDrupalContext
      *
      * @return string The base URL of the site.
      */
-    public function getBaseUrl()
+    public function getBaseUrl(): string
     {
         return $this->getMinkParameter('base_url');
     }
@@ -77,7 +78,7 @@ class UriContext extends RawDrupalContext
      *
      * @return string The URL of the current page.
      */
-    public function getCurrentUrl()
+    public function getCurrentUrl(): string
     {
         return $this->getSession()->getCurrentUrl();
     }
@@ -87,7 +88,7 @@ class UriContext extends RawDrupalContext
      *
      * @return string The current URI.
      */
-    public function getCurrentUri()
+    public function getCurrentUri(): string
     {
         return str_replace(
             rtrim($this->getBaseUrl(), '/'),

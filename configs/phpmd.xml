@@ -2,66 +2,42 @@
 <ruleset name="Drupal ruleset"
          xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0
+                http://pmd.sourceforge.net/ruleset_2_0_0.xsd"
+         xsi:noNamespaceSchemaLocation="
+                http://pmd.sf.net/ruleset_xml_schema.xsd">
 
-  <description>PMD ruleset for Drupal.</description>
+  <description>
+    Ruleset for PHPMD analysis of Drupal projects. Excludes coding issues
+    handled better by PHPCS and rules which have too many false positives
+    in a typical Drupal codebase.
+  </description>
 
   <rule ref="rulesets/cleancode.xml">
-    <exclude name="BooleanArgumentFlag" />
-    <exclude name="ElseExpression" />
-    <exclude name="IfStatementAssignment" />
+    <!--
+      Validated by PHPCS and is in conflict with the DrupalPractices sniffs.
+    -->
     <exclude name="MissingImport" />
+    <!--
+      PHPMD is not smart enough to see the difference between static access and
+      named constructors.
+    -->
     <exclude name="StaticAccess" />
   </rule>
 
-  <rule ref="rulesets/codesize.xml">
-    <exclude name="CyclomaticComplexity" />
-    <exclude name="ExcessiveClassComplexity" />
-    <exclude name="ExcessiveMethodLength" />
-    <exclude name="ExcessiveParameterList" />
-    <exclude name="NPathComplexity" />
-    <exclude name="TooManyMethods" />
-    <exclude name="TooManyPublicMethods" />
-  </rule>
-
-  <rule ref="rulesets/codesize.xml/CyclomaticComplexity">
-    <properties>
-      <property name="reportLevel" value="20" />
-    </properties>
-  </rule>
-
-  <rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
+  <rule ref="rulesets/codesize.xml" />
+  <!--rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
     <properties>
       <property name="minimum" value="250" />
     </properties>
-  </rule>
+  </rule-->
 
-  <rule ref="rulesets/codesize.xml/TooManyPublicMethods">
-    <properties>
-      <property name="maxmethods" value="15" />
-      <property name="ignorepattern" value="(^(set|get|is))i" />
-    </properties>
-  </rule>
+  <rule ref="rulesets/design.xml" />
 
-  <rule ref="rulesets/design.xml">
-    <exclude name="CouplingBetweenObjects" />
-  </rule>
-
-  <rule ref="rulesets/naming.xml">
-    <exclude name="ShortVariable" />
-    <exclude name="LongVariable" />
-  </rule>
-
+  <rule ref="rulesets/naming.xml" />
   <rule ref="rulesets/naming.xml/ShortVariable">
     <properties>
-      <property name="minimum" value="2" />
       <property name="exceptions" value="id" />
-    </properties>
-  </rule>
-
-  <rule ref="rulesets/naming.xml/LongVariable">
-    <properties>
-      <property name="maximum" value="30" />
     </properties>
   </rule>
 

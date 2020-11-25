@@ -19,7 +19,7 @@ class SelectorContext extends RawDrupalContext
      *
      * @throws \Exception
      */
-    public function assertElementText($text, $selector)
+    public function assertElementText($text, $selector): void
     {
         $page = $this->getSession()->getPage();
         $elements = $page->findAll('css', $selector);
@@ -43,7 +43,7 @@ class SelectorContext extends RawDrupalContext
      *
      * @throws \Exception
      */
-    public function notAssertElementText($text, $selector)
+    public function notAssertElementText($text, $selector): void
     {
         $page = $this->getSession()->getPage();
         $elements = $page->findAll('css', $selector);

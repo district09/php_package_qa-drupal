@@ -43,10 +43,14 @@ class DebugContext extends RawMinkContext
     /**
      * Class constructor.
      *
-     * @param string $path The path were to save the dumps.
-     * @param bool $html Wether to dump the HTML.
-     * @param bool $screenshot Wether to create a screenshot.
-     * @param bool $allSteps Set to true to dump all steps.
+     * @param string $path
+     *   The path were to save the dumps.
+     * @param bool $html
+     *   Whether to dump the HTML.
+     * @param bool $screenshot
+     *   Whether to create a screenshot.
+     * @param bool $allSteps
+     *   Set to true to dump all steps.
      */
     public function __construct($path, $html = true, $screenshot = true, $all_steps = false)
     {
@@ -66,7 +70,7 @@ class DebugContext extends RawMinkContext
      *
      * @param \Behat\Behat\Hook\Scope\AfterStepScope $afterStepScope
      */
-    public function debugDumpAfterStep(AfterStepScope $afterStepScope)
+    public function debugDumpAfterStep(AfterStepScope $afterStepScope): void
     {
         if (TestResult::FAILED === $afterStepScope->getTestResult()->getResultCode()) {
             $this->dumpAll();
@@ -85,7 +89,7 @@ class DebugContext extends RawMinkContext
      *
      * @Then (I )put a breakpoint
      */
-    public function iPutABreakpoint()
+    public function iPutABreakpoint(): void
     {
         fwrite(STDOUT, "\033[s    \033[93m[Breakpoint] Press \033[1;93m[RETURN]\033[0;93m to continue...\033[0m");
         while (fgets(STDIN, 1024) === '') {
@@ -98,7 +102,7 @@ class DebugContext extends RawMinkContext
      *
      * @When I save a HTML dump
      */
-    public function iSaveAHtmlDump()
+    public function iSaveAHtmlDump(): void
     {
         $fileName = $this->getFileName() . '-forced.html';
         $this->dumpHtml($fileName);
@@ -109,7 +113,7 @@ class DebugContext extends RawMinkContext
      *
      * @When I take a screenshot
      */
-    public function iTakeAScreenShot()
+    public function iTakeAScreenShot(): void
     {
         $fileName = $this->getFileName() . '-forced.png';
         $this->dumpScreenshot($fileName);
@@ -120,7 +124,7 @@ class DebugContext extends RawMinkContext
      *
      * @param $message
      */
-    public function printDebug($message)
+    public function printDebug($message): void
     {
         echo $message;
     }
@@ -128,7 +132,7 @@ class DebugContext extends RawMinkContext
     /**
      * Wrapper to dump in all possible and enabled formats.
      */
-    protected function dumpAll()
+    protected function dumpAll(): void
     {
         $fileName = $this->getFileName();
 
@@ -147,7 +151,7 @@ class DebugContext extends RawMinkContext
      * @param string $filename
      *   The filename to save the HTML to.
      */
-    protected function dumpHtml($filename)
+    protected function dumpHtml($filename): void
     {
         if (!$filename = $this->getFilePath($filename)) {
             return;
@@ -177,7 +181,7 @@ class DebugContext extends RawMinkContext
      * @param string $filename
      *   The screenshot filename.
      */
-    protected function dumpScreenshot($filename)
+    protected function dumpScreenshot($filename): void
     {
         if (!$filename = $this->getFilePath($filename)) {
             return;
@@ -190,7 +194,7 @@ class DebugContext extends RawMinkContext
         }
 
         $this->saveScreenshot($filename, $this->dumpDirectory);
-        $this->printDebug('Screenshot saved to: file://'. $filename);
+        $this->printDebug('Screenshot saved to: file://' . $filename);
     }
 
     /**
@@ -199,7 +203,7 @@ class DebugContext extends RawMinkContext
      * @return string
      *   The file name.
      */
-    protected function getFileName()
+    protected function getFileName(): string
     {
         return date('YmdHis') . '_' . uniqid('', true);
     }
@@ -213,7 +217,7 @@ class DebugContext extends RawMinkContext
      * @return string|false
      *   The file path of false if the dump path doesn't exist.
      */
-    protected function getFilePath($filename)
+    protected function getFilePath($filename): ?string
     {
         if (!$this->dumpDirectory) {
             return false;

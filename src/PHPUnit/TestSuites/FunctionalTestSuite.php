@@ -12,7 +12,7 @@ class FunctionalTestSuite extends TestSuiteBase
      *
      * @return static The test suite.
      */
-    public static function suite()
+    public static function suite(): FunctionalTestSuite
     {
         return new static('functional', 'Functional');
     }
