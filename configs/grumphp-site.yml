@@ -113,7 +113,6 @@ grumphp:
         - theme
     phpstan:
       configuration: phpstan.qa-drupal.neon
-      level: 4
       force_patterns:
         - "#^web/(modules|themes|profiles)/custom/((?:(?!tests)[^/])+/)+[^/]+$#"
       ignore_patterns:
