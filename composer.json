@@ -4,13 +4,18 @@
     "type": "library",
     "authors": [
         {
-            "name": "Van Assche Matthijs",
+            "name": "Matthijs Van Assche",
             "email": "matthijs.vanassche@digipolis.gent",
             "role": "developer"
         },
         {
             "name": "Maarten Segers",
             "email": "maarten.segers@digipolis.gent",
+            "role": "developer"
+        },
+        {
+            "name": "Peter Decuyper",
+            "email": "peter.decuyper@digipolis.gent",
             "role": "developer"
         }
     ],
