@@ -2,23 +2,13 @@
 <ruleset>
   <description>PHP CodeSniffer ruleset for Drupal.</description>
 
-  <rule ref="vendor/drupal/coder/coder_sniffer/Drupal"  />
+  <!-- Minified files don't have to comply with coding standards. -->
+  <exclude-pattern>*.min.css</exclude-pattern>
+  <exclude-pattern>*.min.js</exclude-pattern>
 
-  <rule ref="vendor/drupal/coder/coder_sniffer/DrupalPractice">
-    <exclude name="DrupalPractice.Yaml.RoutingAccess.OpenCallback" />
-    <exclude name="DrupalPractice.FunctionDefinitions.AccessHookMenu" />
-  </rule>
+  <rule ref="./vendor/drupal/coder/coder_sniffer/Drupal" />
+  <rule ref="./vendor/drupal/coder/coder_sniffer/DrupalPractice"></rule>
 
-  <rule ref="Drupal.Files.LineLength">
-    <properties>
-      <property name="lineLimit" value="120" />
-      <property name="absoluteLineLimit" value="150" />
-    </properties>
-  </rule>
-
-  <rule ref="Drupal.Arrays.Array">
-    <properties>
-      <property name="lineLimit" value="120" />
-    </properties>
-  </rule>
+  <!-- PSR-12 sniffs -->
+  <rule ref="PSR12.Files.DeclareStatement" />
 </ruleset>

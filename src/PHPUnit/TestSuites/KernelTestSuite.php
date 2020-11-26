@@ -12,7 +12,7 @@ class KernelTestSuite extends TestSuiteBase
      *
      * @return static The test suite.
      */
-    public static function suite()
+    public static function suite(): KernelTestSuite
     {
         return new static('kernel', 'Kernel');
     }

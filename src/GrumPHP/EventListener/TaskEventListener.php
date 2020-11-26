@@ -16,146 +16,152 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Listener for GrumPHP task events.
  */
-class TaskEventListener
+final class TaskEventListener
 {
     /**
      * Configuration file types.
      */
-    protected const FILETYPE_XML = 'xml';
-    protected const FILETYPE_YAML = 'yaml';
-    protected const FILETYPE_NEON = 'neon';
+    private const FILETYPE_XML = 'xml';
+    private const FILETYPE_YAML = 'yaml';
+    private const FILETYPE_NEON = 'neon';
 
     /**
      * Indicates whether the project is an extension.
      *
      * @var bool
      */
-    protected $isExtension;
+    private $isExtension;
+
+    /**
+     * Mapping of task types and their configuration files.
+     *
+     * @var array
+     */
+    private $taskInfo = [
+        Behat::class => [
+            'filename' => 'behat',
+            'extension' => 'yml',
+            'type' => self::FILETYPE_YAML,
+        ],
+        Phpcs::class => [
+            'filename' => 'phpcs',
+            'extension' => 'xml',
+            'type' => self::FILETYPE_XML,
+        ],
+        PhpMd::class => [
+            'filename' => 'phpmd',
+            'extension' => 'xml',
+            'type' => self::FILETYPE_XML,
+        ],
+        PhpStan::class => [
+            'filename' => 'phpstan',
+            'extension' => 'neon',
+            'type' => self::FILETYPE_NEON,
+        ],
+        Phpunit::class => [
+            'filename' => 'phpunit',
+            'extension' => 'xml',
+            'type' => self::FILETYPE_XML,
+        ],
+    ];
 
     /**
      * Create the task configuration file.
      *
      * @param TaskEvent $event The GrumPHP task event.
      */
-    public function createTaskConfig(TaskEvent $event)
+    public function createTaskConfig(TaskEvent $event): void
     {
-        if (!$info = $this->getTaskConfigFileInfo($event->getTask())) {
+        $info = $this->getTaskConfigFileInfo($event->getTask());
+        if (!$info) {
             return;
         }
 
         // Candidate configuration files.
-        $key_prefix = strtoupper($info['filename']) . '_SKIP_';
-        $type_suffix = ($this->isExtension() ? 'extension' : 'site');
-        $package_path = __DIR__ . '/../../../configs/';
+        $keyPrefix = strtoupper($info['filename']) . '_SKIP_';
+        $typeSuffix = ($this->isExtension() ? 'extension' : 'site');
+        $packagePath = __DIR__ . '/../../../configs/';
 
         $candidates = [
-            $key_prefix . 'LOCAL' => $info['filename'] . '.local.' . $info['extension'],
-            $key_prefix . 'PROJECT' => $info['filename'] . '.' . $info['extension'],
-            $key_prefix . 'PACKAGE_TYPE' => $package_path . $info['filename'] . '-' . $type_suffix . '.' . $info['extension'],
-            $key_prefix . 'PACKAGE_GLOBAL' => $package_path . $info['filename'] . '.' . $info['extension'],
+            $keyPrefix . 'LOCAL' => sprintf(
+                '%s.local.%s',
+                $info['filename'],
+                $info['extension']
+            ),
+            $keyPrefix . 'PROJECT' => sprintf(
+                '%s.%s',
+                $info['filename'],
+                $info['extension']
+            ),
+            $keyPrefix . 'PACKAGE_TYPE' => sprintf(
+                '%s%s-%s.%s',
+                $packagePath,
+                $info['filename'],
+                $typeSuffix,
+                $info['extension']
+            ),
+            $keyPrefix . 'PACKAGE_GLOBAL' => sprintf(
+                '%s%s.%s',
+                $packagePath,
+                $info['filename'],
+                $info['extension']
+            ),
         ];
 
         // Search for the candidates and merge or copy them.
-        $fs = new Filesystem();
-        $data_merged = NULL;
+        $filesystem = new Filesystem();
+        $dataMerged = null;
 
         foreach ($candidates as $env_var => $file) {
             // Ignore if configured to skip or if the file is missing.
-            if (!empty($_SERVER[$env_var]) || !$fs->exists($file)) {
+            if (!empty($_SERVER[$env_var]) || !$filesystem->exists($file)) {
                 continue;
             }
 
             // Read and parse the configuration file.
             $data = $this->readTaskConfigFile($info['type'], $file);
 
-            if ($data === FALSE) {
+            if ($data === false) {
                 // Just copy it if not readable.
-                $fs->copy($file, $info['grumphp']);
+                $filesystem->copy($file, $info['grumphp']);
                 return;
             }
 
             // Merge the data.
-            if ($data_merged === NULL) {
-                $data_merged = $data;
-            }
-            elseif ($data) {
-                $data_merged = array_merge_recursive($data, $data_merged);
+            if ($dataMerged === null) {
+                $dataMerged = $data;
+            } elseif ($data) {
+                $dataMerged = array_merge_recursive($data, $dataMerged);
             }
         }
 
         // Save the configuration file.
-        $this->writeTaskConfigFile($info['type'], $info['grumphp'], $data_merged);
-    }
-
-    /**
-     * Remove the task configuration file.
-     *
-     * @param TaskEvent $event The GrumPHP task event.
-     */
-    public function removeTaskConfig(TaskEvent $event)
-    {
-        if (!$info = $this->getTaskConfigFileInfo($event->getTask())) {
-            return;
-        }
-
-        $fs = new Filesystem();
-
-        if ($fs->exists($info['grumphp'])) {
-            $fs->remove($info['grumphp']);
-        }
+        $this->writeTaskConfigFile($info['type'], $info['grumphp'], $dataMerged);
     }
 
     /**
      * Get some information about the task configuration file.
      *
-     * @param TaskInterface $task The GrumPHP task.
+     * @param \GrumPHP\Task\TaskInterface $task
+     *   The GrumPHP task.
      *
-     * @return array|null The task configuration info (filename, extension, type and name of the
-     *                    temporary merged file for GrumPHP) as associative array.
+     * @return array|null
+     *   The task configuration info (filename, extension, type and name of the
+     *   temporary merged file for GrumPHP) as associative array.
      */
-    protected function getTaskConfigFileInfo(TaskInterface $task)
+    private function getTaskConfigFileInfo(TaskInterface $task): ?array
     {
-        $info = null;
-
-        if ($task instanceof Behat) {
-            $info = [
-                'filename' => 'behat',
-                'extension' => 'yml',
-                'type' => self::FILETYPE_YAML,
-            ];
-        }
-        elseif ($task instanceof Phpcs) {
-            $info = [
-                'filename' => 'phpcs',
-                'extension' => 'xml',
-                'type' => self::FILETYPE_XML,
-            ];
-        }
-        elseif ($task instanceof PhpMd) {
-            $info = [
-                'filename' => 'phpmd',
-                'extension' => 'xml',
-                'type' => self::FILETYPE_XML,
-            ];
-        }
-        elseif ($task instanceof PhpStan) {
-            $info = [
-                'filename' => 'phpstan',
-                'extension' => 'neon',
-                'type' => self::FILETYPE_NEON,
-            ];
-        }
-        elseif ($task instanceof Phpunit) {
-            $info = [
-                'filename' => 'phpunit',
-                'extension' => 'xml',
-                'type' => self::FILETYPE_XML,
-            ];
+        $taskClass = get_class($task);
+        if (empty($this->taskInfo[$taskClass])) {
+            return null;
         }
 
-        if ($info) {
-            $info['grumphp'] = '.' . $info['filename'] . '.qa-drupal.' . $info['extension'];
-        }
+        $info = $this->taskInfo[$taskClass];
+        $info['grumphp'] = sprintf(
+            '%s.qa-drupal.%s',
+            $info['filename'],
+            $info['extension']
+        );
 
         return $info;
     }
@@ -168,7 +174,7 @@ class TaskEventListener
      *
      * @return array|false The configuration data or false if not supported.
      */
-    protected function readTaskConfigFile($type, $file)
+    private function readTaskConfigFile($type, $file)
     {
         switch ($type) {
             case self::FILETYPE_YAML:
@@ -189,24 +195,24 @@ class TaskEventListener
      *
      * @param array|null $data The configuration data.
      */
-    protected function writeTaskConfigFile($type, $file, array $data)
+    private function writeTaskConfigFile($type, $file, array $data): void
     {
         switch ($type) {
             case self::FILETYPE_YAML:
-                $data = Yaml::dump($data);
+                $rawData = Yaml::dump($data);
                 break;
 
             case self::FILETYPE_NEON:
-                $data = Neon::encode($data, Neon::BLOCK);
+                $rawData = Neon::encode($data, Neon::BLOCK);
                 break;
 
             default:
-                $data = '';
+                $rawData = '';
                 break;
         }
 
-        $fs = new Filesystem();
-        $fs->dumpFile($file, $data);
+        $filesystem = new Filesystem();
+        $filesystem->dumpFile($file, $rawData);
     }
 
     /**
@@ -216,9 +222,9 @@ class TaskEventListener
      */
     protected function isExtension()
     {
-        if ($this->isExtension === NULL) {
-            $fs = new Filesystem();
-            $this->isExtension = !$fs->exists('web/index.php');
+        if ($this->isExtension === null) {
+            $filesystem = new Filesystem();
+            $this->isExtension = !$filesystem->exists('web/index.php');
         }
 
         return $this->isExtension;

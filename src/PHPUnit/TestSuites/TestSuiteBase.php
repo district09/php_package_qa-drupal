@@ -10,13 +10,18 @@ use PHPUnit\Framework\TestSuite;
  */
 abstract class TestSuiteBase extends TestSuite
 {
-    /**
-     * Class constructor.
-     *
-     * @param string $name The suite name.
-     * @param string $suite_namespace Subnamespace used to separate test suite.
-     */
-    public function __construct($name, $suite_namespace)
+
+  /**
+   * Class constructor.
+   *
+   * @param string $name
+   *   The suite name.
+   * @param string $suiteNamespace
+   *   Suite namespace used to separate test suite.
+   *
+   * @throws \ReflectionException
+   */
+    public function __construct($name, $suiteNamespace)
     {
         parent::__construct('', $name);
 
@@ -24,32 +29,20 @@ abstract class TestSuiteBase extends TestSuite
         $reflection = new \ReflectionClass(get_class($this));
         $root = dirname($reflection->getFileName(), 7);
 
-        if (!file_exists($root . '/web/index.php')) {
-            // The project is an extension, add all tests.
-            $this->addTestsBySuiteNamespace($root, $suite_namespace);
-        } else {
-            // The project is a site, add the tests of all custom extensions.
-            $roots = [
-                "$root/web/modules/custom",
-                "$root/web/themes/custom",
-                "$root/web/profiles/custom",
-            ];
-
-            foreach ($roots as $root) {
-                if (is_dir($root)) {
-                    $this->addTestsBySuiteNamespace($root, $suite_namespace);
-                }
-            }
-        }
+        file_exists($root . '/web/index.php')
+            ? $this->addCustomTestsBySuiteNamespace($root, $suiteNamespace)
+            : $this->addTestsBySuiteNamespace($root, $suiteNamespace);
     }
 
     /**
      * Find and add tests to the suites.
      *
-     * @param string $root Path to the root of the Drupal installation.
-     * @param string $suite_namespace Subnamespace used to separate test suite.
+     * @param string $root
+     *   Path to the root of the Drupal installation.
+     * @param string $suiteNamespace
+     *   Subnamespace used to separate test suite.
      */
-    protected function addTestsBySuiteNamespace($root, $suite_namespace)
+    protected function addTestsBySuiteNamespace($root, $suiteNamespace)
     {
         $vendor = "$root/vendor";
 
@@ -59,11 +52,35 @@ abstract class TestSuiteBase extends TestSuite
                 continue;
             }
 
-            $tests_path = "$dir/tests/src/$suite_namespace";
+            $tests_path = "$dir/tests/src/$suiteNamespace";
 
             if (is_dir($tests_path)) {
-                $namespace = "Drupal\\Tests\\$extension_name\\$suite_namespace\\";
+                $namespace = "Drupal\\Tests\\$extension_name\\$suiteNamespace\\";
                 $this->addTestFiles(TestDiscovery::scanDirectory($namespace, $tests_path));
+            }
+        }
+    }
+
+    /**
+     * Find and add website tests to the suites.
+     *
+     * The project is a site, add the tests of all custom extensions.
+     *
+     * @param string $root
+     *   Path to the root of the Drupal installation.
+     * @param string $suite_namespace
+     *   Subnamespace used to separate test suite.
+     */
+    private function addCustomTestsBySuiteNamespace(string $root, string $suiteNamespace): void {
+        $customRoots = [
+            "$root/web/modules/custom",
+            "$root/web/themes/custom",
+            "$root/web/profiles/custom",
+        ];
+
+        foreach ($customRoots as $customRoot) {
+            if (is_dir($customRoot)) {
+                $this->addTestsBySuiteNamespace($customRoot, $suiteNamespace);
             }
         }
     }

@@ -12,7 +12,7 @@ class UnitTestSuite extends TestSuiteBase
      *
      * @return static The test suite.
      */
-    public static function suite()
+    public static function suite(): UnitTestSuite
     {
         return new static('unit', 'Unit');
     }

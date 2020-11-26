@@ -13,3 +13,5 @@ parameters:
     - '#Access to an undefined property Drupal\\Core\\TypedData\\TypedDataInterface::\$#'
   excludes_analyse:
     - '*/node_modules/*'
+  scanDirectories:
+    - %currentWorkingDirectory%
