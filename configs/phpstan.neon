@@ -14,4 +14,4 @@ parameters:
   excludes_analyse:
     - '*/node_modules/*'
   scanDirectories:
-      - %currentWorkingDirectory%
+    - %currentWorkingDirectory%
