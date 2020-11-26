@@ -31,7 +31,7 @@ grumphp:
         - phpunit
   tasks:
     behat:
-      config: qa-drupal.behat.yml
+      config: behat.qa-drupal.yml
     composer:
       no_check_publish: true
     git_blacklist:
