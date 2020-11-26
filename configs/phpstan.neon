@@ -3,7 +3,6 @@ includes:
   - vendor/phpstan/phpstan-deprecation-rules/rules.neon
 
 parameters:
-  level: 4
   tipsOfTheDay: false
   reportUnmatchedIgnoredErrors: false
   ignoreErrors:

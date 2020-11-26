@@ -167,4 +167,11 @@ The files will be created as:
 - `phpmd.qa-drupal.xml` : PHP Mess Detector config file.
 - `phpunit.qa-drupal.xml` : PHPUnit config file.
 
-Use these files in the PHPStorm configuration.
+Configure the paths to these files in PHPStorm:
+
+* Editor > Inspections > PHP > Quality tools > PHP Mess Detector validation
+  Add `phpmd.qa-drupal.xml` to the "Custom rulesets".
+* Editor > Inspections > PHP > Quality tools > PHP_CodeSniffer validation
+  Set "Coding Standard" to "Custom" and set the path to `phpcs.qa-drupal.xml`.
+* Languages & Frameworks > PHP > Test Frameworks > Test Runner
+  Set "Default configuration file" to `phpunit.qa-drupal.xml`.
