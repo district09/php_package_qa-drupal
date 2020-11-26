@@ -102,7 +102,6 @@ grumphp:
         - theme
     phpstan:
       configuration: phpstan.qa-drupal.neon
-      level: 4
       ignore_patterns:
         - "#(^|/)tests/#"
         - "#^vendor/#"
