@@ -26,17 +26,28 @@
   </rule>
 
   <rule ref="rulesets/codesize.xml" />
-  <!--rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
-    <properties>
-      <property name="minimum" value="250" />
-    </properties>
-  </rule-->
 
   <rule ref="rulesets/design.xml" />
 
-  <rule ref="rulesets/naming.xml" />
-  <rule ref="rulesets/naming.xml/ShortVariable">
+  <rule ref="rulesets/naming.xml">
+    <exclude name="ShortMethodName" />
+    <exclude name="ShortVariable" />
+  </rule>
+  <rule ref="rulesets/naming.xml/ShortMethodName">
+    <!--
+      Allow "id()" as a short method name.
+    -->
     <properties>
+      <property name="minimum" value="2" />
+      <property name="exceptions" value="id" />
+    </properties>
+  </rule>
+  <rule ref="rulesets/naming.xml/ShortVariable">
+    <!--
+      Allow "$id" as a short variable name.
+    -->
+    <properties>
+      <property name="minimum" value="2" />
       <property name="exceptions" value="id" />
     </properties>
   </rule>
