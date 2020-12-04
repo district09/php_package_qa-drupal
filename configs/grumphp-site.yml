@@ -43,22 +43,18 @@ grumphp:
       whitelist_patterns:
         - "#^web/(modules|themes|profiles)/custom/#"
       triggered_by:
-        - php
         - inc
         - install
         - module
-        - theme
+        - php
         - profile
+        - theme
     git_branch_name:
       whitelist:
         - "#^master|develop|feature/([A-Z][A-Z0-9]+-\\d+|[a-z][a-z0-9]*(-[a-z0-9]+)*)|(release|hotfix)/\\d+(\\.\\d+){2}$#"
     git_commit_message:
-      enforce_no_subject_trailing_period: false
-      max_body_width: 80
-      max_subject_width: 80
       matchers:
-        - "/^([A-Z][A-Z0-9]+-\\d+(, [A-Z][A-Z0-9]+-\\d+)*: )?(Add|Change|Fix|Update|Remove) /"
-      case_insensitive: false
+        - "/^([A-Z][A-Z0-9]+-\\d+(, [A-Z][A-Z0-9]+-\\d+)*: )?(Add|Change|Fix|Update|Remove|Refactor) /"
     phpcpd:
       directory:
         - web
@@ -68,14 +64,18 @@ grumphp:
         - web/*/contrib
         - web/modules/custom/*/tests
         - web/sites
+        - "*.api.php"
+        - "*Test.php"
+        - "*TestBase.php"
+        - "*TestCase.php"
       min_lines: 10
       triggered_by:
-        - php
         - inc
         - install
         - module
-        - theme
+        - php
         - profile
+        - theme
     phpcs:
       standard:
         - .phpcs.qa-drupal.xml
@@ -83,40 +83,46 @@ grumphp:
       whitelist_patterns:
         - "#^web/(modules|themes|profiles)/custom/#"
       ignore_patterns:
+        - build/
         - node_modules/
+        - sassdocs/
       triggered_by:
-        - php
+        - css
         - inc
         - install
+        - js
         - module
-        - theme
+        - php
         - profile
+        - theme
+        - twig
         - yml
     phpmd:
       ruleset:
         - .phpmd.qa-drupal.xml
       whitelist_patterns:
         - "#^web/(modules|themes|profiles)/custom/#"
+      exclude:
+        - build/
+        - node_modules/
+        - tests/
+        - "*.api.php"
+        - "*Test.php"
+        - "*TestBase.php"
+        - "*TestCase.php"
       triggered_by:
-        - php
         - inc
         - install
         - module
-        - theme
+        - php
         - profile
+        - theme
     phpstan:
       configuration: .phpstan.qa-drupal.neon
       force_patterns:
-        - "#^web/(modules|themes|profiles)/custom/((?:(?!tests)[^/])+/)+[^/]+$#"
+        - "#^web/(modules|themes|profiles)/custom/((?:(?!tests)[^/])+/)+[^/]+\\.(inc|install|module|php|profile|theme)$#"
       ignore_patterns:
         - "#.*#"
-      triggered_by:
-        - php
-        - inc
-        - install
-        - module
-        - theme
-        - profile
     phpunit:
       config_file: .phpunit.qa-drupal.xml
     yamllint:
@@ -125,7 +131,9 @@ grumphp:
         - "#^config/#"
         - "#^web/(modules|themes|profiles)/custom/#"
       ignore_patterns:
+        - build/
         - node_modules/
+        - vendor/
 
 services:
   listener.qa_drupal.task:
@@ -134,3 +142,4 @@ services:
       - { name: grumphp.event_listener, event: grumphp.task.run, method: createTaskConfig, priority: 100 }
       - { name: grumphp.event_listener, event: grumphp.task.complete, method: removeTaskConfig }
       - { name: grumphp.event_listener, event: grumphp.task.failed, method: removeTaskConfig }
+      - { name: grumphp.event_listener, event: grumphp.task.skipped, method: removeTaskConfig }
