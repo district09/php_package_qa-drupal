@@ -79,7 +79,7 @@ class TaskEventListener
                 $data_merged = $data;
             }
             elseif ($data) {
-                $data_merged = array_merge_recursive($data, $data_merged);
+                $data_merged = array_replace_recursive($data, $data_merged);
             }
         }
 
