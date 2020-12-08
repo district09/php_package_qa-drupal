@@ -129,7 +129,7 @@ services:
   listener.qa_drupal.task:
     class: Digipolisgent\QA\Drupal\GrumPHP\EventListener\TaskEventListener
     tags:
-      - { name: grumphp.event_listener, event: grumphp.task.run, method: createTaskConfig, priority: 100 }
-      - { name: grumphp.event_listener, event: grumphp.task.complete, method: removeTaskConfig }
-      - { name: grumphp.event_listener, event: grumphp.task.failed, method: removeTaskConfig }
-      - { name: grumphp.event_listener, event: grumphp.task.skipped, method: removeTaskConfig }
+      - { name: grumphp.event_listener, event: grumphp.task.run, method: onTaskStart, priority: 100 }
+      - { name: grumphp.event_listener, event: grumphp.task.complete, method: onTaskEnd }
+      - { name: grumphp.event_listener, event: grumphp.task.failed, method: onTaskEnd }
+      - { name: grumphp.event_listener, event: grumphp.task.skipped, method: onTaskEnd }

@@ -33,11 +33,46 @@ class TaskEventListener
     protected $isExtension;
 
     /**
+     * Invoked when a GrumPHP task is started.
+     *
+     * @param TaskEvent $event The GrumPHP task event.
+     */
+    public function onTaskStart(TaskEvent $event)
+    {
+        $this->createTaskConfig($event);
+
+        if ($this->isExtension() && $event->getTask() instanceof PhpStan) {
+            $this->preparePhpStanDrupalRoot();
+        }
+    }
+
+    /**
+     * Invoked when a GrumPHP task ends.
+     *
+     * @param TaskEvent $event The GrumPHP task event.
+     */
+    public function onTaskEnd(TaskEvent $event)
+    {
+        $this->removeTaskConfig($event);
+
+        if ($this->isExtension()) {
+            $task = $event->getTask();
+
+            if ($task instanceof PhpStan) {
+                $this->cleanupPhpStanDrupalRoot();
+            }
+            elseif ($task instanceof Phpunit) {
+                $this->removeSitesDirectory();
+            }
+        }
+    }
+
+    /**
      * Create the task configuration file.
      *
      * @param TaskEvent $event The GrumPHP task event.
      */
-    public function createTaskConfig(TaskEvent $event)
+    protected function createTaskConfig(TaskEvent $event)
     {
         if (!$info = $this->getTaskConfigFileInfo($event->getTask())) {
             return;
@@ -92,7 +127,7 @@ class TaskEventListener
      *
      * @param TaskEvent $event The GrumPHP task event.
      */
-    public function removeTaskConfig(TaskEvent $event)
+    protected function removeTaskConfig(TaskEvent $event)
     {
         if (!$info = $this->getTaskConfigFileInfo($event->getTask())) {
             return;
@@ -207,6 +242,45 @@ class TaskEventListener
 
         $fs = new Filesystem();
         $fs->dumpFile($file, $data);
+    }
+
+    /**
+     * Create some files to mimic a Drupal root for PHPStan.
+     */
+    protected function preparePhpStanDrupalRoot() {
+        $fs = new Filesystem();
+        $fs->dumpFile('vendor/drupal/vendor/autoload.php', '<?php return include dirname(__FILE__, 3) . "/autoload.php";');
+        $fs->dumpFile('vendor/drupal/autoload.php', '<?php return include dirname(__FILE__, 2) . "/autoload.php";');
+        $fs->dumpFile('vendor/drupal/composer.json', '{}');
+    }
+
+    /**
+     * Remove the files that mimic a Drupal root for PHPStan.
+     */
+    protected function cleanupPhpStanDrupalRoot() {
+        $fs = new Filesystem();
+        $paths = [
+            'vendor/drupal/vendor',
+            'vendor/drupal/autoload.php',
+            'vendor/drupal/composer.json',
+        ];
+
+        foreach ($paths as $path) {
+            if ($fs->exists($path)) {
+                $fs->remove($path);
+            }
+        }
+    }
+
+    /**
+     * Remove the sites directory.
+     */
+    protected function removeSitesDirectory() {
+        $fs = new Filesystem();
+
+        if ($fs->exists('vendor/drupal/sites/simpletest')) {
+            $fs->remove('vendor/drupal/sites');
+        }
     }
 
     /**
