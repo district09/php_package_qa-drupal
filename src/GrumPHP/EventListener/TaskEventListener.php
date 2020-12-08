@@ -41,8 +41,14 @@ class TaskEventListener
     {
         $this->createTaskConfig($event);
 
-        if ($this->isExtension() && $event->getTask() instanceof PhpStan) {
-            $this->preparePhpStanDrupalRoot();
+        if ($this->isExtension()) {
+            $task = $event->getTask();
+
+            if ($task instanceof PhpStan) {
+                $this->preparePhpStanDrupalRoot();
+            } elseif ($task instanceof Phpunit) {
+                $this->createSitesDirectory('phpunit');
+            }
         }
     }
 
@@ -60,9 +66,8 @@ class TaskEventListener
 
             if ($task instanceof PhpStan) {
                 $this->cleanupPhpStanDrupalRoot();
-            }
-            elseif ($task instanceof Phpunit) {
-                $this->removeSitesDirectory();
+            } elseif ($task instanceof Phpunit) {
+                $this->removeSitesDirectory('phpunit');
             }
         }
     }
@@ -92,7 +97,7 @@ class TaskEventListener
 
         // Search for the candidates and merge or copy them.
         $fs = new Filesystem();
-        $data_merged = NULL;
+        $data_merged = null;
 
         foreach ($candidates as $env_var => $file) {
             // Ignore if configured to skip or if the file is missing.
@@ -103,17 +108,16 @@ class TaskEventListener
             // Read and parse the configuration file.
             $data = $this->readTaskConfigFile($info['type'], $file);
 
-            if ($data === FALSE) {
+            if ($data === false) {
                 // Just copy it if not readable.
                 $fs->copy($file, $info['grumphp']);
                 return;
             }
 
             // Merge the data.
-            if ($data_merged === NULL) {
+            if ($data_merged === null) {
                 $data_merged = $data;
-            }
-            elseif ($data) {
+            } elseif ($data) {
                 $data_merged = array_replace_recursive($data, $data_merged);
             }
         }
@@ -158,29 +162,25 @@ class TaskEventListener
                 'extension' => 'yml',
                 'type' => self::FILETYPE_YAML,
             ];
-        }
-        elseif ($task instanceof Phpcs) {
+        } elseif ($task instanceof Phpcs) {
             $info = [
                 'filename' => 'phpcs',
                 'extension' => 'xml',
                 'type' => self::FILETYPE_XML,
             ];
-        }
-        elseif ($task instanceof PhpMd) {
+        } elseif ($task instanceof PhpMd) {
             $info = [
                 'filename' => 'phpmd',
                 'extension' => 'xml',
                 'type' => self::FILETYPE_XML,
             ];
-        }
-        elseif ($task instanceof PhpStan) {
+        } elseif ($task instanceof PhpStan) {
             $info = [
                 'filename' => 'phpstan',
                 'extension' => 'neon',
                 'type' => self::FILETYPE_NEON,
             ];
-        }
-        elseif ($task instanceof Phpunit) {
+        } elseif ($task instanceof Phpunit) {
             $info = [
                 'filename' => 'phpunit',
                 'extension' => 'xml',
@@ -247,17 +247,24 @@ class TaskEventListener
     /**
      * Create some files to mimic a Drupal root for PHPStan.
      */
-    protected function preparePhpStanDrupalRoot() {
+    protected function preparePhpStanDrupalRoot()
+    {
         $fs = new Filesystem();
-        $fs->dumpFile('vendor/drupal/vendor/autoload.php', '<?php return include dirname(__FILE__, 3) . "/autoload.php";');
+        $fs->dumpFile(
+            'vendor/drupal/vendor/autoload.php',
+            '<?php return include dirname(__FILE__, 3) . "/autoload.php";'
+        );
         $fs->dumpFile('vendor/drupal/autoload.php', '<?php return include dirname(__FILE__, 2) . "/autoload.php";');
         $fs->dumpFile('vendor/drupal/composer.json', '{}');
+
+        $this->createSitesDirectory('phpstan');
     }
 
     /**
      * Remove the files that mimic a Drupal root for PHPStan.
      */
-    protected function cleanupPhpStanDrupalRoot() {
+    protected function cleanupPhpStanDrupalRoot()
+    {
         $fs = new Filesystem();
         $paths = [
             'vendor/drupal/vendor',
@@ -270,16 +277,42 @@ class TaskEventListener
                 $fs->remove($path);
             }
         }
+
+        $this->removeSitesDirectory('phpstan');
+    }
+
+    /**
+     * Create the sites directory.
+     *
+     * @param string $lock Name of the lock file.
+     */
+    protected function createSitesDirectory($lock)
+    {
+        $fs = new Filesystem();
+
+        if (!$fs->exists('vendor/drupal/sites')) {
+            $fs->mkdir('vendor/drupal/sites');
+        }
+
+        $fs->dumpFile('vendor/drupal/sites/.' . $lock . '.qa-drupal.lock', '');
     }
 
     /**
      * Remove the sites directory.
+     *
+     * @param string $lock Name of the lock file.
      */
-    protected function removeSitesDirectory() {
+    protected function removeSitesDirectory($lock)
+    {
         $fs = new Filesystem();
+        $lock = 'vendor/drupal/sites/.' . $lock . '.qa-drupal.lock';
 
-        if ($fs->exists('vendor/drupal/sites/simpletest')) {
-            $fs->remove('vendor/drupal/sites');
+        if ($fs->exists($lock)) {
+            $fs->remove($lock);
+
+            if (!glob('vendor/drupal/sites/.*.qa-drupal.lock')) {
+                $fs->remove('vendor/drupal/sites');
+            }
         }
     }
 
@@ -290,7 +323,7 @@ class TaskEventListener
      */
     protected function isExtension()
     {
-        if ($this->isExtension === NULL) {
+        if ($this->isExtension === null) {
             $fs = new Filesystem();
             $this->isExtension = !$fs->exists('web/index.php');
         }
