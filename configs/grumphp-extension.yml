@@ -29,6 +29,7 @@ grumphp:
         - phpunit
   tasks:
     composer: ~
+    composer_normalize: ~
     git_blacklist:
       keywords:
         - " die\\("
