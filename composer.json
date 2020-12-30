@@ -38,7 +38,8 @@
         "phpspec/prophecy": "^1.10",
         "phpstan/phpstan-deprecation-rules": "^0.12.5",
         "phpunit/phpunit": "^7.5",
-        "symfony/phpunit-bridge": "^3.4.3"
+        "symfony/phpunit-bridge": "^3.4.3",
+        "sensiolabs/security-checker": "^6.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
