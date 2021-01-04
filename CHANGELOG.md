@@ -2,6 +2,17 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [Unreleased]
+
+### Added
+
+- Add sensiolabs/security-checker.
+- Add support for Drupal 9.1 by adding "^9" to the required PHPUnit versions.
+
+### Removed
+
+- Remove older PHPUnit version bridge.
+
 ## [1.4.2]
 
 ### Added
