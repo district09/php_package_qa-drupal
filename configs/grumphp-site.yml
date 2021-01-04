@@ -137,10 +137,12 @@ grumphp:
         - vendor/
 
 services:
+  listener.qa_drupal.console:
+    class: Digipolisgent\QA\Drupal\GrumPHP\EventListener\ConsoleEventListener
+    tags:
+      - { name: grumphp.event_listener, event: console.terminate, method: onTerminate }
+      - { name: grumphp.event_listener, event: console.exception, method: onException }
   listener.qa_drupal.task:
     class: Digipolisgent\QA\Drupal\GrumPHP\EventListener\TaskEventListener
     tags:
-      - { name: grumphp.event_listener, event: grumphp.task.run, method: onTaskStart, priority: 100 }
-      - { name: grumphp.event_listener, event: grumphp.task.complete, method: onTaskEnd }
-      - { name: grumphp.event_listener, event: grumphp.task.failed, method: onTaskEnd }
-      - { name: grumphp.event_listener, event: grumphp.task.skipped, method: onTaskEnd }
+      - { name: grumphp.event_listener, event: grumphp.task.run, method: onRun, priority: 100 }

@@ -2,6 +2,7 @@
 
 namespace Digipolisgent\QA\Drupal\GrumPHP\EventListener;
 
+use Digipolisgent\QA\Drupal\GrumPHP\TransactionalFilesystem;
 use GrumPHP\Event\TaskEvent;
 use GrumPHP\Task\Behat;
 use GrumPHP\Task\Phpcs;
@@ -10,7 +11,6 @@ use GrumPHP\Task\PhpStan;
 use GrumPHP\Task\Phpunit;
 use GrumPHP\Task\TaskInterface;
 use Nette\Neon\Neon;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -33,41 +33,21 @@ class TaskEventListener
     protected $isExtension;
 
     /**
-     * Invoked when a GrumPHP task is started.
+     * Invoked when a task is run.
      *
      * @param TaskEvent $event The GrumPHP task event.
      */
-    public function onTaskStart(TaskEvent $event)
+    public function onRun(TaskEvent $event)
     {
-        $this->createTaskConfig($event);
+        $task = $event->getTask();
+
+        $this->createTaskConfig($task);
 
         if ($this->isExtension()) {
-            $task = $event->getTask();
-
             if ($task instanceof PhpStan) {
                 $this->preparePhpStanDrupalRoot();
             } elseif ($task instanceof Phpunit) {
-                $this->createSitesDirectory('phpunit');
-            }
-        }
-    }
-
-    /**
-     * Invoked when a GrumPHP task ends.
-     *
-     * @param TaskEvent $event The GrumPHP task event.
-     */
-    public function onTaskEnd(TaskEvent $event)
-    {
-        $this->removeTaskConfig($event);
-
-        if ($this->isExtension()) {
-            $task = $event->getTask();
-
-            if ($task instanceof PhpStan) {
-                $this->cleanupPhpStanDrupalRoot();
-            } elseif ($task instanceof Phpunit) {
-                $this->removeSitesDirectory('phpunit');
+                $this->createSitesDirectory();
             }
         }
     }
@@ -75,11 +55,11 @@ class TaskEventListener
     /**
      * Create the task configuration file.
      *
-     * @param TaskEvent $event The GrumPHP task event.
+     * @param TaskInterface $task The GrumPHP task.
      */
-    protected function createTaskConfig(TaskEvent $event)
+    protected function createTaskConfig(TaskInterface $task)
     {
-        if (!$info = $this->getTaskConfigFileInfo($event->getTask())) {
+        if (!$info = $this->getTaskConfigFileInfo($task)) {
             return;
         }
 
@@ -96,51 +76,36 @@ class TaskEventListener
         ];
 
         // Search for the candidates and merge or copy them.
-        $fs = new Filesystem();
-        $data_merged = null;
+        $filesystem = TransactionalFilesystem::getInstance();
+        $config = null;
 
         foreach ($candidates as $env_var => $file) {
             // Ignore if configured to skip or if the file is missing.
-            if (!empty($_SERVER[$env_var]) || !$fs->exists($file)) {
+            if (!empty($_SERVER[$env_var]) || !$filesystem->exists($file)) {
                 continue;
             }
 
-            // Read and parse the configuration file.
-            $data = $this->readTaskConfigFile($info['type'], $file);
+            // Load the configuration file.
+            $loaded = $this->loadTaskConfigFile($info['type'], $file);
 
-            if ($data === false) {
-                // Just copy it if not readable.
-                $fs->copy($file, $info['grumphp']);
+            if ($loaded === false) {
+                // Just copy the file if it isn't readable.
+                $filesystem->copy($file, $info['grumphp']);
+
                 return;
             }
 
-            // Merge the data.
-            if ($data_merged === null) {
-                $data_merged = $data;
-            } elseif ($data) {
-                $data_merged = array_replace_recursive($data, $data_merged);
+            // Merge the configuration.
+            if ($config === null) {
+                $config = $loaded;
+            } elseif ($loaded) {
+                $config = array_replace_recursive($loaded, $config);
             }
         }
 
-        // Save the configuration file.
-        $this->writeTaskConfigFile($info['type'], $info['grumphp'], $data_merged);
-    }
-
-    /**
-     * Remove the task configuration file.
-     *
-     * @param TaskEvent $event The GrumPHP task event.
-     */
-    protected function removeTaskConfig(TaskEvent $event)
-    {
-        if (!$info = $this->getTaskConfigFileInfo($event->getTask())) {
-            return;
-        }
-
-        $fs = new Filesystem();
-
-        if ($fs->exists($info['grumphp'])) {
-            $fs->remove($info['grumphp']);
+        // Save the merged configuration.
+        if ($config !== null) {
+            $this->saveTaskConfigFile($info['type'], $info['grumphp'], $config);
         }
     }
 
@@ -203,7 +168,7 @@ class TaskEventListener
      *
      * @return array|false The configuration data or false if not supported.
      */
-    protected function readTaskConfigFile($type, $file)
+    protected function loadTaskConfigFile($type, $file)
     {
         switch ($type) {
             case self::FILETYPE_YAML:
@@ -221,27 +186,22 @@ class TaskEventListener
      *
      * @param string $type The file type.
      * @param string $file Path to the file.
-     *
      * @param array|null $data The configuration data.
      */
-    protected function writeTaskConfigFile($type, $file, array $data)
+    protected function saveTaskConfigFile($type, $file, array $config)
     {
         switch ($type) {
             case self::FILETYPE_YAML:
-                $data = Yaml::dump($data);
+                $config = Yaml::dump($config);
                 break;
 
             case self::FILETYPE_NEON:
-                $data = Neon::encode($data, Neon::BLOCK);
-                break;
-
-            default:
-                $data = '';
+                $config = Neon::encode($config, Neon::BLOCK);
                 break;
         }
 
-        $fs = new Filesystem();
-        $fs->dumpFile($file, $data);
+        $filesystem = TransactionalFilesystem::getInstance();
+        $filesystem->writeFile($file, $config);
     }
 
     /**
@@ -249,70 +209,29 @@ class TaskEventListener
      */
     protected function preparePhpStanDrupalRoot()
     {
-        $fs = new Filesystem();
-        $fs->dumpFile(
+        $filesystem = TransactionalFilesystem::getInstance();
+        $filesystem->writeFile(
             'vendor/drupal/vendor/autoload.php',
             '<?php return include dirname(__FILE__, 3) . "/autoload.php";'
         );
-        $fs->dumpFile('vendor/drupal/autoload.php', '<?php return include dirname(__FILE__, 2) . "/autoload.php";');
-        $fs->dumpFile('vendor/drupal/composer.json', '{}');
-
-        $this->createSitesDirectory('phpstan');
-    }
-
-    /**
-     * Remove the files that mimic a Drupal root for PHPStan.
-     */
-    protected function cleanupPhpStanDrupalRoot()
-    {
-        $fs = new Filesystem();
-        $paths = [
-            'vendor/drupal/vendor',
+        $filesystem->writeFile(
             'vendor/drupal/autoload.php',
-            'vendor/drupal/composer.json',
-        ];
+            '<?php return include dirname(__FILE__, 2) . "/autoload.php";'
+        );
+        $filesystem->writeFile('vendor/drupal/composer.json', '{}');
 
-        foreach ($paths as $path) {
-            if ($fs->exists($path)) {
-                $fs->remove($path);
-            }
-        }
-
-        $this->removeSitesDirectory('phpstan');
+        $this->createSitesDirectory();
     }
 
     /**
      * Create the sites directory.
-     *
-     * @param string $lock Name of the lock file.
      */
-    protected function createSitesDirectory($lock)
+    protected function createSitesDirectory()
     {
-        $fs = new Filesystem();
+        $filesystem = TransactionalFilesystem::getInstance();
 
-        if (!$fs->exists('vendor/drupal/sites')) {
-            $fs->mkdir('vendor/drupal/sites');
-        }
-
-        $fs->dumpFile('vendor/drupal/sites/.' . $lock . '.qa-drupal.lock', '');
-    }
-
-    /**
-     * Remove the sites directory.
-     *
-     * @param string $lock Name of the lock file.
-     */
-    protected function removeSitesDirectory($lock)
-    {
-        $fs = new Filesystem();
-        $lock = 'vendor/drupal/sites/.' . $lock . '.qa-drupal.lock';
-
-        if ($fs->exists($lock)) {
-            $fs->remove($lock);
-
-            if (!glob('vendor/drupal/sites/.*.qa-drupal.lock')) {
-                $fs->remove('vendor/drupal/sites');
-            }
+        if (!$filesystem->exists('vendor/drupal/sites')) {
+            $filesystem->mkdir('vendor/drupal/sites');
         }
     }
 
@@ -324,8 +243,8 @@ class TaskEventListener
     protected function isExtension()
     {
         if ($this->isExtension === null) {
-            $fs = new Filesystem();
-            $this->isExtension = !$fs->exists('web/index.php');
+            $filesystem = TransactionalFilesystem::getInstance();
+            $this->isExtension = !$filesystem->exists('web/index.php');
         }
 
         return $this->isExtension;
