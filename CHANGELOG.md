@@ -2,7 +2,7 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
-## [Unreleases]
+## [1.4.4]
 
 ### Added
 
@@ -179,6 +179,7 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[1.4.4]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.3...1.4.4
 [1.4.3]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.2...1.4.3
 [1.4.2]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.1...1.4.2
 [1.4.1]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.0...1.4.1
