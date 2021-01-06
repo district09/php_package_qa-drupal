@@ -2,6 +2,12 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [Unreleases]
+
+### Added
+
+- Add setting up a fake Drupal root for tasks who requires it.
+
 ## [1.4.3]
 
 ### Added

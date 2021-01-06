@@ -1,3 +1,5 @@
 parameters:
+  scanDirectories:
+    - %currentWorkingDirectory%
   drupal:
-    drupal_root: ../drupal
+    drupal_root: vendor/drupal
