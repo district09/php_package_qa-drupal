@@ -34,6 +34,7 @@ grumphp:
       config: behat.qa-drupal.yml
     composer:
       no_check_publish: true
+    composer_normalize: ~
     git_blacklist:
       keywords:
         - " die\\("

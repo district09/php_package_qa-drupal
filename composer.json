@@ -29,7 +29,7 @@
         "drupal/coder": "^8.3",
         "drupal/core": "^8.8 || ^9.0",
         "drupal/drupal-extension": "^4.1",
-        "ergebnis/composer-normalize": "^2.8",
+        "ergebnis/composer-normalize": "^2.11",
         "irstea/phpcpd-shim": "^6.0",
         "irstea/phpmd-shim": "^2.9",
         "mglaman/phpstan-drupal": "^0.12.6",

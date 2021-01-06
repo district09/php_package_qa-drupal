@@ -7,6 +7,7 @@ All Notable changes to the **Quality Assurance - Drupal** package.
 ### Added
 
 - Add setting up a fake Drupal root for tasks who requires it.
+- Add composer_normalize to the GrumPHP tasks.
 
 ### Fixed
 
