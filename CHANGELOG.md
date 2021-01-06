@@ -8,6 +8,10 @@ All Notable changes to the **Quality Assurance - Drupal** package.
 
 - Add setting up a fake Drupal root for tasks who requires it.
 
+### Fixed
+
+- Fix the PHPUnit/Symfony deprecation warning (Drupal 8).
+
 ## [1.4.3]
 
 ### Added
