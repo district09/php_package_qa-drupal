@@ -12,6 +12,7 @@ All Notable changes to the **Quality Assurance - Drupal** package.
 ### Fixed
 
 - Fix the PHPUnit/Symfony deprecation warning (Drupal 8).
+- Fix incompatible UnitTest::setUp() method (Drupal 9).
 
 ## [1.4.3]
 

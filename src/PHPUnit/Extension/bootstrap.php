@@ -11,8 +11,7 @@
  */
 
 use Drupal\Component\Assertion\Handle;
-use Drupal\Core\Composer\Composer;
-use PHPUnit\Runner\Version;
+use Drupal\TestTools\PhpUnitCompatibility\PhpUnit8\ClassWriter;
 
 /**
  * Get the root directory of the current project.
@@ -150,8 +149,14 @@ function drupal_phpunit_populate_class_loader()
         $dirs = array_reduce($dirs, 'array_merge', []);
         $GLOBALS['namespaces'] = drupal_phpunit_get_extension_namespaces($dirs);
     }
+
     foreach ($GLOBALS['namespaces'] as $prefix => $paths) {
         $loader->addPsr4($prefix, $paths);
+    }
+
+    // Ensure we have a valid TestCase class.
+    if (class_exists('Drupal\TestTools\PhpUnitCompatibility\PhpUnit8\ClassWriter')) {
+        ClassWriter::mutateTestBase($loader);
     }
 
     return $loader;
@@ -159,18 +164,6 @@ function drupal_phpunit_populate_class_loader()
 
 // Do class loader population.
 drupal_phpunit_populate_class_loader();
-
-// Ensure we have the correct PHPUnit version for the version of PHP.
-if (class_exists('\PHPUnit_Runner_Version')) {
-    $phpunitVersion = \PHPUnit_Runner_Version::id();
-} else {
-    $phpunitVersion = Version::id();
-}
-if (!Composer::upgradePHPUnitCheck($phpunitVersion)) {
-    $message = "PHPUnit testing framework version 6 or greater is required when running on PHP 7.2 or greater. Run the command 'composer run-script drupal-phpunit-upgrade' in order to fix this.";
-    echo "\033[31m" . $message . "\n\033[0m";
-    exit(1);
-}
 
 // Set sane locale settings, to ensure consistent string, dates, times and
 // numbers handling.
