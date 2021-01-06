@@ -7,6 +7,8 @@ namespace Digipolisgent\QA\Drupal\GrumPHP\EventListener;
 use Digipolisgent\QA\Drupal\GrumPHP\ConfigFileMerger;
 use Digipolisgent\QA\Drupal\GrumPHP\TransactionalFilesystem;
 use GrumPHP\Event\TaskEvent;
+use GrumPHP\Task\PhpStan;
+use GrumPHP\Task\Phpunit;
 use GrumPHP\Task\TaskInterface;
 
 /**
