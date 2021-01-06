@@ -8,7 +8,11 @@
          beStrictAboutChangesToGlobalState="true">
 
   <php>
-    <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
+      <!--
+        We allow 2 deprecations due to Drupal 8.x deprecated usage of Symfony
+        components. Drupal 9.x should only have 1.
+      -->
+      <env name="SYMFONY_DEPRECATIONS_HELPER" value="3" />
 
     <ini name="error_reporting" value="32767" />
     <ini name="memory_limit" value="-1" />
