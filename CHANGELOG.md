@@ -2,6 +2,12 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [1.4.6]
+
+### Fixed
+
+- Fix allowed number of deprecation errors.
+
 ## [1.4.5]
 
 ### Fixed
@@ -185,6 +191,7 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[1.4.6]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.5...1.4.6
 [1.4.5]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.4...1.4.5
 [1.4.4]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.3...1.4.4
 [1.4.3]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.2...1.4.3
