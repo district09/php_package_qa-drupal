@@ -11,6 +11,7 @@ use GrumPHP\Task\PhpStan;
 use GrumPHP\Task\Phpunit;
 use GrumPHP\Task\TaskInterface;
 use Nette\Neon\Neon;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -19,6 +20,9 @@ use Symfony\Component\Yaml\Yaml;
  * This will create a config file on-the-fly based on:
  * - The example config files in qa-drupal.
  * - Combined or replaced by the config file in the root of the project.
+ *
+ * NOTE: Config files are stored permanantly as they can be required by IDE
+ *       tools.
  */
 final class ConfigFileMerger
 {
@@ -66,7 +70,7 @@ final class ConfigFileMerger
     /**
      * The symfony filesystem.
      *
-     * @var \Digipolisgent\QA\Drupal\GrumPHP\TransactionalFilesystem
+     * @var \Symfony\Component\Filesystem\Filesystem
      */
     private $filesystem;
 
@@ -75,7 +79,7 @@ final class ConfigFileMerger
      */
     public function __construct()
     {
-        $this->filesystem = TransactionalFilesystem::getInstance();
+        $this->filesystem = new Filesystem();
     }
 
     /**
@@ -117,11 +121,9 @@ final class ConfigFileMerger
             }
 
             // Merge the configuration.
-            if ($config === null) {
-                $config = $loaded;
-            } elseif ($loaded) {
-                $config = array_replace_recursive($loaded, $config);
-            }
+            $config = $config === null
+                ? $loaded
+                : array_replace_recursive($loaded, $config);
         }
 
         // Save the merged configuration.
@@ -229,6 +231,6 @@ final class ConfigFileMerger
                 break;
         }
 
-        $this->filesystem->writeFile($file, $config);
+        $this->filesystem->dumpFile($file, $config);
     }
 }
