@@ -2,6 +2,18 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [Unreleases]
+
+### Added
+
+- Add setting up a fake Drupal root for tasks who requires it.
+- Add composer_normalize to the GrumPHP tasks.
+
+### Fixed
+
+- Fix the PHPUnit/Symfony deprecation warning (Drupal 8).
+- Fix incompatible UnitTest::setUp() method (Drupal 9).
+
 ## [1.4.3]
 
 ### Added

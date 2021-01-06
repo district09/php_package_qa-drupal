@@ -30,6 +30,7 @@ grumphp:
         - phpunit
   tasks:
     composer: ~
+    composer_normalize: ~
     git_blacklist:
       keywords:
         - " die\\("
@@ -126,7 +127,12 @@ grumphp:
         - "#^vendor/#"
 
 services:
+  listener.qa_drupal.console:
+    class: Digipolisgent\QA\Drupal\GrumPHP\EventListener\ConsoleEventListener
+    tags:
+      - { name: grumphp.event_listener, event: console.terminate, method: onTerminate }
+      - { name: grumphp.event_listener, event: console.exception, method: onException }
   listener.qa_drupal.task:
     class: Digipolisgent\QA\Drupal\GrumPHP\EventListener\TaskEventListener
     tags:
-      - { name: grumphp.event_listener, event: grumphp.task.run, method: createTaskConfig, priority: 100 }
+      - { name: grumphp.event_listener, event: grumphp.task.run, method: onRun, priority: 100 }

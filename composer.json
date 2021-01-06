@@ -5,17 +5,17 @@
     "authors": [
         {
             "name": "Matthijs Van Assche",
-            "email": "matthijs.vanassche@digipolis.gent",
+            "email": "matthijs.vanassche@district09.gent",
             "role": "developer"
         },
         {
             "name": "Maarten Segers",
-            "email": "maarten.segers@digipolis.gent",
+            "email": "maarten.segers@district09.gent",
             "role": "developer"
         },
         {
             "name": "Peter Decuyper",
-            "email": "peter.decuyper@digipolis.gent",
+            "email": "peter.decuyper@district09.gent",
             "role": "developer"
         }
     ],
@@ -29,7 +29,7 @@
         "drupal/coder": "^8.3",
         "drupal/core": "^8.8 || ^9.0",
         "drupal/drupal-extension": "^4.1",
-        "ergebnis/composer-normalize": "^2.8",
+        "ergebnis/composer-normalize": "^2.11",
         "irstea/phpcpd-shim": "^6.0",
         "irstea/phpmd-shim": "^2.9",
         "mglaman/phpstan-drupal": "^0.12.6",
