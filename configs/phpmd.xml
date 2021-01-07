@@ -17,29 +17,29 @@
     <!--
       Validated by PHPCS and is in conflict with the DrupalPractices sniffs.
     -->
-    <exclude name="MissingImport" />
+    <exclude name="MissingImport"/>
     <!--
       PHPMD is not smart enough to see the difference between static access and
       named constructors.
     -->
-    <exclude name="StaticAccess" />
+    <exclude name="StaticAccess"/>
   </rule>
 
-  <rule ref="rulesets/codesize.xml" />
+  <rule ref="rulesets/codesize.xml"/>
 
-  <rule ref="rulesets/design.xml" />
+  <rule ref="rulesets/design.xml"/>
 
   <rule ref="rulesets/naming.xml">
-    <exclude name="ShortMethodName" />
-    <exclude name="ShortVariable" />
+    <exclude name="ShortMethodName"/>
+    <exclude name="ShortVariable"/>
   </rule>
   <rule ref="rulesets/naming.xml/ShortMethodName">
     <!--
       Allow "id()" as a short method name.
     -->
     <properties>
-      <property name="minimum" value="2" />
-      <property name="exceptions" value="id" />
+      <property name="minimum" value="2"/>
+      <property name="exceptions" value="id"/>
     </properties>
   </rule>
   <rule ref="rulesets/naming.xml/ShortVariable">
@@ -47,12 +47,12 @@
       Allow "$id" as a short variable name.
     -->
     <properties>
-      <property name="minimum" value="2" />
-      <property name="exceptions" value="id" />
+      <property name="minimum" value="2"/>
+      <property name="exceptions" value="id"/>
     </properties>
   </rule>
 
   <rule ref="rulesets/unusedcode.xml">
-    <exclude name="UnusedFormalParameter" />
+    <exclude name="UnusedFormalParameter"/>
   </rule>
 </ruleset>
