@@ -8,14 +8,10 @@
          beStrictAboutChangesToGlobalState="true">
 
   <php>
-      <!--
-        We allow 2 deprecations due to Drupal 8.x deprecated usage of Symfony
-        components. Drupal 9.x should only have 1.
-      -->
-      <env name="SYMFONY_DEPRECATIONS_HELPER" value="3" />
+    <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
 
-    <ini name="error_reporting" value="32767" />
-    <ini name="memory_limit" value="-1" />
+    <ini name="error_reporting" value="32767"/>
+    <ini name="memory_limit" value="-1"/>
   </php>
 
   <testsuites>
@@ -54,7 +50,7 @@
   </filter>
 
   <logging>
-    <log type="coverage-html" target="build/coverage" />
+    <log type="coverage-html" target="build/coverage"/>
     <log type="coverage-clover" target="build/logs/clover.xml"/>
   </logging>
 </phpunit>
