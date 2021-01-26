@@ -27,6 +27,17 @@ Add the `grumphp` entry to the `extra` section of your `composer.json`.
 }
 ```
 
+The qa-drupal package will install PHPUnit 9.x by default (depending on the
+local PHP version). This because no other package requires a specific PHPUnit
+version. Drupal 8.x requires PHPUnit 7.5+, Drupal 9.0.x & 9.1.x requires
+PHPUnit 8.x. Only Drupal 9.2+ gets automatically the correct PHP version.
+
+So add the correct PHPUnit version, if required to the dev section of composer:
+
+```bash
+composer require --dev phpunit/phpunit:^7.5
+```
+
 Add the qa-drupal package as dev requirement:
 
 ```bash
@@ -134,7 +145,7 @@ directory located in the root of your website/project. Add this file to the
 
 ### Run PHPUnit locally without coverage
 
-Running PHPUnit with coverage report is time consuming. You can locally speed up
+Running PHPUnit with coverage report is time-consuming. You can locally speed up
 PHPUnit by copying the generated `phpunit.qa-drupal.xml` file to
 `phpunit.local.xml` and remove the `<logging>` section from it.
 

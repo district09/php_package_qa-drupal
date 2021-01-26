@@ -62,6 +62,7 @@ grumphp:
       directory:
         - web
       exclude:
+        - web/config
         - web/core
         - web/libraries
         - web/*/contrib
@@ -105,6 +106,11 @@ grumphp:
         - phpmd.qa-drupal.xml
       whitelist_patterns:
         - "#^web/(modules|themes|profiles)/custom/#"
+      exclude:
+        - "*.api.php"
+        - "*Test.php"
+        - "*TestBase.php"
+        - "*TestCase.php"
       triggered_by:
         - inc
         - install
@@ -115,7 +121,7 @@ grumphp:
     phpstan:
       configuration: phpstan.qa-drupal.neon
       force_patterns:
-        - "#^web/(modules|themes|profiles)/custom/((?:(?!tests)[^/])+/)+[^/]+$#"
+        - "#^web/(modules|themes|profiles)/custom/((?:(?!tests)[^/])+/)+[^/]+\\.(inc|install|module|php|profile|theme)$#"
       ignore_patterns:
         - "#.*#"
       triggered_by:
@@ -142,7 +148,12 @@ grumphp:
         - node_modules/
 
 services:
+  listener.qa_drupal.console:
+    class: Digipolisgent\QA\Drupal\GrumPHP\EventListener\ConsoleEventListener
+    tags:
+      - { name: grumphp.event_listener, event: console.terminate, method: onTerminate }
+      - { name: grumphp.event_listener, event: console.exception, method: onException }
   listener.qa_drupal.task:
     class: Digipolisgent\QA\Drupal\GrumPHP\EventListener\TaskEventListener
     tags:
-      - { name: grumphp.event_listener, event: grumphp.task.run, method: createTaskConfig, priority: 100 }
+      - { name: grumphp.event_listener, event: grumphp.task.run, method: onRun, priority: 100 }
