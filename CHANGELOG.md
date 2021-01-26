@@ -2,6 +2,13 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [1.4.8]
+
+### Fixed
+
+- Fix grumphp config for Drupal websites.
+- Fix phpstan config for Drupal websites.
+
 ## [1.4.7]
 
 ### Fixed

@@ -15,3 +15,6 @@ parameters:
     - '*/node_modules/*'
   scanDirectories:
     - %currentWorkingDirectory%
+	 parallel:
+	   jobSize: 20
+	   maximumNumberOfProcesses: 4
