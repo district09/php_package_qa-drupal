@@ -2,6 +2,12 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [1.4.9]
+
+### Fixed
+
+- Fix spaces in phpstan.neon config file.
+
 ## [1.4.8]
 
 ### Fixed
@@ -206,6 +212,7 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[1.4.9]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.8...1.4.9
 [1.4.8]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.7...1.4.8
 [1.4.7]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.6...1.4.7
 [1.4.6]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.5...1.4.6

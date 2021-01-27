@@ -11,10 +11,13 @@ parameters:
     - '#\\Drupal calls should be avoided in classes#'
     - '#Method Drupal\\Core\\Form\\FormBuilderInterface::getForm\(\) invoked with#'
     - '#Access to an undefined property Drupal\\Core\\TypedData\\TypedDataInterface::\$#'
+
   excludes_analyse:
     - '*/node_modules/*'
+
   scanDirectories:
     - %currentWorkingDirectory%
-	 parallel:
-	   jobSize: 20
-	   maximumNumberOfProcesses: 4
+
+  parallel:
+    jobSize: 20
+    maximumNumberOfProcesses: 4
