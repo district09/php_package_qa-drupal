@@ -35,6 +35,7 @@
         "irstea/phpmd-shim": "^2.9",
         "mglaman/phpstan-drupal": "^0.12.6",
         "nette/neon": "^3.2",
+        "nielsdeblaauw/twigcs-a11y": "^2.0",
         "phpro/grumphp-shim": "^1.1",
         "phpspec/prophecy": "^1.10",
         "phpstan/phpstan-deprecation-rules": "^0.12.5",
