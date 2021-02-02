@@ -125,7 +125,7 @@ grumphp:
     twigcs:
       path: 'templates'
       severity: 'warning'
-      ruleset: 'FriendsOfTwig\Twigcs\Ruleset\Official'
+      ruleset: 'Digipolisgent\QA\Drupal\Twigcs\Ruleset\Twig'
       triggered_by:
         - twig
       exclude: []
