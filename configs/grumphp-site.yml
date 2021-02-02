@@ -143,8 +143,10 @@ grumphp:
       path: 'web/themes/custom'
       severity: 'warning'
       ruleset: 'FriendsOfTwig\Twigcs\Ruleset\Official'
-      triggered_by: ['twig']
-      exclude: ['vendor']
+      triggered_by:
+        - twig
+      exclude:
+        - vendor
     yamllint:
       whitelist_patterns:
         - "#^(\\.[^/]+/)?[^/]+\\.yml$#"

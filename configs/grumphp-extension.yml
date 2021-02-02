@@ -125,7 +125,8 @@ grumphp:
       path: 'templates'
       severity: 'warning'
       ruleset: 'FriendsOfTwig\Twigcs\Ruleset\Official'
-      triggered_by: ['twig']
+      triggered_by:
+        - twig
       exclude: []
     yamllint:
       ignore_patterns:
