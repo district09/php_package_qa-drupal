@@ -24,6 +24,7 @@ grumphp:
         - phpcs
         - phpmd
         - phpstan
+        - twigcs
         - yamllint
     tests:
       tasks:
@@ -139,6 +140,14 @@ grumphp:
       end_point: ~
       timeout: ~
       run_always: false
+    twigcs:
+      path: 'web/themes/custom'
+      severity: 'warning'
+      ruleset: 'Digipolisgent\QA\Drupal\Twigcs\Ruleset\Twig'
+      triggered_by:
+        - twig
+      exclude:
+        - vendor
     yamllint:
       whitelist_patterns:
         - "#^(\\.[^/]+/)?[^/]+\\.yml$#"
