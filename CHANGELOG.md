@@ -2,6 +2,12 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [1.4.10]
+
+## Added
+- Official Twig linter, see documentation on https://github.com/phpro/grumphp/blob/master/doc/tasks/twigcs.md
+- WCAG Twig linter, see https://github.com/NielsdeBlaauw/twigcs-a11y
+
 ## [1.4.9]
 
 ### Fixed
@@ -212,6 +218,7 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[1.4.10]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.9...1.4.10
 [1.4.9]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.8...1.4.9
 [1.4.8]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.7...1.4.8
 [1.4.7]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.6...1.4.7
