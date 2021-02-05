@@ -24,6 +24,7 @@ grumphp:
         - phpcs
         - phpmd
         - phpstan
+        - securitychecker_enlightn
         - twigcs
         - yamllint
     tests:
@@ -116,11 +117,8 @@ grumphp:
         - theme
     phpunit:
       config_file: phpunit.qa-drupal.xml
-    securitychecker:
+    securitychecker_enlightn:
       lockfile: ./composer.lock
-      format: ~
-      end_point: ~
-      timeout: ~
       run_always: false
     twigcs:
       path: 'templates'
