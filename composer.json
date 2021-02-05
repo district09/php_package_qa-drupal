@@ -29,6 +29,7 @@
         "drupal/coder": "^8.3",
         "drupal/core": "^8.8 || ^9.0",
         "drupal/drupal-extension": "^4.1",
+        "enlightn/security-checker": "^1.4",
         "ergebnis/composer-normalize": "^2.11",
         "friendsoftwig/twigcs": "^4.0",
         "irstea/phpcpd-shim": "^6.0",
@@ -40,7 +41,6 @@
         "phpspec/prophecy": "^1.10",
         "phpstan/phpstan-deprecation-rules": "^0.12.5",
         "phpunit/phpunit": "^7.5 || ^8.4 || ^9",
-        "sensiolabs/security-checker": "^6.0",
         "symfony/phpunit-bridge": "^3.4 || ^5.2"
     },
     "minimum-stability": "dev",
