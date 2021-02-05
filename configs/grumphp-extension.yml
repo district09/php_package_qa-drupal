@@ -121,7 +121,7 @@ grumphp:
       lockfile: ./composer.lock
       run_always: false
     twigcs:
-      path: 'templates'
+      path: '.'
       severity: 'warning'
       ruleset: 'Digipolisgent\QA\Drupal\Twigcs\Ruleset\Twig'
       triggered_by:
