@@ -139,12 +139,19 @@ grumphp:
       lockfile: ./composer.lock
       run_always: false
     twigcs:
-      path: 'web/themes/custom'
+      path: './web'
       severity: 'warning'
       ruleset: 'Digipolisgent\QA\Drupal\Twigcs\Ruleset\Twig'
       triggered_by:
         - twig
       exclude:
+        - config
+        - core
+        - libraries
+        - modules/contrib
+        - profiles/contrib
+        - themes/contrib
+        - sites
         - vendor
     yamllint:
       whitelist_patterns:
