@@ -2,22 +2,32 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [1.4.13]
+
+### Added
+
+- Add twig files of custom modules to the twigcs task.
+
 ## [1.4.12]
 
-## Changed
+### Changed
+
 - Update minimal requirement for grumphp.
 
 ## [1.4.11]
 
-## Fixed
-- Fixed deprecated securitychecker from SensioLabs
-- Fixed twigcs issue with invalid path
+### Fixed
+
+- Fix deprecated securitychecker from SensioLabs
+- Fix twigcs issue with invalid path
 
 ## [1.4.10]
 
-## Added
-- Official Twig linter, see documentation on https://github.com/phpro/grumphp/blob/master/doc/tasks/twigcs.md
-- WCAG Twig linter, see https://github.com/NielsdeBlaauw/twigcs-a11y
+### Added
+
+- Add Official Twig linter, see documentation on
+  https://github.com/phpro/grumphp/blob/master/doc/tasks/twigcs.md
+- Add WCAG Twig linter, see https://github.com/NielsdeBlaauw/twigcs-a11y
 
 ## [1.4.9]
 
@@ -229,6 +239,7 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[1.4.13]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.12...1.4.13
 [1.4.12]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.11...1.4.12
 [1.4.11]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.10...1.4.11
 [1.4.10]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.9...1.4.10
