@@ -2,10 +2,16 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
-## [1.4.11]
+## [1.4.12]
 
 ## Changed
 - Update minimal requirement for grumphp.
+
+## [1.4.11]
+
+## Fixed
+- Fixed deprecated securitychecker from SensioLabs
+- Fixed twigcs issue with invalid path
 
 ## [1.4.10]
 
@@ -223,6 +229,7 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[1.4.12]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.11...1.4.12
 [1.4.11]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.10...1.4.11
 [1.4.10]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.9...1.4.10
 [1.4.9]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.8...1.4.9
