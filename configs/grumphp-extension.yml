@@ -126,7 +126,8 @@ grumphp:
       ruleset: 'Digipolisgent\QA\Drupal\Twigcs\Ruleset\Twig'
       triggered_by:
         - twig
-      exclude: []
+      exclude:
+        - vendor
     yamllint:
       ignore_patterns:
         - node_modules/
