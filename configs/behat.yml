@@ -5,7 +5,7 @@ default:
   suites:
     default:
       paths:
-        - %paths.base%/tests/features
+        - "%paths.base%/tests/features"
       contexts:
         - Drupal\DrupalExtension\Context\ConfigContext
         - Drupal\DrupalExtension\Context\DrupalContext
@@ -14,7 +14,7 @@ default:
         - Drupal\DrupalExtension\Context\MinkContext
         - Digipolisgent\QA\Drupal\Behat\Context\AccessContext
         - Digipolisgent\QA\Drupal\Behat\Context\DebugContext:
-            path: %paths.base%/tests/features/dumps
+            path: "%paths.base%/tests/features/dumps"
         - Digipolisgent\QA\Drupal\Behat\Context\UriContext
         - Digipolisgent\QA\Drupal\Behat\Context\SelectorContext
   extensions:
@@ -31,9 +31,9 @@ default:
       blackbox: ~
       api_driver: "drupal"
       drush:
-        root: %paths.base%/web
+        root: "%paths.base%/web"
       drupal:
-        drupal_root: %paths.base%/web
+        drupal_root: "%paths.base%/web"
       region_map:
         header: ".header"
         content: ".region-content"
