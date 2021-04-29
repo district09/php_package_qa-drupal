@@ -58,7 +58,7 @@ grumphp:
         - "#^master|develop|feature/([A-Z][A-Z0-9]+-\\d+|[a-z][a-z0-9]*(-[a-z0-9]+)*)|(release|hotfix)/\\d+(\\.\\d+){2}$#"
     git_commit_message:
       matchers:
-        - "/^([A-Z][A-Z0-9]+-\\d+(, [A-Z][A-Z0-9]+-\\d+)*: )?(Add|Change|Fix|Update|Remove|Refactor) /"
+        - "/^([A-Z][A-Z0-9]+-\\d+(, [A-Z][A-Z0-9]+-\\d+)*: )?(Add|Change|Fix|Update|Remove|Refactor|Merge) /"
       case_insensitive: false
     phpcpd:
       directory:
