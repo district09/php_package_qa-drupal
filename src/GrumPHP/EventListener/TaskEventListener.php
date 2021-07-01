@@ -43,12 +43,8 @@ class TaskEventListener
 
         $this->createTaskConfig($task);
 
-        if ($this->isExtension()) {
-            if ($task instanceof PhpStan) {
-                $this->preparePhpStanDrupalRoot();
-            } elseif ($task instanceof Phpunit) {
-                $this->createSitesDirectory();
-            }
+        if (($task instanceof PhpStan || $task instanceof Phpunit) && $this->isExtension()) {
+          $this->prepareDrupalRoot();
         }
     }
 
@@ -205,11 +201,12 @@ class TaskEventListener
     }
 
     /**
-     * Create some files to mimic a Drupal root for PHPStan.
+     * Create some missing files so Drupal can be detected and loaded.
      */
-    protected function preparePhpStanDrupalRoot()
+    protected function prepareDrupalRoot()
     {
         $filesystem = TransactionalFilesystem::getInstance();
+        $filesystem->writeFile('vendor/drupal/composer.json', '{}');
         $filesystem->writeFile(
             'vendor/drupal/vendor/autoload.php',
             '<?php return include dirname(__FILE__, 3) . "/autoload.php";'
@@ -218,17 +215,6 @@ class TaskEventListener
             'vendor/drupal/autoload.php',
             '<?php return include dirname(__FILE__, 2) . "/autoload.php";'
         );
-        $filesystem->writeFile('vendor/drupal/composer.json', '{}');
-
-        $this->createSitesDirectory();
-    }
-
-    /**
-     * Create the sites directory.
-     */
-    protected function createSitesDirectory()
-    {
-        $filesystem = TransactionalFilesystem::getInstance();
 
         if (!$filesystem->exists('vendor/drupal/sites')) {
             $filesystem->mkdir('vendor/drupal/sites');

@@ -1,16 +1,7 @@
-includes:
-  - vendor/mglaman/phpstan-drupal/extension.neon
-  - vendor/phpstan/phpstan-deprecation-rules/rules.neon
-
 parameters:
-  level: 4
-  tipsOfTheDay: false
-  reportUnmatchedIgnoredErrors: false
   ignoreErrors:
     - '#Unsafe usage of new static\(\)#'
     - '#\\Drupal calls should be avoided in classes#'
     - '#Method Drupal\\Core\\Form\\FormBuilderInterface::getForm\(\) invoked with#'
     - '#Access to an undefined property Drupal\\Core\\TypedData\\TypedDataInterface::\$#'
-    - '#Access to an undefined property Drupal\\.*FieldItemList(Interface)?::\$#'
-  excludes_analyse:
-    - '*/node_modules/*'
+    - '#Access to an undefined property Drupal\\.+\\Field\\.+Item(List)?(Interface)?::\$#'

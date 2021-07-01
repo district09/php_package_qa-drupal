@@ -7,7 +7,7 @@ grumphp:
     enabled: true
     fix_by_default: true
   environment:
-    paths:
+    files:
       - .env
       - .env.local
   testsuites:
@@ -63,7 +63,6 @@ grumphp:
       min_lines: 10
       triggered_by:
         - inc
-        - install
         - module
         - php
         - profile

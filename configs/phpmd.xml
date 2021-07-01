@@ -48,24 +48,37 @@
   </rule>
 
   <rule ref="rulesets/naming.xml">
+    <exclude name="LongClassName" />
     <exclude name="ShortVariable" />
     <exclude name="LongVariable" />
   </rule>
 
+  <rule ref="rulesets/naming.xml/LongClassName">
+    <properties>
+      <property name="subtract-suffixes" value="ConstraintValidator,Constraint" />
+    </properties>
+  </rule>
+
   <rule ref="rulesets/naming.xml/ShortVariable">
     <properties>
-      <property name="minimum" value="2" />
-      <property name="exceptions" value="id" />
+      <property name="exceptions" value="id,ex,or" />
     </properties>
   </rule>
 
   <rule ref="rulesets/naming.xml/LongVariable">
     <properties>
-      <property name="maximum" value="30" />
+      <property name="maximum" value="50" />
     </properties>
   </rule>
 
   <rule ref="rulesets/unusedcode.xml">
     <exclude name="UnusedFormalParameter" />
+    <exclude name="UnusedLocalVariable" />
+  </rule>
+
+  <rule ref="rulesets/unusedcode.xml/UnusedLocalVariable">
+    <properties>
+      <property name="allow-unused-foreach-variables" value="true" />
+    </properties>
   </rule>
 </ruleset>
