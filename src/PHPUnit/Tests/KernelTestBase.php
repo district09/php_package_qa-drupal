@@ -11,22 +11,15 @@ abstract class KernelTestBase extends DrupalKernelTestBase
 {
 
     /**
-     * The current working directory.
-     *
-     * @var string
-     */
-    protected static $cwd;
-
-    /**
      * {@inheritdoc}
      */
     public static function setUpBeforeClass() {
-        static::$cwd = getcwd();
+        $cwd = getcwd();
 
         parent::setUpBeforeClass();
 
         // Change back to initial working directory so PHPUnit can find its configuration file.
-        chdir(static::$cwd);
+        chdir($cwd);
     }
 
     /**
@@ -49,6 +42,7 @@ abstract class KernelTestBase extends DrupalKernelTestBase
         $modules_paths = [];
 
         // Allow passing the module name as key and its path as value.
+        // Note that the path should be relative to the drupal root.
         foreach ($modules as $key => $value) {
             if (is_numeric($key)) {
                 $module_names[] = $value;
@@ -56,7 +50,7 @@ abstract class KernelTestBase extends DrupalKernelTestBase
             }
 
             $module_names[] = $key;
-            $modules_paths[$key] = static::$cwd . '/' . $value;
+            $modules_paths[$key] = trim($value, '/');
         }
 
         // Enable the modules that were specified with a custom path.
