@@ -2,6 +2,17 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [1.5.0]
+
+### Changed
+
+- Change phpmd from shim to "normal" package.
+- Change phpcpd from shim to "normal" package.
+
+### Update
+
+- Update phpstan to 1.x.x.
+
 ## [1.4.13]
 
 ### Added
@@ -239,6 +250,7 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[1.5.0]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.13...1.5.0
 [1.4.13]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.12...1.4.13
 [1.4.12]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.11...1.4.12
 [1.4.11]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.10...1.4.11
