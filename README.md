@@ -9,9 +9,10 @@ for Drupal websites and extensions (modules, themes or profiles).
 
 ## Versions
 
-| Package | Drupal |
-| ------- | ------ |
-| 1       | 8      |
+The versions support different PHP & Drupal versions:
+
+* Until 1.4.x : PHP 7.3 or 7.4 & Drupal 8.8+ or 9+.
+* From 1.5.x : PHP 7.4 & Drupal 9.1 or higher.
 
 ## Installation
 
@@ -27,21 +28,10 @@ Add the `grumphp` entry to the `extra` section of your `composer.json`.
 }
 ```
 
-The qa-drupal package will install PHPUnit 9.x by default (depending on the
-local PHP version). This because no other package requires a specific PHPUnit
-version. Drupal 8.x requires PHPUnit 7.5+, Drupal 9.0.x & 9.1.x requires
-PHPUnit 8.x. Only Drupal 9.2+ gets automatically the correct PHP version.
-
-So add the correct PHPUnit version, if required to the dev section of composer:
-
-```bash
-composer require --dev phpunit/phpunit:^7.5
-```
-
 Add the qa-drupal package as dev requirement:
 
 ```bash
-composer require --dev digipolisgent/qa-drupal:^1.0
+composer require --dev digipolisgent/qa-drupal:^1.5
 ```
 
 ### Drupal module
@@ -57,18 +47,8 @@ Add the `grumphp` entry to the `extra` section of your `composer.json`.
 Add the qa-drupal package as dev requirement:
 
 ```bash
-composer require --dev digipolisgent/qa-drupal:^1.0
+composer require --dev digipolisgent/qa-drupal:^1.5
 ```
-
-**NOTE** : phpstan needs a Drupal project in a `drupal` directory next to the
-module directory. You can do this by running following command in the directory
-above the module directory:
-
-```bash
-composer create-project "drupal/recommended-project:8.9.x-dev" ./drupal --prefer-dist
-```
-
-You can replace the drupal version by 8.8.x-dev, 9.0.x-dev, 9.1.x-dev, ...
 
 ## Configuration
 

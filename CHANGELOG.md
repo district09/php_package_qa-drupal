@@ -6,10 +6,12 @@ All Notable changes to the **Quality Assurance - Drupal** package.
 
 ### Changed
 
+- Change minimal PHP version to 7.4.
+- Change minimal Drupal version to 9.1.
 - Change phpmd from shim to "normal" package.
 - Change phpcpd from shim to "normal" package.
 
-### Update
+### Updated
 
 - Update phpstan to 1.x.x.
 

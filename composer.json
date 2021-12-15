@@ -25,7 +25,8 @@
         }
     },
     "require": {
-        "php": "^7.3",
+        "php": "^7.4",
+        "drupal/core": "^9.1",
         "drupal/coder": "^8.3",
         "drupal/drupal-extension": "^4.1",
         "enlightn/security-checker": "^1.4",
@@ -36,13 +37,11 @@
         "phpmd/phpmd" : "^2.11",
         "phpro/grumphp-shim": "^1.5.0",
         "phpspec/prophecy": "^1.10",
+        "phpspec/prophecy-phpunit": "^2",
         "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpunit/phpunit": "^7.5 || ^8.4 || ^9",
+        "phpunit/phpunit": "^9",
         "sebastian/phpcpd": "^6.0",
-        "symfony/phpunit-bridge": "^3.4 || ^5.2"
-    },
-    "require-dev": {
-        "drupal/core": "^8.8 || ^9.0"
+        "symfony/phpunit-bridge": "^5.2"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
