@@ -78,7 +78,6 @@ grumphp:
       min_lines: 10
       triggered_by:
         - inc
-        - install
         - module
         - php
         - profile
