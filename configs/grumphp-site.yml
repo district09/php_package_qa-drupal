@@ -74,6 +74,7 @@ grumphp:
         - "*Test.php"
         - "*TestBase.php"
         - "*TestCase.php"
+        - "*.install"
       min_lines: 10
       triggered_by:
         - inc
