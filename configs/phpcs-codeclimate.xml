@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ruleset>
-  <description>PHP CodeSniffer ruleset for Drupal & CodeClimate.</description>
+  <description>PHP CodeSniffer ruleset for Drupal and CodeClimate.</description>
 
   <!-- Minified files don't have to comply with coding standards. -->
   <exclude-pattern>*.min.css</exclude-pattern>
