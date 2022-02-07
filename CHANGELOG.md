@@ -2,6 +2,16 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [1.5.1]
+
+### Changed
+
+- Add the *.install extension to the excluded files.
+
+### Fixed
+
+- Fix failing CodeClimate builds by changing `config/phpcs.xml` config file.
+
 ## [1.5.0]
 
 ### Changed

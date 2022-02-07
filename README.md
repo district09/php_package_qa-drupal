@@ -166,3 +166,16 @@ Configure the paths to these files in PHPStorm:
   Set "Coding Standard" to "Custom" and set the path to `phpcs.qa-drupal.xml`.
 * Languages & Frameworks > PHP > Test Frameworks > Test Runner
   Set "Default configuration file" to `phpunit.qa-drupal.xml`.
+
+## CodeClimate
+
+Make sure that you use the beta channel for the PHPCodeSniffer plugin:
+
+```yaml
+plugins:
+  phpcodesniffer:
+    enabled: true
+    channel: beta
+    config:
+      standard: ".phpcs.xml"
+```
