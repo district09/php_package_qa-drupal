@@ -2,6 +2,12 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [1.5.5]
+
+### Fixed
+
+- Fix not closed XML tags in phpcs*.xml.
+
 ## [1.5.4]
 
 ### Fixed
@@ -276,6 +282,7 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[1.5.5]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.5.4...1.5.5
 [1.5.4]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.5.3...1.5.4
 [1.5.3]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.5.2...1.5.3
 [1.5.2]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.5.1...1.5.2

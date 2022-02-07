@@ -7,7 +7,7 @@
   <exclude-pattern>*.min.js</exclude-pattern>
 
   <rule ref="Drupal"/>
-  <rule ref="DrupalPractice">
+  <rule ref="DrupalPractice"/>
 
   <!-- PSR-12 sniffs -->
   <rule ref="PSR12.Files.DeclareStatement"/>
