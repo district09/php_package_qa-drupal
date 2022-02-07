@@ -169,6 +169,17 @@ Configure the paths to these files in PHPStorm:
 
 ## CodeClimate
 
+Update the `.codeclimate.yml` file within your project.
+
+Make sure that you use the CodeClimate specific phpcs config file:
+
+```yaml
+prepare:
+  fetch:
+    - url: "https://raw.githubusercontent.com/digipolisgent/php_package_qa-drupal/1.x/configs/phpcs-codeclimate.xml"
+      path: ".phpcs.xml"
+```
+
 Make sure that you use the beta channel for the PHPCodeSniffer plugin:
 
 ```yaml
@@ -179,3 +190,5 @@ plugins:
     config:
       standard: ".phpcs.xml"
 ```
+
+
