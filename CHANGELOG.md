@@ -2,15 +2,23 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
-## [1.5.1]
-
-### Changed
-
-- Add the *.install extension to the excluded files.
+## [1.5.3]
 
 ### Fixed
 
 - Fix failing CodeClimate builds by changing `config/phpcs.xml` config file.
+
+## [1.5.2]
+
+### Changed
+
+- Add the *.install extension to the excluded files for PHP Mess Detector.
+
+## [1.5.1]
+
+### Changed
+
+- Add the *.install extension to the excluded files for PHP CodeSniffer.
 
 ## [1.5.0]
 
@@ -262,6 +270,9 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[1.5.3]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.5.2...1.5.3
+[1.5.2]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.5.1...1.5.2
+[1.5.1]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.5.0...1.5.1
 [1.5.0]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.13...1.5.0
 [1.4.13]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.12...1.4.13
 [1.4.12]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.4.11...1.4.12
