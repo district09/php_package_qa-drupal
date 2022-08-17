@@ -8,6 +8,7 @@
 
   <rule ref="./vendor/drupal/coder/coder_sniffer/Drupal"/>
   <rule ref="./vendor/drupal/coder/coder_sniffer/DrupalPractice"/>
+  <rule ref="./vendor/phpcompatibility/php-compatibility/PHPCompatibility"/>
 
   <!-- PSR-12 sniffs -->
   <rule ref="PSR12.Files.DeclareStatement"/>
