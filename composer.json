@@ -34,6 +34,7 @@
         "mglaman/phpstan-drupal": "^1.1",
         "nette/neon": "^3.2",
         "nielsdeblaauw/twigcs-a11y": "^0.3.0",
+        "phpcompatibility/php-compatibility": "^9.3",
         "phpmd/phpmd": "^2.11",
         "phpro/grumphp-shim": "^1.5.0",
         "phpspec/prophecy": "^1.10",
