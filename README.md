@@ -191,4 +191,10 @@ plugins:
       standard: ".phpcs.xml"
 ```
 
+### PHP compatibility
 
+In order to check php compatibility you can use the phpcs `PHPCompatibility` sniff:
+
+```bash
+php vendor/bin/phpcs -p --ignore="*/vendor/*" --extensions=php,inc,module,install,theme --runtime-set testVersion 8.1 --standard=PHPCompatibility ./web/modules/contrib
+```
