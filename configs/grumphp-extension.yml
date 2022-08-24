@@ -49,10 +49,10 @@ grumphp:
         - theme
     git_branch_name:
       whitelist:
-        - "#^\\d+(\\.\\d+)?\\.x|feature/([A-Z][A-Z0-9]+-\\d+|[a-z][a-z0-9]*(-[a-z0-9]+)*)$#"
+        - "#^main|^master|^develop|^\\d+(\\.\\d+)?\\.x|^(release|hotfix)/\\d+\\.\\d+\\.\\d+|^feature/([A-Z][A-Z\\d]+-\\d+|[a-z][a-z\\d]*(-[a-z\\d]+)*)$#"
     git_commit_message:
       matchers:
-        - "/^([A-Z][A-Z0-9]+-\\d+(, [A-Z][A-Z0-9]+-\\d+)*: )?(Add|Change|Fix|Update|Remove|Refactor) /"
+        - "/^([A-Z][A-Z\\d]+-\\d+(, [A-Z][A-Z\\d]+-\\d+)*: )?(Add|Change|Fix|Update|Remove|Refactor|Merge|RELEASE) /"
       case_insensitive: false
     phpcpd:
       exclude:

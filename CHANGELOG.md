@@ -2,6 +2,34 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [1.7.0]
+
+### Added
+
+- Add support for main branches.
+- Add support for release/x.x.x branches.
+- Add support for hotfix/x.x.x branches.
+- Add support for RELEASE commit messages.
+- Add support for Merge commit messages.
+
+## [1.6.2]
+
+### Added
+
+- Add php compatibility checker.
+
+## [1.6.1]
+
+### Added
+
+- Add exclusion rule for JS/CSS.
+
+## [1.6.0]
+
+### Added
+
+- Add support for PHP 8.1.
+
 ## [1.5.6]
 
 ### Fixed
@@ -288,6 +316,10 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[1.7.0]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.6.2...1.7.0
+[1.6.2]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.6.1...1.6.2
+[1.6.1]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.6.0...1.6.1
+[1.6.0]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.5.6...1.6.0
 [1.5.6]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.5.5...1.5.6
 [1.5.5]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.5.4...1.5.5
 [1.5.4]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.5.3...1.5.4
