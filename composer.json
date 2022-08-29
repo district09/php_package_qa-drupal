@@ -1,6 +1,7 @@
 {
     "name": "digipolisgent/qa-drupal",
     "description": "Quality Assurance tools and configuration for Drupal websites and extensions.",
+    "license": "MIT",
     "type": "library",
     "authors": [
         {
