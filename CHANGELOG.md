@@ -2,6 +2,23 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [1.7.2]
+
+### Added
+
+- Add travis build.
+
+### Changed
+
+- Change minimal Drupal version to 9.3.
+
+## [1.7.1]
+
+### Added
+
+- Add support for php 8.0
+- Add support for PHP 8.1
+
 ## [1.7.0]
 
 ### Added

@@ -3,6 +3,10 @@
 This package provides a set of Quality Assurance tools and configuration files
 for Drupal websites and extensions (modules, themes or profiles).
 
+[![Build Status Master][travis-badge]][travis-link]
+[![Maintainability][codeclimate-maint-badge]][codeclimate-maint-link]
+[![License][license-badge]][license-link]
+
 ## Requirements
 
 * [Composer](https://getcomposer.org)
@@ -13,6 +17,7 @@ The versions support different PHP & Drupal versions:
 
 * Until 1.4.x : PHP 7.3 or 7.4 & Drupal 8.8+ or 9+.
 * From 1.5.x : PHP 7.4 & Drupal 9.1 or higher.
+* From 1.7.X : PHP 7.4, 8.X & DRUPAL 9.3 or higher.
 
 ## Installation
 
@@ -198,3 +203,12 @@ In order to check php compatibility you can use the phpcs `PHPCompatibility` sni
 ```bash
 php vendor/bin/phpcs -p --ignore="*/vendor/*" --extensions=php,inc,module,install,theme --runtime-set testVersion 8.1 --standard=PHPCompatibility ./web/modules/contrib
 ```
+
+[license-badge]: https://img.shields.io/packagist/l/digipolisgent/qa-drupal
+[license-link]: LICENSE.md
+
+[travis-badge]: https://api.travis-ci.com/district09/php_package_qa-drupal.svg?branch=develop "Travis build develop"
+[travis-link]: https://travis-ci.com/github/district09/php_package_qa-drupal/branches
+
+[codeclimate-maint-badge]: https://api.codeclimate.com/v1/badges/d3d6d20fbc6efb09337e/maintainability
+[codeclimate-maint-link]: https://codeclimate.com/github/district09/php_package_qa-drupal/maintainability
