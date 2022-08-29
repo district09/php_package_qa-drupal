@@ -1,0 +1,42 @@
+language: php
+sudo: false
+
+php:
+  - 7.4
+  - 8.0
+  - 8.1
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+env:
+  matrix:
+    - DRUPAL=9.3
+    - DRUPAL=9.4
+
+jobs:
+  fast_finish: true
+
+before_install:
+  # Update composer.
+  - composer self-update --2
+  - composer --version
+
+  # Configure the authentication mechanisms.
+  - if [ "${GITHUB_TOKEN}" != "" ]; then composer config github-oauth.github.com ${GITHUB_TOKEN}; fi
+
+  # Require Drupal core.
+  - composer require -n --no-update --sort-packages --dev drupal/core:~$DRUPAL.0
+
+  # Get and run the Code Climate test reporter.
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+script:
+  - composer install -n
+
+after_script:
+  # Run the Code Climate test reporter.
+  - ./cc-test-reporter after-build --coverage-input-type clover --exit-code $TRAVIS_TEST_RESULT

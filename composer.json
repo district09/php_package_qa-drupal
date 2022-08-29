@@ -19,15 +19,10 @@
             "role": "developer"
         }
     ],
-    "autoload": {
-        "psr-4": {
-            "Digipolisgent\\QA\\Drupal\\": "src/"
-        }
-    },
     "require": {
         "php": "^7.4 || ^8.0",
         "drupal/coder": "^8.3",
-        "drupal/core": "^9.1",
+        "drupal/core": "^9.3",
         "drupal/drupal-extension": "^4.1",
         "enlightn/security-checker": "^1.4",
         "ergebnis/composer-normalize": "^2.11",
@@ -46,7 +41,17 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Digipolisgent\\QA\\Drupal\\": "src/"
+        }
+    },
     "config": {
+        "allow-plugins": {
+            "phpro/grumphp-shim": true,
+            "ergebnis/composer-normalize": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
         "sort-packages": true
     }
 }
