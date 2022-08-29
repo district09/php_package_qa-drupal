@@ -19,11 +19,6 @@
             "role": "developer"
         }
     ],
-    "autoload": {
-        "psr-4": {
-            "Digipolisgent\\QA\\Drupal\\": "src/"
-        }
-    },
     "require": {
         "php": "^7.4 || ^8.0",
         "drupal/coder": "^8.3",
@@ -46,7 +41,17 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Digipolisgent\\QA\\Drupal\\": "src/"
+        }
+    },
     "config": {
+        "allow-plugins": {
+            "phpro/grumphp-shim": true,
+            "ergebnis/composer-normalize": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
         "sort-packages": true
     }
 }

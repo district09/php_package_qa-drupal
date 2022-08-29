@@ -25,7 +25,6 @@ before_install:
 
   # Configure the authentication mechanisms.
   - if [ "${GITHUB_TOKEN}" != "" ]; then composer config github-oauth.github.com ${GITHUB_TOKEN}; fi
-  - if [ "${REPMAN_TOKEN}" != "" ]; then composer config --global --auth http-basic.digipolis.repo.repman.io token ${REPMAN_TOKEN}; fi
 
   # Require Drupal core.
   - composer require -n --no-update --sort-packages --dev drupal/core:~$DRUPAL.0
