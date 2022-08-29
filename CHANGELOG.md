@@ -2,6 +2,12 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [1.7.3]
+
+### Added
+
+- Add missing licence information.
+
 ## [1.7.2]
 
 ### Added
@@ -333,6 +339,9 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[1.7.3]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.7.2...1.7.3
+[1.7.2]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.7.1...1.7.2
+[1.7.1]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.7.0...1.7.1
 [1.7.0]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.6.2...1.7.0
 [1.6.2]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.6.1...1.6.2
 [1.6.1]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.6.0...1.6.1
