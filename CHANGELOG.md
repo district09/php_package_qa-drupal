@@ -2,6 +2,13 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [1.8.0]
+
+### Added
+
+- Add excluding hand-crafted mocks from coverage reports. This will exclude
+  file names ending with Stub.php or Spy.php.
+
 ## [1.7.3]
 
 ### Added
@@ -339,6 +346,7 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[1.8.0]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.7.3...1.8.0
 [1.7.3]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.7.2...1.7.3
 [1.7.2]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.7.1...1.7.2
 [1.7.1]: https://github.com/digipolisgent/php_package_qa-drupal/compare/1.7.0...1.7.1
