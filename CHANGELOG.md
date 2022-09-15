@@ -2,6 +2,13 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [Unreleased]
+
+### Added
+
+- Add excluding hand-crafted mocks from coverage reports. This will exclude
+  file names ending with Stub.php or Spy.php.
+
 ## [1.7.3]
 
 ### Added
