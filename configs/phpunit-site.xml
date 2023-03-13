@@ -48,6 +48,7 @@
         <directory suffix="Test.php">./</directory>
         <directory suffix="TestBase.php">./</directory>
         <directory suffix="TestCase.php">./</directory>
+        <directory>web/themes/custom/*/source</directory>
       </exclude>
     </whitelist>
   </filter>

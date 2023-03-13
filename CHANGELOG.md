@@ -2,6 +2,12 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [Unreleased]
+
+### added
+
+- Add exclude node modules from PHPUnit.
+
 ## [1.8.0]
 
 ### Added
