@@ -2,6 +2,20 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [Unreleased]
+
+### Added
+
+- Add Drupal 10 support.
+
+### Changed
+
+- Change minimal PHP version to 8.1.
+
+### Removed
+
+- Remove Drupal 9.3.x support.
+
 ## [1.8.1]
 
 ### added
