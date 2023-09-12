@@ -2,6 +2,20 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [2.0.2]
+
+### Changed
+
+- Change to browserkit instead of goutte.
+  Use the browserkit_http driver instead og the goutte driver. See:
+  https://github.com/jhedstrom/drupalextension/commit/2ab66a7eae53ae4e1e5824edaa72e98039b084db
+
+## [2.0.1]
+
+### Fixed
+
+- Fix Drupal support higher than 10.0.0.
+
 ## [2.0.0]
 
 ### Added
@@ -366,6 +380,8 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[2.0.2]: https://github.com/district09/php_package_qa-drupal/compare/2.0.1...2.0.2
+[2.0.1]: https://github.com/district09/php_package_qa-drupal/compare/2.0.0...2.0.1
 [2.0.0]: https://github.com/district09/php_package_qa-drupal/compare/1.8.1...2.0.0
 [1.8.1]: https://github.com/district09/php_package_qa-drupal/compare/1.8.0...1.8.1
 [1.8.0]: https://github.com/district09/php_package_qa-drupal/compare/1.7.3...1.8.0
