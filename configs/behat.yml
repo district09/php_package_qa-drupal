@@ -18,12 +18,12 @@ default:
         - Digipolisgent\QA\Drupal\Behat\Context\UriContext
         - Digipolisgent\QA\Drupal\Behat\Context\SelectorContext
   extensions:
-    Behat\MinkExtension:
-      goutte: ~
+    Drupal\MinkExtension:
+      browserkit_http: ~
       selenium2: ~
       sessions:
         default:
-          goutte: ~
+          browserkit_http: ~
         javascript:
           selenium2:
             wd_host: "http://localhost:4444/wd/hub"
