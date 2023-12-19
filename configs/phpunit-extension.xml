@@ -50,10 +50,10 @@
         <directory suffix="TestCase.php">./</directory>
         <directory>web/themes/custom/*/source</directory>
     </exclude>
-  </coverage>
 
-  <logging>
-    <html outputDirectory="build/coverage"/>
-    <clover outputFile="build/logs/clover.xml"/>
-  </logging>
+    <report>
+      <html outputDirectory="../build/coverage"/>
+      <clover outputFile="../build/logs/clover.xml"/>
+    </report>
+  </coverage>
 </phpunit>
