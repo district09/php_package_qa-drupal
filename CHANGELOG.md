@@ -2,6 +2,14 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [2.0.3]
+
+### Changed
+
+- Update the phpunit config files to comply to the new xml schema since phpunit
+  9.3.0
+- Update minimal phpunit version to 9.3.0.
+
 ## [2.0.2]
 
 ### Changed
