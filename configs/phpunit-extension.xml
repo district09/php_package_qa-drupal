@@ -36,10 +36,11 @@
     </listener>
   </listeners>
 
-  <filter>
-    <whitelist>
+  <coverage>
+    <include>
       <directory suffix=".php">./</directory>
-      <exclude>
+    </include>
+    <exclude>
         <directory>./vendor</directory>
         <directory suffix=".api.php">./</directory>
         <directory suffix="Spy.php">./</directory>
@@ -47,12 +48,12 @@
         <directory suffix="Test.php">./</directory>
         <directory suffix="TestBase.php">./</directory>
         <directory suffix="TestCase.php">./</directory>
-      </exclude>
-    </whitelist>
-  </filter>
+        <directory>web/themes/custom/*/source</directory>
+    </exclude>
+  </coverage>
 
   <logging>
-    <log type="coverage-html" target="build/coverage"/>
-    <log type="coverage-clover" target="build/logs/clover.xml"/>
+    <html outputDirectory="build/coverage"/>
+    <clover outputFile="build/logs/clover.xml"/>
   </logging>
 </phpunit>
