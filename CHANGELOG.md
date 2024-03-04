@@ -2,6 +2,12 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [2.1.1]
+
+### Added
+
+- Add custom theme(s) node_modules to the phpcpd exclude patterns.
+
 ## [2.1.0]
 
 ### Changes
@@ -397,6 +403,7 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[2.1.1]: https://github.com/district09/php_package_qa-drupal/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/district09/php_package_qa-drupal/compare/2.0.3...2.1.0
 [2.0.3]: https://github.com/district09/php_package_qa-drupal/compare/2.0.2...2.0.3
 [2.0.2]: https://github.com/district09/php_package_qa-drupal/compare/2.0.1...2.0.2

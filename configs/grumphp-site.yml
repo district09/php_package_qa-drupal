@@ -70,6 +70,7 @@ grumphp:
         - web/*/contrib
         - web/modules/custom/*/tests
         - web/sites
+        - web/themes/custom/*/source
         - "*.api.php"
         - "*Test.php"
         - "*TestBase.php"
