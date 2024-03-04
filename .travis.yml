@@ -10,9 +10,7 @@ cache:
 
 env:
   matrix:
-    - DRUPAL=9.4
-    - DRUPAL=9.5
-    - DRUPAL=10.0
+    - DRUPAL=10.2
 
 jobs:
   fast_finish: true
