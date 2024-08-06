@@ -3,7 +3,6 @@ language: php
 sudo: false
 
 php:
-  - 8.2
   - 8.3
 
 cache:
@@ -12,14 +11,10 @@ cache:
 
 env:
   matrix:
-    - DRUPAL=10.3
     - DRUPAL=11.0
 
 jobs:
   fast_finish: true
-  exclude:
-  - php: 8.2
-    env: DRUPAL=11.0
 
 before_install:
   # Update composer.
