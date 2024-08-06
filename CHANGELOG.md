@@ -2,6 +2,18 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [3.0.0]
+
+### Added
+
+- Add Drupal 11 support
+
+### Removed
+
+- Remove Drupal 10 support
+- Remove support for php 8.1
+- Remove nielsdeblaauw/twigcs-a11y module
+
 ## [2.1.1]
 
 ### Added
@@ -403,6 +415,7 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[3.0.0]: https://github.com/district09/php_package_qa-drupal/compare/2.1.0...3.0.0
 [2.1.1]: https://github.com/district09/php_package_qa-drupal/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/district09/php_package_qa-drupal/compare/2.0.3...2.1.0
 [2.0.3]: https://github.com/district09/php_package_qa-drupal/compare/2.0.2...2.0.3

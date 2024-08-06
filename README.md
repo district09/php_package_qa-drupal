@@ -18,6 +18,7 @@ The versions support different PHP & Drupal versions:
 * Until 1.4.x : PHP 7.3 or 7.4 & Drupal 8.8+ or 9+.
 * From 1.5.x : PHP 7.4 & Drupal 9.1 or higher.
 * From 1.7.X : PHP 7.4, 8.X & DRUPAL 9.3 or higher.
+* From 3.0.x : PHP 8.3, DRUPAL 11.0 or higher.
 
 ## Installation
 
