@@ -23,7 +23,7 @@
     "require": {
         "php": "^8.3",
         "drupal/coder": "^8.3",
-        "drupal/core": "^11.0",
+        "drupal/core": "^10 || ^11.0",
         "drupal/drupal-extension": "^5.0",
         "enlightn/security-checker": "^1.4",
         "ergebnis/composer-normalize": "^2.11",
