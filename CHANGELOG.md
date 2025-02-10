@@ -2,6 +2,12 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [3.0.2]
+
+### Added
+
+- Add PHPunit 10 support.
+
 ## [3.0.1]
 
 ### Added
@@ -421,6 +427,7 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[3.0.2]: https://github.com/district09/php_package_qa-drupal/compare/3.0.1...3.0.2
 [3.0.1]: https://github.com/district09/php_package_qa-drupal/compare/3.0.0...3.0.1
 [3.0.0]: https://github.com/district09/php_package_qa-drupal/compare/2.1.0...3.0.0
 [2.1.1]: https://github.com/district09/php_package_qa-drupal/compare/2.1.0...2.1.1
