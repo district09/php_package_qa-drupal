@@ -20,10 +20,16 @@
             "role": "developer"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/systemsdk/phpcpd"
+        }
+    ],
     "require": {
         "php": "^8.3",
         "drupal/coder": "^8.3",
-        "drupal/core": "^10.3 || ^11.0",
+        "drupal/core": "^11.0",
         "drupal/drupal-extension": "^5.0",
         "enlightn/security-checker": "^1.4",
         "ergebnis/composer-normalize": "^2.11",
@@ -36,8 +42,8 @@
         "phpspec/prophecy-phpunit": "^2",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpunit/phpunit": "^9.3 || ^10.0",
-        "sebastian/phpcpd": "^6.0",
-        "symfony/phpunit-bridge": "^5.2 || ^6.0"
+        "symfony/phpunit-bridge": "^5.2 || ^6.0",
+        "systemsdk/phpcpd": "^7.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
