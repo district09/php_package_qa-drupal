@@ -2,6 +2,13 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [4.0.0-alpha3]
+
+### Changes
+
+- Update the phpunit config file to make them work with the changes done to
+`core/tests/bootstrap.php` in Drupal 11.1.
+
 ## [4.0.0-alpha2]
 
 ### Updated
@@ -444,6 +451,7 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[4.0.0-alpha3]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0-alpha2...4.0.0-alpha3
 [4.0.0-alpha2]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0-alpha1...4.0.0-alpha2
 [4.0.0-alpha1]: https://github.com/district09/php_package_qa-drupal/compare/3.0.2...4.0.0-alpha1
 [3.0.2]: https://github.com/district09/php_package_qa-drupal/compare/3.0.1...3.0.2
