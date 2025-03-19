@@ -16,16 +16,16 @@
 
   <testsuites>
     <testsuite name="unit">
-      <file>../vendor/digipolisgent/qa-drupal/src/PHPUnit/TestSuites/UnitTestSuite.php</file>
+      <file>vendor/digipolisgent/qa-drupal/src/PHPUnit/TestSuites/UnitTestSuite.php</file>
     </testsuite>
     <testsuite name="kernel">
-      <file>../vendor/digipolisgent/qa-drupal/src/PHPUnit/TestSuites/KernelTestSuite.php</file>
+      <file>vendor/digipolisgent/qa-drupal/src/PHPUnit/TestSuites/KernelTestSuite.php</file>
     </testsuite>
     <testsuite name="functional">
-      <file>../vendor/digipolisgent/qa-drupal/src/PHPUnit/TestSuites/FunctionalTestSuite.php</file>
+      <file>vendor/digipolisgent/qa-drupal/src/PHPUnit/TestSuites/FunctionalTestSuite.php</file>
     </testsuite>
     <testsuite name="functional-javascript">
-      <file>../vendor/digipolisgent/qa-drupal/src/PHPUnit/TestSuites/FunctionalJavascriptTestSuite.php</file>
+      <file>vendor/digipolisgent/qa-drupal/src/PHPUnit/TestSuites/FunctionalJavascriptTestSuite.php</file>
     </testsuite>
   </testsuites>
 
@@ -38,9 +38,9 @@
 
   <coverage>
     <include>
-      <directory suffix=".php">modules/custom</directory>
-      <directory suffix=".php">profiles/custom</directory>
-      <directory suffix=".php">themes/custom</directory>
+      <directory suffix=".php">web/modules/custom</directory>
+      <directory suffix=".php">web/profiles/custom</directory>
+      <directory suffix=".php">web/themes/custom</directory>
     </include>
     <exclude>
         <directory suffix=".api.php">./</directory>
@@ -49,7 +49,7 @@
         <directory suffix="Test.php">./</directory>
         <directory suffix="TestBase.php">./</directory>
         <directory suffix="TestCase.php">./</directory>
-        <directory>themes/custom/*/source</directory>
+        <directory>web/themes/custom/*/source</directory>
     </exclude>
 
     <report>
