@@ -4,6 +4,9 @@ All Notable changes to the **Quality Assurance - Drupal** package.
 
 ## [4.0.0-alpha4]
 
+### Added
+
+- Added friendsoftwig/twigcs again since this is D11 compatible.
 ### Changes
 
 - Since Drupal 11 we don't need testsuites anymore and we just need to define the folder where the specific tests are in.
