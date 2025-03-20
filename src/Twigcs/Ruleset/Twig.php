@@ -4,7 +4,6 @@ namespace Digipolisgent\QA\Drupal\Twigcs\Ruleset;
 
 use FriendsOfTwig\Twigcs\Ruleset\Official;
 use FriendsOfTwig\Twigcs\Ruleset\RulesetInterface;
-use NdB\TwigCSA11Y\Ruleset;
 
 /**
  * Twig ruleset.
@@ -26,8 +25,7 @@ class Twig implements RulesetInterface
     public function getRules()
     {
         $official = new Official($this->twigMajorVersion);
-        $wcag = new Ruleset($this->twigMajorVersion);
 
-        return array_merge($official->getRules(), $wcag->getRules());
+        return array_merge($official->getRules());
     }
 }
