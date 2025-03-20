@@ -33,6 +33,7 @@
         "drupal/drupal-extension": "^5.0",
         "enlightn/security-checker": "^2.0",
         "ergebnis/composer-normalize": "^2.11",
+        "friendsoftwig/twigcs": "^6.5",
         "mglaman/phpstan-drupal": "^1.1",
         "nette/neon": "^3.2",
         "phpcompatibility/php-compatibility": "^9.3",
