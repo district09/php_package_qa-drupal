@@ -17,18 +17,29 @@
   <testsuites>
     <testsuite name="unit">
       <directory>web/modules/custom/**/tests/src/Unit</directory>
+      <directory>web/profiles/custom/**/tests/src/Unit</directory>
+      <directory>web/themes/custom/**/tests/src/Unit</directory>
     </testsuite>
     <testsuite name="kernel">
       <directory>web/modules/custom/**/tests/src/Kernel</directory>
+      <directory>web/recipes/custom/*/tests/src/Kernel</directory>
+      <directory>web/profiles/custom/**/tests/src/Kernel</directory>
+      <directory>web/themes/custom/**/tests/src/Kernel</directory>
     </testsuite>
     <testsuite name="functional">
-      <directory>web/modules/custom/**/tests/src/functional</directory>
+      <directory>web/modules/custom/**/tests/src/Functional</directory>
+      <directory>web/profiles/custom/**/tests/src/Functional</directory>
+      <directory>web/recipes/custom/*/tests/src/Functional</directory>
+      <directory>web/themes/custom/**/tests/src/Functional</directory>
     </testsuite>
     <testsuite name="functional-javascript">
-      <directory>web/modules/custom/**/tests/src/FunctionalJavascriptTests</directory>
+      <directory>web/modules/custom/**/tests/src/FunctionalJavascript</directory>
+      <directory>web/recipes/custom/*/tests/src/FunctionalJavascript</directory>
+      <directory>web/profiles/custom/**/tests/src/FunctionalJavascript</directory>
+      <directory>web/themes/custom/**/tests/src/FunctionalJavascript</directory>
     </testsuite>
     <testsuite name="build">
-      <directory>web/modules/custom/**/tests/src/BuildTests</directory>
+      <directory>web/modules/custom/**/tests/src/Build</directory>
     </testsuite>
   </testsuites>
 
