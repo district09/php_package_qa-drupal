@@ -2,6 +2,13 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [4.0.0-alpha4]
+
+### Changes
+
+- Since Drupal 11 we don't need testsuites anymore and we just need to define the folder where the specific tests are in.
+  See https://git.drupalcode.org/project/drupal/-/blob/11.x/core/phpunit.xml.dist?ref_type=heads#L84
+
 ## [4.0.0-alpha3]
 
 ### Changes
@@ -451,6 +458,7 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[4.0.0-alpha4]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0-alpha3...4.0.0-alpha4
 [4.0.0-alpha3]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0-alpha2...4.0.0-alpha3
 [4.0.0-alpha2]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0-alpha1...4.0.0-alpha2
 [4.0.0-alpha1]: https://github.com/district09/php_package_qa-drupal/compare/3.0.2...4.0.0-alpha1
