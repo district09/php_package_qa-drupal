@@ -2,6 +2,12 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [4.0.0-alpha5]
+
+### Fixed
+
+- Phpunit not working for extensions (modules)
+
 ## [4.0.0-alpha4]
 
 ### Added
@@ -461,6 +467,7 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[4.0.0-alpha5]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0-alpha4...4.0.0-alpha5
 [4.0.0-alpha4]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0-alpha3...4.0.0-alpha4
 [4.0.0-alpha3]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0-alpha2...4.0.0-alpha3
 [4.0.0-alpha2]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0-alpha1...4.0.0-alpha2
