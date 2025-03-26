@@ -16,16 +16,24 @@
 
   <testsuites>
     <testsuite name="unit">
-      <file>vendor/digipolisgent/qa-drupal/src/PHPUnit/TestSuites/UnitTestSuite.php</file>
+      <directory>tests/**/Unit</directory>
+      <directory>modules/**/tests/src/Unit</directory>
     </testsuite>
     <testsuite name="kernel">
-      <file>vendor/digipolisgent/qa-drupal/src/PHPUnit/TestSuites/KernelTestSuite.php</file>
+      <directory>tests/**/Kernel</directory>
+      <directory>modules/**/tests/src/Kernel</directory>
     </testsuite>
     <testsuite name="functional">
-      <file>vendor/digipolisgent/qa-drupal/src/PHPUnit/TestSuites/FunctionalTestSuite.php</file>
+      <directory>tests/**/Functional</directory>
+      <directory>modules/**/tests/src/Functional</directory>
     </testsuite>
     <testsuite name="functional-javascript">
-      <file>vendor/digipolisgent/qa-drupal/src/PHPUnit/TestSuites/FunctionalJavascriptTestSuite.php</file>
+      <directory>tests/**/FunctionalJavascript</directory>
+      <directory>modules/**/tests/src/FunctionalJavascript</directory>
+    </testsuite>
+    <testsuite name="build">
+      <directory>tests/**/Build</directory>
+      <directory>modules/**/tests/src/Build</directory>
     </testsuite>
   </testsuites>
 
