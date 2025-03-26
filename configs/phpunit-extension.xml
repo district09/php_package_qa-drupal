@@ -16,23 +16,23 @@
 
   <testsuites>
     <testsuite name="unit">
-      <directory>tests/**/Unit</directory>
+      <directory>tests/src/Unit*</directory>
       <directory>modules/**/tests/src/Unit</directory>
     </testsuite>
     <testsuite name="kernel">
-      <directory>tests/**/Kernel</directory>
+      <directory>tests/src/Kernel*</directory>
       <directory>modules/**/tests/src/Kernel</directory>
     </testsuite>
     <testsuite name="functional">
-      <directory>tests/**/Functional</directory>
+      <directory>tests/src/Functional*</directory>
       <directory>modules/**/tests/src/Functional</directory>
     </testsuite>
     <testsuite name="functional-javascript">
-      <directory>tests/**/FunctionalJavascript</directory>
+      <directory>tests/src/FunctionalJavascript*</directory>
       <directory>modules/**/tests/src/FunctionalJavascript</directory>
     </testsuite>
     <testsuite name="build">
-      <directory>tests/**/Build</directory>
+      <directory>tests/src/Build*</directory>
       <directory>modules/**/tests/src/Build</directory>
     </testsuite>
   </testsuites>
