@@ -6,8 +6,13 @@
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutChangesToGlobalState="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnTestsThatTriggerErrors="true"
+         displayDetailsOnTestsThatTriggerNotices="true"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         displayDetailsOnPhpunitDeprecations="true"
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
-         cacheDirectory=".phpunit.cache"
+         cacheDirectory=".phpunit.result.cache"
 >
   <php>
     <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
@@ -47,7 +52,8 @@
 
   <source>
     <include>
-      <directory suffix=".php">./</directory>
+      <directory suffix=".php">./src</directory>
+      <directory suffix=".php">./modules/**/src</directory>
     </include>
     <exclude>
       <directory suffix=".api.php">./</directory>
@@ -56,7 +62,6 @@
       <directory suffix="Test.php">./</directory>
       <directory suffix="TestBase.php">./</directory>
       <directory suffix="TestCase.php">./</directory>
-      <directory>web/themes/custom/*/source</directory>
     </exclude>
   </source>
 </phpunit>
