@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- TODO set checkForUnintentionallyCoveredCode="true" once https://www.drupal.org/node/2626832 is resolved. -->
-<phpunit bootstrap="web/core/tests/bootstrap.php"
-         printerClass="Drupal\Tests\Listeners\HtmlOutputPrinter"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         bootstrap="web/core/tests/bootstrap.php"
          colors="true"
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
-         beStrictAboutChangesToGlobalState="true">
-
+         beStrictAboutChangesToGlobalState="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnTestsThatTriggerErrors="true"
+         displayDetailsOnTestsThatTriggerNotices="true"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         displayDetailsOnPhpunitDeprecations="true"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+         cacheDirectory=".phpunit.result.cache"
+>
   <php>
     <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
-
     <ini name="error_reporting" value="32767"/>
     <ini name="memory_limit" value="-1"/>
   </php>
@@ -43,32 +49,27 @@
     </testsuite>
   </testsuites>
 
-  <listeners>
-    <listener class="Drupal\Tests\Listeners\DrupalListener">
-    </listener>
-    <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener">
-    </listener>
-  </listeners>
-
   <coverage>
+    <report>
+      <html outputDirectory="../build/coverage"/>
+      <clover outputFile="../build/logs/clover.xml"/>
+    </report>
+  </coverage>
+
+  <source>
     <include>
       <directory suffix=".php">web/modules/custom</directory>
       <directory suffix=".php">web/profiles/custom</directory>
       <directory suffix=".php">web/themes/custom</directory>
     </include>
     <exclude>
-        <directory suffix=".api.php">./</directory>
-        <directory suffix="Spy.php">./</directory>
-        <directory suffix="Stub.php">./</directory>
-        <directory suffix="Test.php">./</directory>
-        <directory suffix="TestBase.php">./</directory>
-        <directory suffix="TestCase.php">./</directory>
-        <directory>web/themes/custom/*/source</directory>
+      <directory suffix=".api.php">./</directory>
+      <directory suffix="Spy.php">./</directory>
+      <directory suffix="Stub.php">./</directory>
+      <directory suffix="Test.php">./</directory>
+      <directory suffix="TestBase.php">./</directory>
+      <directory suffix="TestCase.php">./</directory>
+      <directory>web/themes/custom/*/source</directory>
     </exclude>
-
-    <report>
-      <html outputDirectory="../build/coverage"/>
-      <clover outputFile="../build/logs/clover.xml"/>
-    </report>
-  </coverage>
+  </source>
 </phpunit>
