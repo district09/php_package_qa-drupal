@@ -2,6 +2,13 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [4.0.0-alpha6]
+
+### Updated
+
+- Update phpunit config file for Drupal extensions for PHPUnit 10.5+.
+- Update phpunit config file for Drupal sites for PHPUnit 10.5+.
+
 ## [4.0.0-alpha5]
 
 ### Fixed
@@ -13,14 +20,15 @@ All Notable changes to the **Quality Assurance - Drupal** package.
 ### Added
 
 - Added friendsoftwig/twigcs again since this is D11 compatible.
-### Changes
+
+### Changed
 
 - Since Drupal 11 we don't need testsuites anymore and we just need to define the folder where the specific tests are in.
   See https://git.drupalcode.org/project/drupal/-/blob/11.x/core/phpunit.xml.dist?ref_type=heads#L84
 
 ## [4.0.0-alpha3]
 
-### Changes
+### Changed
 
 - Update the phpunit config file to make them work with the changes done to
 `core/tests/bootstrap.php` in Drupal 11.1.
@@ -35,7 +43,7 @@ All Notable changes to the **Quality Assurance - Drupal** package.
 
 ### Updated
 
-- Remove sebastian/phpcpd and replace it with systemsdk/phpcpd. 
+- Remove sebastian/phpcpd and replace it with systemsdk/phpcpd.
 
 ### Removed
 
@@ -467,6 +475,7 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[4.0.0-alpha6]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0-alpha5...4.0.0-alpha6
 [4.0.0-alpha5]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0-alpha4...4.0.0-alpha5
 [4.0.0-alpha4]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0-alpha3...4.0.0-alpha4
 [4.0.0-alpha3]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0-alpha2...4.0.0-alpha3
