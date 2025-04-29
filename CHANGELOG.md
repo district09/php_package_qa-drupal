@@ -2,6 +2,19 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [4.1.0]
+
+### Added
+
+- Add support for Drupal 10.x so it can be used on PHP 8.4 platforms.
+- Add support for PHPUnit 11.x & 12.x.
+- Add Symfony 7 support to symfony/phpunit-bridge.
+
+### Updated
+
+- Update GrumPHP to 2.x to fix PHP 8.4 deprecations.
+- Update PHPStan to 2.x.
+
 ## [4.0.0]
 
 ### Added
@@ -481,6 +494,7 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[4.1.0]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0...4.1.0
 [4.0.0]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0-alpha6...4.0.0
 [4.0.0-alpha6]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0-alpha5...4.0.0-alpha6
 [4.0.0-alpha5]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0-alpha4...4.0.0-alpha5
