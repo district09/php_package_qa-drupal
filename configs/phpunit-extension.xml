@@ -68,6 +68,7 @@
       <directory suffix="Test.php">./</directory>
       <directory suffix="TestBase.php">./</directory>
       <directory suffix="TestCase.php">./</directory>
+      <directory>vendor</directory>
     </exclude>
   </source>
 </phpunit>
