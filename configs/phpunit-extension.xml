@@ -25,27 +25,43 @@
       <directory>tests/src/Unit*</directory>
       <directory>**/tests/src/Unit</directory>
       <directory>modules/**/tests/src/Unit</directory>
+      <exclude>
+        <directory>vendor</directory>
+      </exclude>
     </testsuite>
     <testsuite name="kernel">
       <directory>tests/src/Kernel*</directory>
       <directory>**/tests/src/Kernel</directory>
       <directory>modules/**/tests/src/Kernel</directory>
+      <exclude>
+        <directory>vendor</directory>
+      </exclude>
     </testsuite>
     <testsuite name="functional">
       <directory>tests/src/Functional*</directory>
       <directory>**/tests/src/Functional</directory>
       <directory>modules/**/tests/src/Functional</directory>
+      <exclude>
+        <directory>vendor</directory>
+      </exclude>
     </testsuite>
     <testsuite name="functional-javascript">
       <directory>tests/src/FunctionalJavascript*</directory>
       <directory>**/tests/src/FunctionalJavascript</directory>
       <directory>modules/**/tests/src/FunctionalJavascript</directory>
+      <exclude>
+        <directory>vendor</directory>
+      </exclude>
     </testsuite>
     <testsuite name="build">
       <directory>tests/src/Build*</directory>
       <directory>**/tests/src/Build</directory>
       <directory>modules/**/tests/src/Build</directory>
+      <exclude>
+        <directory>vendor</directory>
+      </exclude>
     </testsuite>
+    
   </testsuites>
 
   <coverage>
@@ -68,7 +84,6 @@
       <directory suffix="Test.php">./</directory>
       <directory suffix="TestBase.php">./</directory>
       <directory suffix="TestCase.php">./</directory>
-      <directory>vendor</directory>
     </exclude>
   </source>
 </phpunit>
