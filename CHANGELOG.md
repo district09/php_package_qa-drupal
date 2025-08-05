@@ -2,6 +2,16 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [4.1.2]
+
+### Added
+
+- Add exclude to testsuite. 
+
+### Removed
+
+- Removed vendor map from source config.
+
 ## [4.1.1]
 
 ### Added
@@ -500,6 +510,7 @@ Initial setup of the qa-drupal package:
 - Default config files and checks for a Drupal site.
 - Default config files and checks for a Drupal module.
 
+[4.1.2]: https://github.com/district09/php_package_qa-drupal/compare/4.1.1...4.1.2
 [4.1.1]: https://github.com/district09/php_package_qa-drupal/compare/4.1.0...4.1.1
 [4.1.0]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0...4.1.0
 [4.0.0]: https://github.com/district09/php_package_qa-drupal/compare/4.0.0-alpha6...4.0.0
