@@ -2,6 +2,12 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [Unreleased]
+
+### Fixed
+
+- #70: Fix phpunit coverage build directory.
+
 ## [4.1.3]
 
 ### Removed
@@ -12,7 +18,7 @@ All Notable changes to the **Quality Assurance - Drupal** package.
 
 ### Added
 
-- Add exclude to testsuite. 
+- Add exclude to testsuite.
 
 ### Removed
 
