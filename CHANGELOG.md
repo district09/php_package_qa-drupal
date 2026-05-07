@@ -2,6 +2,12 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [4.1.4]
+
+### Fixed
+
+- #70: Fix phpunit coverage build directory.
+
 ## [4.1.3]
 
 ### Removed
@@ -12,7 +18,7 @@ All Notable changes to the **Quality Assurance - Drupal** package.
 
 ### Added
 
-- Add exclude to testsuite. 
+- Add exclude to testsuite.
 
 ### Removed
 
@@ -123,6 +129,7 @@ Older releases (2.x.x) see [CHANGELOG-2.x.md](CHANGELOG-1.x.md).
 
 Older releases (1.x.x) see [CHANGELOG-1.x.md](CHANGELOG-1.x.md).
 
+[4.1.4]: https://github.com/district09/php_package_qa-drupal/compare/4.1.3...4.1.4
 [4.1.3]: https://github.com/district09/php_package_qa-drupal/compare/4.1.2...4.1.3
 [4.1.2]: https://github.com/district09/php_package_qa-drupal/compare/4.1.1...4.1.2
 [4.1.1]: https://github.com/district09/php_package_qa-drupal/compare/4.1.0...4.1.1
