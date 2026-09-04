@@ -2,176 +2,229 @@
 
 /**
  * @file
- * Bootstrap for PHPUnit tests run within a module project.
+ * Bootstrap for PHPUnit tests run within a Drupal extension project.
  *
- * This will automatically detect the tests and run them using the Drupal code
- * within the vendor directory.
- *
- * Copied from drupal/core/tests/bootstrap.php.
+ * This file mirrors the relevant parts of Drupal core's PHPUnit bootstrap while
+ * locating core in Composer or scaffolded layouts and discovering the
+ * extension under test from the package root.
  */
 
-use Drupal\TestTools\PhpUnitCompatibility\PhpUnit8\ClassWriter;
+declare(strict_types=1);
+
+use Composer\Autoload\ClassLoader;
+use Drupal\TestTools\ErrorHandler\BootstrapErrorHandler;
+use Drupal\TestTools\Extension\DeprecationBridge\DeprecationHandler;
+use PHPUnit\Runner\ErrorHandler as PhpUnitErrorHandler;
+use PHPUnit\TextUI\Configuration\Registry as PhpunitConfigurationRegistry;
+use Symfony\Component\ErrorHandler\DebugClassLoader;
 
 /**
- * Get the root directory of the current project.
+ * Gets the root directory of the extension project.
  *
  * @return string
- *   The root directory.
+ *   The absolute project root.
  */
-function drupal_phpunit_root_dir(): string
-{
-    return dirname(__FILE__, 7);
+function drupal_phpunit_root_dir(): string {
+  $configuredRoot = getenv('QA_DRUPAL_PHPUNIT_ROOT');
+  if ($configuredRoot !== FALSE && is_file($configuredRoot . '/vendor/autoload.php')) {
+    return $configuredRoot;
+  }
+
+  $consumerRoot = dirname(__DIR__, 6);
+  if (is_file($consumerRoot . '/vendor/autoload.php')) {
+    return $consumerRoot;
+  }
+
+  // Allow maintainers to smoke-test this bootstrap from the package checkout.
+  // Consumer projects use the installed vendor path handled above.
+  return dirname(__DIR__, 3);
 }
 
 /**
- * Finds all valid extension directories recursively within a given directory.
+ * Gets the installed Drupal core directory.
+ *
+ * Extension repositories install core below vendor, while Drupal site
+ * projects commonly scaffold it to web/core.
+ *
+ * @return string
+ *   The absolute Drupal core directory.
+ */
+function drupal_phpunit_core_dir(): string {
+  $root = drupal_phpunit_root_dir();
+  foreach ([$root . '/vendor/drupal/core', $root . '/web/core'] as $core) {
+    if (is_dir($core . '/tests')) {
+      return $core;
+    }
+  }
+
+  throw new RuntimeException('Unable to locate Drupal core PHPUnit tests.');
+}
+
+/**
+ * Finds all valid extension directories recursively below a directory.
  *
  * @param string $scanDirectory
  *   The directory that should be recursively scanned.
  *
- * @return array
- *   An associative array of extension directories found within the scanned
- *   directory, keyed by extension name.
+ * @return array<string, string>
+ *   Extension directories keyed by extension name.
  */
-function drupal_phpunit_find_extension_directories($scanDirectory): array
-{
-    $extensions = [];
-    $dirs = new \RecursiveIteratorIterator(
-        new \RecursiveDirectoryIterator(
-            $scanDirectory,
-            \RecursiveDirectoryIterator::FOLLOW_SYMLINKS
-        )
-    );
+function drupal_phpunit_find_extension_directories(string $scanDirectory): array {
+  $extensions = [];
+  $iterator = new RecursiveCallbackFilterIterator(
+    new RecursiveDirectoryIterator(
+      $scanDirectory,
+      RecursiveDirectoryIterator::FOLLOW_SYMLINKS | RecursiveDirectoryIterator::SKIP_DOTS
+    ),
+    static function (SplFileInfo $file): bool {
+      return !$file->isDir()
+        || !in_array($file->getFilename(), ['.git', 'node_modules', 'vendor'], TRUE);
+    }
+  );
+  $directories = new RecursiveIteratorIterator(
+    $iterator
+  );
 
-    foreach ($dirs as $dir) {
-        if (strpos($dir->getPathname(), '.info.yml') !== false) {
-            // Cut off ".info.yml" from the filename for use as the extension name. We
-            // use getRealPath() so that we can scan extensions represented by
-            // directory aliases.
-            $extensions[substr($dir->getFilename(), 0, -9)] = $dir
-                ->getPathInfo()
-                ->getRealPath();
-        }
+  foreach ($directories as $directory) {
+    if (!str_ends_with($directory->getFilename(), '.info.yml')) {
+      continue;
     }
 
-    return $extensions;
+    $extensionDirectory = $directory->getPathInfo()->getRealPath();
+    if ($extensionDirectory !== FALSE) {
+      $extensions[substr($directory->getFilename(), 0, -9)] = $extensionDirectory;
+    }
+  }
+
+  return $extensions;
 }
 
 /**
- * Returns directories under which contributed extensions may exist.
+ * Gets directories that can contain the extension and Drupal core extensions.
  *
- * @return array
- *   An array of directories under which contributed extensions may exist.
+ * @return string[]
+ *   Directories to scan for extensions.
  */
-function drupal_phpunit_contrib_extension_directory_roots()
-{
-    return [
-        drupal_phpunit_root_dir() . '/',
-        drupal_phpunit_root_dir() . '/vendor/drupal/core/modules',
-    ];
+function drupal_phpunit_contrib_extension_directory_roots(): array {
+  $root = drupal_phpunit_root_dir();
+  $core = drupal_phpunit_core_dir();
+
+  return array_filter([
+    $root,
+    $core . '/modules',
+    $core . '/profiles',
+    $core . '/themes',
+  ], 'is_dir');
 }
 
 /**
- * Registers the namespace for each extension directory with the autoloader.
+ * Builds PSR-4 namespace mappings for discovered Drupal extensions.
  *
- * @param array $dirs
- *   An associative array of extension directories, keyed by extension name.
+ * @param array<string, string> $directories
+ *   Extension directories keyed by extension name.
  *
- * @return array
- *   An associative array of extension directories, keyed by their namespace.
+ * @return array<string, string[]>
+ *   Extension source and test directories keyed by namespace.
  */
-function drupal_phpunit_get_extension_namespaces(array $dirs)
-{
-    $suiteNames = ['Unit', 'Kernel', 'Functional', 'FunctionalJavascript'];
-    $namespaces = [];
-    foreach ($dirs as $extension => $dir) {
-        if (is_dir($dir . '/src')) {
-            // Register the PSR-4 directory for module-provided classes.
-            $namespaces['Drupal\\' . $extension . '\\'][] = $dir . '/src';
-        }
+function drupal_phpunit_get_extension_namespaces(array $directories): array {
+  $namespaces = [];
 
-        $testDir = $dir . '/tests/src';
-        if (!is_dir($testDir)) {
-            continue;
-        }
-
-        foreach ($suiteNames as $suiteName) {
-            $suiteDir = $testDir . '/' . $suiteName;
-            if (is_dir($suiteDir)) {
-                // Register the PSR-4 directory for PHPUnit-based suites.
-                $namespaces['Drupal\\Tests\\' . $extension . '\\' . $suiteName . '\\'][] = $suiteDir;
-            }
-        }
-
-        // Extensions can have a \Drupal\extension\Traits namespace for
-        // cross-suite trait code.
-        $traitDir = $testDir . '/Traits';
-        if (is_dir($traitDir)) {
-            $namespaces['Drupal\\Tests\\' . $extension . '\\Traits\\'][] = $traitDir;
-        }
+  foreach ($directories as $extension => $directory) {
+    if (is_dir($directory . '/src')) {
+      $namespaces['Drupal\\' . $extension . '\\'][] = $directory . '/src';
     }
 
-    return $namespaces;
+    if (is_dir($directory . '/tests/src')) {
+      $namespaces['Drupal\\Tests\\' . $extension . '\\'][] = $directory . '/tests/src';
+    }
+  }
+
+  return $namespaces;
+}
+
+if (!defined('PHPUNIT_COMPOSER_INSTALL')) {
+  define('PHPUNIT_COMPOSER_INSTALL', drupal_phpunit_root_dir() . '/vendor/autoload.php');
 }
 
 /**
- * Populate class loader with additional namespaces for tests.
+ * Populates Composer's class loader with Drupal test namespaces.
  *
- * We run this in a function to avoid setting the class loader to a global
- * that can change. This change can cause unpredictable false positives for
- * phpunit's global state change watcher. The class loader can be retrieved from
- * composer at any time by requiring autoload.php.
+ * @return \Composer\Autoload\ClassLoader
+ *   The populated Composer class loader.
  */
-function drupal_phpunit_populate_class_loader()
-{
-    /** @var \Composer\Autoload\ClassLoader $loader */
-    $loader = require drupal_phpunit_root_dir() . '/vendor/autoload.php';
+function drupal_phpunit_populate_class_loader(): ClassLoader {
+  /** @var \Composer\Autoload\ClassLoader $loader */
+  $loader = require drupal_phpunit_root_dir() . '/vendor/autoload.php';
+  $coreTests = drupal_phpunit_core_dir() . '/tests';
 
-    $dir = drupal_phpunit_root_dir() . '/vendor/drupal/core/tests';
+  foreach ([
+    'Drupal\\BuildTests',
+    'Drupal\\Tests',
+    'Drupal\\TestSite',
+    'Drupal\\KernelTests',
+    'Drupal\\FunctionalTests',
+    'Drupal\\FunctionalJavascriptTests',
+    'Drupal\\TestTools',
+  ] as $namespace) {
+    $loader->add($namespace, $coreTests);
+  }
 
-    // Start with classes in known locations.
-    $loader->add('Drupal\\Tests', $dir);
-    $loader->add('Drupal\\KernelTests', $dir);
-    $loader->add('Drupal\\FunctionalTests', $dir);
-    $loader->add('Drupal\\FunctionalJavascriptTests', $dir);
-    $loader->add('Drupal\\BuildTests', $dir);
-    $loader->add('Drupal\\TestTools', $dir);
+  if (!isset($GLOBALS['namespaces'])) {
+    $directories = array_map(
+          'drupal_phpunit_find_extension_directories',
+          drupal_phpunit_contrib_extension_directory_roots()
+      );
+    $extensionDirectories = array_reduce($directories, 'array_merge', []);
+    $GLOBALS['namespaces'] = drupal_phpunit_get_extension_namespaces($extensionDirectories);
+  }
 
-    if (!isset($GLOBALS['namespaces'])) {
-        // Scan for arbitrary extension namespaces from core and contrib.
-        $extensionRoots = drupal_phpunit_contrib_extension_directory_roots();
+  foreach ($GLOBALS['namespaces'] as $prefix => $paths) {
+    $loader->addPsr4($prefix, $paths);
+  }
 
-        $dirs = array_map(
-            'drupal_phpunit_find_extension_directories',
-            $extensionRoots
-        );
-        $dirs = array_reduce($dirs, 'array_merge', []);
-        $GLOBALS['namespaces'] = drupal_phpunit_get_extension_namespaces($dirs);
-    }
-
-    foreach ($GLOBALS['namespaces'] as $prefix => $paths) {
-        $loader->addPsr4($prefix, $paths);
-    }
-
-    // Ensure we have a valid TestCase class.
-    if (class_exists('Drupal\TestTools\PhpUnitCompatibility\PhpUnit8\ClassWriter')) {
-        ClassWriter::mutateTestBase($loader);
-    }
-
-    return $loader;
+  return $loader;
 }
 
-// Do class loader population.
 drupal_phpunit_populate_class_loader();
 
-// Set sane locale settings, to ensure consistent string, dates, times and
-// numbers handling.
-// @see \Drupal\Core\DrupalKernel::bootEnvironment()
-setlocale(LC_ALL, 'C');
+if (
+    class_exists('Drupal\\Tests\\DocumentElement')
+    && !class_exists('Behat\\Mink\\Element\\DocumentElement', FALSE)
+) {
+  class_alias('Drupal\\Tests\\DocumentElement', 'Behat\\Mink\\Element\\DocumentElement');
+}
 
-// Set the default timezone. While this doesn't cause any tests to fail, PHP
-// complains if 'date.timezone' is not set in php.ini. The Australia/Sydney
-// timezone is chosen so all tests are run using an edge case scenario (UTC+10
-// and DST). This choice is made to prevent timezone related regressions and
-// reduce the fragility of the testing system in general.
+setlocale(LC_ALL, 'C.UTF-8', 'C');
+mb_internal_encoding('utf-8');
+mb_language('uni');
 date_default_timezone_set('Australia/Sydney');
+
+// Drupal 12 initializes deprecation handling from PHPUnit's parsed extension
+// configuration. Drupal 11.1 uses the older explicit initialization sequence.
+if (method_exists(DeprecationHandler::class, 'preBootstrap')) {
+  try {
+    DeprecationHandler::preBootstrap(PhpunitConfigurationRegistry::get());
+  }
+  catch (AssertionError) {
+    // PHPUnit's configuration is unavailable when this file is run alone.
+  }
+}
+elseif (
+    method_exists(DeprecationHandler::class, 'getConfiguration')
+    && ($configuration = DeprecationHandler::getConfiguration())
+) {
+  DeprecationHandler::init($configuration['ignoreFile'] ?? NULL);
+
+  if (class_exists(BootstrapErrorHandler::class) && class_exists(PhpUnitErrorHandler::class)) {
+    try {
+      set_error_handler(new BootstrapErrorHandler(PhpUnitErrorHandler::instance()));
+    }
+    catch (AssertionError) {
+      // PHPUnit has no parsed configuration during standalone smoke tests.
+    }
+  }
+
+  if (class_exists(DebugClassLoader::class)) {
+    DebugClassLoader::enable();
+  }
+}

@@ -1,3 +1,4 @@
 /vendor/
 /composer.lock
 /configs/behat.merged.yml
+/.phpunit.cache/

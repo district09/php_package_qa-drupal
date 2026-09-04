@@ -24,16 +24,13 @@ grumphp:
         - phpcs
         - phpmd
         - phpstan
-        - securitychecker_enlightn
+        - securitychecker_composeraudit
         - twigcs
         - yamllint
     tests:
       tasks:
-        - behat
         - phpunit
   tasks:
-    behat:
-      config: behat.qa-drupal.yml
     composer:
       no_check_publish: true
     composer_normalize: ~
@@ -136,8 +133,8 @@ grumphp:
         - theme
     phpunit:
       config_file: phpunit.qa-drupal.xml
-    securitychecker_enlightn:
-      lockfile: ./composer.lock
+    securitychecker_composeraudit:
+      locked: true
       run_always: false
     twigcs:
       path: './web'
