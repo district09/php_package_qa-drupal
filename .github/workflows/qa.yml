@@ -1,0 +1,145 @@
+name: QA
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compatibility:
+    name: PHP ${{ matrix.php }} / Drupal ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: '11.1'
+            php: '8.3'
+            drupal: '11.1.*'
+            phpunit: '^10.5.19'
+            bridge: '^7.2'
+            behat: true
+            core_composer_scaffold: ''
+          - name: '11 current'
+            php: '8.5'
+            drupal: '^11.3'
+            phpunit: '^11.5'
+            bridge: '^7.2'
+            behat: false
+            core_composer_scaffold: ''
+          - name: '12'
+            php: '8.5'
+            drupal: '^12.0@alpha'
+            phpunit: '^12.5'
+            bridge: '^8.1'
+            behat: false
+            core_composer_scaffold: '^12.0@alpha'
+
+    steps:
+      - name: Check out the package
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: composer:v2
+          extensions: dom, mbstring, simplexml
+
+      - name: Validate Composer metadata
+        run: composer validate --strict --no-check-publish
+
+      # Keep the package metadata so it can be restored after the matrix
+      # temporarily adjusts dependency constraints for resolution.
+      - name: Preserve package metadata
+        run: cp composer.json composer.json.ci-original
+
+      - name: Select Drupal-aligned dependencies
+        run: >-
+          composer require --no-interaction --no-update
+          "drupal/core:${{ matrix.drupal }}"
+          "phpunit/phpunit:${{ matrix.phpunit }}"
+          "symfony/phpunit-bridge:${{ matrix.bridge }}"
+
+      - name: Select core scaffold dependency
+        if: matrix.core_composer_scaffold
+        run: >-
+          composer require --no-interaction --no-update
+          "drupal/core-composer-scaffold:${{ matrix.core_composer_scaffold }}"
+
+      - name: Resolve dependencies
+        # Drupal 11.1 is retained as the historical minimum compatibility
+        # target even after that minor line receives security advisories.
+        run: >-
+          composer update --no-interaction --prefer-dist
+          --with-all-dependencies --no-security-blocking
+
+      # Composer Normalize is installed with the development dependencies.
+      # Restore the committed metadata so this verifies the package, not the
+      # matrix-specific constraints introduced above. The generated lock file
+      # is intentionally matrix-specific, so it cannot match the restored
+      # package metadata at this point.
+      - name: Verify normalized Composer metadata
+        run: |
+          mv composer.json.ci-original composer.json
+          composer normalize --dry-run --no-check-lock
+
+      - name: Validate source and configuration files
+        run: |
+          find src tests -type f -name '*.php' -print0 | xargs -0 -n1 php -l
+          php tests/ci/validate-config.php
+          vendor/bin/grumphp --config configs/grumphp-extension.yml list --raw
+          vendor/bin/grumphp --config configs/grumphp-site.yml list --raw
+
+      - name: Run focused unit tests
+        run: composer test
+
+      - name: Smoke-test distributed PHPUnit configurations
+        run: |
+          mkdir -p vendor/digipolisgent/qa-drupal/src/PHPUnit/Extension
+          cp src/PHPUnit/Extension/bootstrap.php vendor/digipolisgent/qa-drupal/src/PHPUnit/Extension/bootstrap.php
+          cp configs/phpunit-extension.xml phpunit-extension.smoke.xml
+          vendor/bin/phpunit --configuration phpunit-extension.smoke.xml --list-suites
+          mkdir -p web/modules web/profiles web/sites web/themes
+          cp -R vendor/drupal/core web/core
+          cp configs/phpunit-site.xml phpunit-site.smoke.xml
+          ln -s ../vendor/autoload.php web/autoload.php
+          vendor/bin/phpunit --configuration phpunit-site.smoke.xml --list-suites
+
+      - name: Smoke-test the Drupal extension bootstrap
+        run: composer test:bootstrap
+
+      - name: Verify optional Drupal 11 Behat configuration
+        if: matrix.behat
+        run: |
+          # Keep the optional integration on the matrix's 11.1 line. Without
+          # this explicit constraint Composer upgrades vendor/drupal/core,
+          # while the fixture still contains the already-smoke-tested 11.1
+          # copy in web/core.
+          composer require --dev --no-interaction --with-all-dependencies --no-security-blocking "drupal/core:${{ matrix.drupal }}" "drupal/drupal-extension:^6.1"
+          cp configs/behat.yml behat.qa-drupal.yml
+          # This package's PHPUnit fixture has a separate web/core copy.
+          # Point Drupal Extension's project-root settings at Composer's core
+          # for this load-only smoke test, so Drupal is not bootstrapped twice.
+          sed -i 's#%paths.base%/web#%paths.base%/vendor/drupal#g' behat.qa-drupal.yml
+          mkdir -p tests/features
+          # BrowserKit must use the same Composer-installed core.
+          DRUPAL_FINDER_DRUPAL_ROOT="$PWD/vendor/drupal" vendor/bin/behat --config behat.qa-drupal.yml --definitions l
+
+      - name: Verify Drupal 12 remains Behat-free
+        if: matrix.name == '12'
+        run: |
+          if composer show drupal/drupal-extension >/dev/null 2>&1; then
+            echo "Drupal Extension must remain optional on Drupal 12."
+            exit 1
+          fi
+          if composer show behat/behat >/dev/null 2>&1; then
+            echo "Behat must not be installed by default on Drupal 12."
+            exit 1
+          fi
+          composer show drupal/core
+          composer show symfony/http-kernel

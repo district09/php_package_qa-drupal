@@ -24,7 +24,7 @@ grumphp:
         - phpcs
         - phpmd
         - phpstan
-        - securitychecker_enlightn
+        - securitychecker_composeraudit
         - twigcs
         - yamllint
     tests:
@@ -117,8 +117,8 @@ grumphp:
         - theme
     phpunit:
       config_file: phpunit.qa-drupal.xml
-    securitychecker_enlightn:
-      lockfile: ./composer.lock
+    securitychecker_composeraudit:
+      locked: true
       run_always: false
     twigcs:
       path: '.'

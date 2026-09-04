@@ -19,6 +19,7 @@ default:
         - Digipolisgent\QA\Drupal\Behat\Context\SelectorContext
   extensions:
     Drupal\MinkExtension:
+      base_url: "http://localhost"
       browserkit_http: ~
       selenium2: ~
       sessions:
@@ -34,10 +35,12 @@ default:
         root: "%paths.base%/web"
       drupal:
         drupal_root: "%paths.base%/web"
-      region_map:
+      regions:
         header: ".header"
         content: ".region-content"
       selectors:
-        message_selector: ".messages"
-        error_message_selector: ".messages.messages--error"
-        success_message_selector: ".messages.messages--status"
+        messages:
+          default: ".messages"
+          error: ".messages.messages--error"
+          success: ".messages.messages--status"
+          warning: ".messages.messages--warning"
