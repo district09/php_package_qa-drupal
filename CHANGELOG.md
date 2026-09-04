@@ -2,6 +2,52 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [5.0.0]
+
+### Added
+
+- Added Drupal 12 support and a compatibility matrix for Drupal 11/12 with PHP
+  8.3 through 8.5.
+- Added dual-path PHPUnit bootstrap support for Drupal 11.1's legacy
+  deprecation initialization and Drupal 12's `preBootstrap()` flow.
+- Added Composer autoload, extension namespace, test-site, document-element,
+  locale, and multibyte initialization to the extension bootstrap.
+- Added focused tests for configuration merging, skip variables, and
+  transactional filesystem commit/rollback behavior.
+- Added a GitHub Actions matrix for Drupal 11.1 on PHP 8.3, a current Drupal 11
+  release on PHP 8.5, and Drupal 12 on PHP 8.5.
+- Added Lennart Van Vaerenbergh as a package author.
+
+### Changed
+
+- Raised the platform requirements to PHP `^8.3` and Drupal
+  `^11.1 || ^12.0`.
+- Updated Coder, PHPCompatibility, PHPStan, PHPUnit, Symfony PHPUnit Bridge,
+  PHPCPD, GrumPHP, and related QA tools for Drupal 11/12 and PHP 8.3/8.5.
+- Allowed the PHPMD 3 and PDepend 3 development lines specifically for Drupal
+  12 because the stable PHPMD 2/PDepend 2 stack does not support Symfony 8.
+- Replaced Enlightn Security Checker with GrumPHP's native Composer Audit task.
+- Made Behat optional and removed it from the default test suite. Drupal 11
+  consumers can opt in with Drupal Extension `^6.1`.
+- Updated the retained Behat template for Drupal Extension 6.1's `regions` and
+  nested message-selector configuration.
+- Updated PHPUnit XML configuration for current PHPUnit conventions while
+  preserving test discovery and coverage output.
+- Replaced Travis CI documentation and configuration with GitHub Actions.
+- Disabled Drupal scaffold and Symfony Runtime plugin execution when this
+  library is installed as the Composer root; consumer root configuration is
+  unaffected.
+
+### Removed
+
+- Removed Drupal 10 and PHP versions older than 8.3 from the supported matrix.
+- Removed Drupal Extension from mandatory dependencies. It currently supports
+  Symfony 6/7, while Drupal 12 requires Symfony 8, so Behat cannot be supported
+  on Drupal 12 until an upstream compatible release is available.
+- Removed `enlightn/security-checker`, the custom PHPCPD VCS repository, the
+  global development stability setting, and obsolete PHPUnit 8 bootstrap
+  compatibility code.
+
 ## [4.1.4]
 
 ### Fixed
@@ -129,6 +175,7 @@ Older releases (2.x.x) see [CHANGELOG-2.x.md](CHANGELOG-1.x.md).
 
 Older releases (1.x.x) see [CHANGELOG-1.x.md](CHANGELOG-1.x.md).
 
+[5.0.0]: https://github.com/district09/php_package_qa-drupal/compare/4.1.4...5.0.0
 [4.1.4]: https://github.com/district09/php_package_qa-drupal/compare/4.1.3...4.1.4
 [4.1.3]: https://github.com/district09/php_package_qa-drupal/compare/4.1.2...4.1.3
 [4.1.2]: https://github.com/district09/php_package_qa-drupal/compare/4.1.1...4.1.2

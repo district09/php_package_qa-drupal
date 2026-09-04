@@ -6,13 +6,17 @@
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutChangesToGlobalState="true"
+         failOnRisky="true"
+         failOnWarning="true"
+         failOnPhpunitWarning="true"
          displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnPhpunitDeprecations="true"
          displayDetailsOnTestsThatTriggerErrors="true"
          displayDetailsOnTestsThatTriggerNotices="true"
          displayDetailsOnTestsThatTriggerWarnings="true"
-         displayDetailsOnPhpunitDeprecations="true"
+         cacheResult="false"
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
-         cacheDirectory=".phpunit.result.cache"
+         cacheDirectory=".phpunit.cache"
 >
   <php>
     <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
@@ -41,7 +45,6 @@
       <directory>**/tests/src/Build</directory>
       <exclude>vendor</exclude>
     </testsuite>
-    
   </testsuites>
 
   <coverage>
@@ -51,7 +54,7 @@
     </report>
   </coverage>
 
-  <source>
+  <source ignoreSuppressionOfDeprecations="true">
     <include>
       <directory suffix=".php">./src</directory>
       <directory suffix=".php">./**/src</directory>
