@@ -16,16 +16,23 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: '11.1'
+          - name: '11.4'
             php: '8.3'
-            drupal: '11.1.*'
-            phpunit: '^10.5.19'
+            drupal: '^11.4'
+            phpunit: '^11.5'
             bridge: '^7.2'
             behat: true
             core_composer_scaffold: ''
-          - name: '11 current'
+          - name: '11.4'
+            php: '8.4'
+            drupal: '^11.4'
+            phpunit: '^11.5'
+            bridge: '^7.2'
+            behat: false
+            core_composer_scaffold: ''
+          - name: '11.4'
             php: '8.5'
-            drupal: '^11.3'
+            drupal: '^11.4'
             phpunit: '^11.5'
             bridge: '^7.2'
             behat: false
@@ -72,7 +79,7 @@ jobs:
           "drupal/core-composer-scaffold:${{ matrix.core_composer_scaffold }}"
 
       - name: Resolve dependencies
-        # Drupal 11.1 is retained as the historical minimum compatibility
+        # Drupal 11.4 is retained as the historical minimum compatibility
         # target even after that minor line receives security advisories.
         run: >-
           composer update --no-interaction --prefer-dist
@@ -116,9 +123,9 @@ jobs:
       - name: Verify optional Drupal 11 Behat configuration
         if: matrix.behat
         run: |
-          # Keep the optional integration on the matrix's 11.1 line. Without
+          # Keep the optional integration on the matrix's 11.4 line. Without
           # this explicit constraint Composer upgrades vendor/drupal/core,
-          # while the fixture still contains the already-smoke-tested 11.1
+          # while the fixture still contains the already-smoke-tested 11.4
           # copy in web/core.
           composer require --dev --no-interaction --with-all-dependencies --no-security-blocking "drupal/core:${{ matrix.drupal }}" "drupal/drupal-extension:^6.1"
           cp configs/behat.yml behat.qa-drupal.yml

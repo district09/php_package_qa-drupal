@@ -15,12 +15,15 @@ Drupal websites and extensions (modules, themes, and profiles).
 
 | Drupal | PHP | Notes |
 | --- | --- | --- |
-| `^11.1` | `^8.3` | PHP 8.3 and 8.4 are supported throughout this Drupal range. Use Drupal 11.3 or later for PHP 8.5 support. |
-| `^11.3` | `^8.3` | Includes the Drupal 11 releases that support PHP 8.5. |
+| `^11.4` | `^8.3` | PHP 8.3 through 8.5 are supported. |
 | `^12.0` | `^8.5` | Drupal 12 requires PHP 8.5. Behat is not currently available for this combination. |
 
 QA Drupal 5.x intentionally drops Drupal 10 and PHP versions older than 8.3.
 See [UPGRADE-5.x.md](UPGRADE-5.x.md) before updating an existing project.
+
+QA Drupal 5.x uses [QA PHP 3.x](https://packagist.org/packages/district09/qa-php)
+for its shared PHP QA toolchain. PHPUnit 11.5 is used with Drupal 11.4 and
+PHPUnit 12.5 with Drupal 12.
 
 ## Installation
 

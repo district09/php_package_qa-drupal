@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- TODO set checkForUnintentionallyCoveredCode="true" once https://www.drupal.org/node/2626832 is resolved. -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         bootstrap="web/core/tests/bootstrap.php"
+         bootstrap="vendor/digipolisgent/qa-drupal/src/PHPUnit/Extension/bootstrap.php"
          colors="true"
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
@@ -15,7 +15,7 @@
          displayDetailsOnTestsThatTriggerNotices="true"
          displayDetailsOnTestsThatTriggerWarnings="true"
          cacheResult="false"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/12.5/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
          cacheDirectory=".phpunit.cache"
 >
   <php>
@@ -26,30 +26,24 @@
 
   <testsuites>
     <testsuite name="unit">
-      <directory>web/modules/custom/**/tests/src/Unit</directory>
-      <directory>web/profiles/custom/**/tests/src/Unit</directory>
-      <directory>web/themes/custom/**/tests/src/Unit</directory>
+      <directory>**/tests/src/Unit</directory>
+      <exclude>vendor</exclude>
     </testsuite>
     <testsuite name="kernel">
-      <directory>web/modules/custom/**/tests/src/Kernel</directory>
-      <directory>web/recipes/custom/*/tests/src/Kernel</directory>
-      <directory>web/profiles/custom/**/tests/src/Kernel</directory>
-      <directory>web/themes/custom/**/tests/src/Kernel</directory>
+      <directory>**/tests/src/Kernel</directory>
+      <exclude>vendor</exclude>
     </testsuite>
     <testsuite name="functional">
-      <directory>web/modules/custom/**/tests/src/Functional</directory>
-      <directory>web/profiles/custom/**/tests/src/Functional</directory>
-      <directory>web/recipes/custom/*/tests/src/Functional</directory>
-      <directory>web/themes/custom/**/tests/src/Functional</directory>
+      <directory>**/tests/src/Functional</directory>
+      <exclude>vendor</exclude>
     </testsuite>
     <testsuite name="functional-javascript">
-      <directory>web/modules/custom/**/tests/src/FunctionalJavascript</directory>
-      <directory>web/recipes/custom/*/tests/src/FunctionalJavascript</directory>
-      <directory>web/profiles/custom/**/tests/src/FunctionalJavascript</directory>
-      <directory>web/themes/custom/**/tests/src/FunctionalJavascript</directory>
+      <directory>**/tests/src/FunctionalJavascript</directory>
+      <exclude>vendor</exclude>
     </testsuite>
     <testsuite name="build">
-      <directory>web/modules/custom/**/tests/src/Build</directory>
+      <directory>**/tests/src/Build</directory>
+      <exclude>vendor</exclude>
     </testsuite>
   </testsuites>
 
@@ -62,9 +56,9 @@
 
   <source ignoreSuppressionOfDeprecations="true">
     <include>
-      <directory suffix=".php">web/modules/custom</directory>
-      <directory suffix=".php">web/profiles/custom</directory>
-      <directory suffix=".php">web/themes/custom</directory>
+      <directory suffix=".php">./src</directory>
+      <directory suffix=".php">./**/src</directory>
+      <directory suffix=".php">./modules/**/src</directory>
     </include>
     <exclude>
       <directory suffix=".api.php">./</directory>
@@ -73,7 +67,6 @@
       <directory suffix="Test.php">./</directory>
       <directory suffix="TestBase.php">./</directory>
       <directory suffix="TestCase.php">./</directory>
-      <directory>web/themes/custom/*/source</directory>
     </exclude>
   </source>
 </phpunit>

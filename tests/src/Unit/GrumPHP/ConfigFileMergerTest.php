@@ -6,8 +6,10 @@ namespace Digipolisgent\QA\Drupal\Tests\Unit\GrumPHP;
 
 use Digipolisgent\QA\Drupal\GrumPHP\ConfigFileMerger;
 use GrumPHP\Task\PhpStan;
+use GrumPHP\Task\Phpunit;
 use Nette\Neon\Neon;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Runner\Version;
 
 /**
  * Tests merging project-specific GrumPHP task configuration.
@@ -91,6 +93,21 @@ final class ConfigFileMergerTest extends TestCase {
 
     $configuration = Neon::decode((string) file_get_contents('phpstan.qa-drupal.neon'));
     self::assertSame(5, $configuration['parameters']['level']);
+  }
+
+  /**
+   * Tests that the generated PHPUnit configuration matches the runner major.
+   */
+  public function testPhpunitConfigurationUsesCurrentRunnerSchema(): void {
+    $task = (new \ReflectionClass(Phpunit::class))->newInstanceWithoutConstructor();
+    (new ConfigFileMerger())->mergeTaskConfig($task, TRUE);
+
+    $configuration = (string) file_get_contents('phpunit.qa-drupal.xml');
+    $schemaVersion = Version::majorVersionNumber() === 11 ? '11.5' : '12.5';
+    self::assertStringContainsString(
+      "https://schema.phpunit.de/$schemaVersion/phpunit.xsd",
+      $configuration
+    );
   }
 
   /**

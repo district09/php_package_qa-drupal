@@ -11,6 +11,7 @@ use GrumPHP\Task\PhpStan;
 use GrumPHP\Task\Phpunit;
 use GrumPHP\Task\TaskInterface;
 use Nette\Neon\Neon;
+use PHPUnit\Runner\Version;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 
@@ -175,11 +176,17 @@ final class ConfigFileMerger
         $key = strtoupper($taskInfo['filename']) . '_SKIP_';
         $type = ($isExtension ? 'extension' : 'site');
         $path = dirname(__FILE__, 3) . '/configs/';
+        $packageTypeFilename = $taskInfo['filename'] . '-' . $type;
+
+        // PHPUnit configuration schemas are specific to the runner major.
+        if ($taskInfo['filename'] === 'phpunit' && Version::majorVersionNumber() === 11) {
+            $packageTypeFilename .= '-11';
+        }
 
         return [
             $key . 'LOCAL' => $taskInfo['filename'] . '.local.' . $taskInfo['extension'],
             $key . 'PROJECT' => $taskInfo['filename'] . '.' . $taskInfo['extension'],
-            $key . 'PACKAGE_TYPE' => $path . $taskInfo['filename'] . '-' . $type . '.' . $taskInfo['extension'],
+            $key . 'PACKAGE_TYPE' => $path . $packageTypeFilename . '.' . $taskInfo['extension'],
             $key . 'PACKAGE_GLOBAL' => $path . $taskInfo['filename'] . '.' . $taskInfo['extension'],
         ];
     }

@@ -1,6 +1,6 @@
 # Upgrading to QA Drupal 5.x
 
-QA Drupal 5.x is the major-version compatibility release for Drupal 11.1 and
+QA Drupal 5.x is the major-version compatibility release for Drupal 11.4 and
 Drupal 12. Review every section before changing the Composer constraint in a
 consumer project.
 
@@ -8,11 +8,10 @@ consumer project.
 
 - Drupal 10 support is removed.
 - PHP 8.3 is the minimum supported PHP version.
-- Drupal 11.1 and later are supported on compatible PHP versions.
-- Use Drupal 11.3 or later when running Drupal 11 on PHP 8.5.
+- Drupal 11.4 and later are supported on compatible PHP versions.
 - Drupal 12 requires PHP 8.5.
 
-Drupal 11.1 is the minimum API compatibility target, not a recommendation to
+Drupal 11.4 is the minimum API compatibility target, not a recommendation to
 run an obsolete or insecure minor release. Production projects should always
 use a currently supported Drupal release with all security updates applied.
 
@@ -89,19 +88,15 @@ grumphp:
 
 ## QA dependency generations
 
-The 5.x dependency set moves to Drupal- and PHP-appropriate generations:
+The 5.x dependency set builds on QA PHP 3.x and moves to Drupal- and
+PHP-appropriate generations:
 
 - Coder 9 and PHP_CodeSniffer 4 compatible rules.
 - PHPCompatibility 10 alpha, required for PHP_CodeSniffer 4 and PHP 8.5 syntax.
 - PHPStan Drupal 2 and PHPStan deprecation rules 2.
-- PHPMD 2.15 on Drupal 11; Drupal 12 selects the explicitly allowed PHPMD 3
-  and PDepend 3 development lines because PHPMD 2/PDepend 2 do not allow
-  Symfony 8. Both development constraints are explicit; the package does not
-  lower global minimum stability. They can return to stable-only constraints
-  after PHPMD 3 and PDepend 3 are released.
-- PHPUnit 10.5, 11.5, or 12.5, selected to match the Drupal line.
+- PHPUnit 11.5 or 12.5, selected to match the Drupal line.
 - Symfony PHPUnit Bridge 7.2 or 8.1.
-- PHPCPD 7, 8, or 9, allowing Composer to match PHPUnit 10, 11, or 12.
+- PHPCPD 8 or 9, allowing Composer to match PHPUnit 11 or 12.
 - Current GrumPHP, Composer Normalize, TwigCS, PHP Mess Detector, Prophecy,
   Mink, and Drupal browser-driver generations.
 
@@ -122,7 +117,7 @@ running GrumPHP.
 
 The extension bootstrap now follows Drupal's current test initialization:
 
-- Drupal 11.1 uses its legacy deprecation-handler initialization.
+- Drupal 11.4 uses its legacy deprecation-handler initialization.
 - Drupal 12 uses `DeprecationHandler::preBootstrap()` with PHPUnit's parsed
   configuration.
 - Composer autoload discovery, extension namespaces, `Drupal\TestSite`, the
@@ -130,14 +125,14 @@ The extension bootstrap now follows Drupal's current test initialization:
   initialized consistently.
 - Obsolete PHPUnit 8 compatibility mutation is removed.
 
-The supplied site and extension XML configurations follow current PHPUnit
-conventions and use `.phpunit.cache`. Update `.gitignore` if it still only
-ignores `.phpunit.result.cache`. Existing test discovery and coverage output
-locations are retained.
+The supplied site and extension XML configurations select an 11.5 or 12.5
+schema for the installed PHPUnit major and use `.phpunit.cache`. Update
+`.gitignore` if it still only ignores `.phpunit.result.cache`. Existing test
+discovery and coverage output locations are retained.
 
 ## Continuous integration
 
 This repository now uses `.github/workflows/qa.yml` instead of Travis CI. The
-matrix covers Drupal 11.1 on PHP 8.3, a PHP 8.5 compatible Drupal 11 release,
-and Drupal 12 on PHP 8.5. Only the Drupal 11.1 job installs Drupal Extension and
+matrix covers Drupal 11.4 on PHP 8.3 through 8.5 and Drupal 12 on PHP 8.5.
+Only the Drupal 11.4 PHP 8.3 job installs Drupal Extension and
 loads the optional Behat configuration.
