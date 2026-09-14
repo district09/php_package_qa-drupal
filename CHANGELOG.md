@@ -14,14 +14,16 @@ All Notable changes to the **Quality Assurance - Drupal** package.
   locale, and multibyte initialization to the extension bootstrap.
 - Added focused tests for configuration merging, skip variables, and
   transactional filesystem commit/rollback behavior.
-- Added a GitHub Actions matrix for Drupal 11.1 on PHP 8.3, a current Drupal 11
-  release on PHP 8.5, and Drupal 12 on PHP 8.5.
+- Added a GitHub Actions matrix for Drupal 11.4 on PHP 8.3 through 8.5 and
+  Drupal 12 on PHP 8.5.
 - Added Lennart Van Vaerenbergh as a package author.
 
 ### Changed
 
 - Raised the platform requirements to PHP `^8.3` and Drupal
-  `^11.1 || ^12.0`.
+  `^11.4 || ^12.0`.
+- Use QA PHP `^3.0` for shared QA tooling. PHPUnit 10 support is removed;
+  PHPUnit 11.5 and 12.5 are selected for Drupal 11.4 and Drupal 12.
 - Updated Coder, PHPCompatibility, PHPStan, PHPUnit, Symfony PHPUnit Bridge,
   PHPCPD, GrumPHP, and related QA tools for Drupal 11/12 and PHP 8.3/8.5.
 - Allowed the PHPMD 3 and PDepend 3 development lines specifically for Drupal
