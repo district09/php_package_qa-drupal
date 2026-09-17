@@ -11,7 +11,7 @@ Drupal websites and extensions (modules, themes, and profiles).
 
 - [Composer](https://getcomposer.org)
 - PHP 8.3 or later
-- Drupal 11.1 or later, or Drupal 12
+- Drupal 11.4 or later, or Drupal 12
 
 | Drupal | PHP | Notes |
 | --- | --- | --- |
