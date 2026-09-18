@@ -25,25 +25,9 @@
   </php>
 
   <testsuites>
-    <testsuite name="unit">
-      <directory>**/tests/src/Unit</directory>
-      <exclude>vendor</exclude>
-    </testsuite>
-    <testsuite name="kernel">
-      <directory>**/tests/src/Kernel</directory>
-      <exclude>vendor</exclude>
-    </testsuite>
-    <testsuite name="functional">
-      <directory>**/tests/src/Functional</directory>
-      <exclude>vendor</exclude>
-    </testsuite>
-    <testsuite name="functional-javascript">
-      <directory>**/tests/src/FunctionalJavascript</directory>
-      <exclude>vendor</exclude>
-    </testsuite>
-    <testsuite name="build">
-      <directory>**/tests/src/Build</directory>
-      <exclude>vendor</exclude>
+    <testsuite name="tests">
+      <directory suffix="Test.php">tests/src</directory>
+      <directory suffix="Test.php">modules/**/tests/src</directory>
     </testsuite>
   </testsuites>
 
@@ -57,7 +41,6 @@
   <source ignoreSuppressionOfDeprecations="true">
     <include>
       <directory suffix=".php">./src</directory>
-      <directory suffix=".php">./**/src</directory>
       <directory suffix=".php">./modules/**/src</directory>
     </include>
     <exclude>

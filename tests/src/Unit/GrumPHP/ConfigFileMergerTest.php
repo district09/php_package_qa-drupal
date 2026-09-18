@@ -111,6 +111,21 @@ final class ConfigFileMergerTest extends TestCase {
   }
 
   /**
+   * Tests that extension test discovery is limited to project code.
+   */
+  public function testExtensionPhpunitConfigurationExcludesVendorPaths(): void {
+    $task = (new \ReflectionClass(Phpunit::class))->newInstanceWithoutConstructor();
+    (new ConfigFileMerger())->mergeTaskConfig($task, TRUE);
+
+    $configuration = (string) file_get_contents('phpunit.qa-drupal.xml');
+    $document = new \DOMDocument();
+    self::assertTrue($document->loadXML($configuration));
+    self::assertStringContainsString('<directory suffix="Test.php">tests/src</directory>', $configuration);
+    self::assertStringNotContainsString('tests/src/Kernel', $configuration);
+    self::assertStringNotContainsString('<directory suffix=".php">./**/src', $configuration);
+  }
+
+  /**
    * Runs the configuration merger with a PHPStan task instance.
    */
   private function mergePhpStanConfiguration(): void {
