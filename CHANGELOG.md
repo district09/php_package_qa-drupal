@@ -2,6 +2,22 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [5.0.2]
+
+### Fixed
+
+- Limited extension PHPUnit test and source discovery to project paths. The
+  shared configuration now discovers tests from the `tests/src` root rather
+  than requiring every optional test-type directory. This prevents both
+  recursive Composer-dependency scans and errors for absent test directories.
+
+## [5.0.1]
+
+### Fixed
+
+- Select the PHPUnit 11.5 extension and site configuration templates when the
+  installed test runner is PHPUnit 11.
+
 ## [5.0.0]
 
 ### Added
@@ -177,6 +193,8 @@ Older releases (2.x.x) see [CHANGELOG-2.x.md](CHANGELOG-1.x.md).
 
 Older releases (1.x.x) see [CHANGELOG-1.x.md](CHANGELOG-1.x.md).
 
+[5.0.2]: https://github.com/district09/php_package_qa-drupal/compare/5.0.1...5.0.2
+[5.0.1]: https://github.com/district09/php_package_qa-drupal/compare/5.0.0...5.0.1
 [5.0.0]: https://github.com/district09/php_package_qa-drupal/compare/4.1.4...5.0.0
 [4.1.4]: https://github.com/district09/php_package_qa-drupal/compare/4.1.3...4.1.4
 [4.1.3]: https://github.com/district09/php_package_qa-drupal/compare/4.1.2...4.1.3
