@@ -44,12 +44,18 @@
       <directory suffix=".php">./modules/**/src</directory>
     </include>
     <exclude>
-      <directory suffix=".api.php">./</directory>
-      <directory suffix="Spy.php">./</directory>
-      <directory suffix="Stub.php">./</directory>
-      <directory suffix="Test.php">./</directory>
-      <directory suffix="TestBase.php">./</directory>
-      <directory suffix="TestCase.php">./</directory>
+      <directory suffix=".api.php">./src</directory>
+      <directory suffix="Spy.php">./src</directory>
+      <directory suffix="Stub.php">./src</directory>
+      <directory suffix="Test.php">./src</directory>
+      <directory suffix="TestBase.php">./src</directory>
+      <directory suffix="TestCase.php">./src</directory>
+      <directory suffix=".api.php">./modules/**/src</directory>
+      <directory suffix="Spy.php">./modules/**/src</directory>
+      <directory suffix="Stub.php">./modules/**/src</directory>
+      <directory suffix="Test.php">./modules/**/src</directory>
+      <directory suffix="TestBase.php">./modules/**/src</directory>
+      <directory suffix="TestCase.php">./modules/**/src</directory>
     </exclude>
   </source>
 </phpunit>
