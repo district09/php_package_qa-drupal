@@ -11,7 +11,6 @@ use GrumPHP\Task\PhpStan;
 use GrumPHP\Task\Phpunit;
 use GrumPHP\Task\TaskInterface;
 use Nette\Neon\Neon;
-use PHPUnit\Runner\Version;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 
@@ -179,7 +178,7 @@ final class ConfigFileMerger
         $packageTypeFilename = $taskInfo['filename'] . '-' . $type;
 
         // PHPUnit configuration schemas are specific to the runner major.
-        if ($taskInfo['filename'] === 'phpunit' && Version::majorVersionNumber() === 11) {
+        if ($taskInfo['filename'] === 'phpunit' && PhpunitVersionResolver::installedMajorVersion() === 11) {
             $packageTypeFilename .= '-11';
         }
 

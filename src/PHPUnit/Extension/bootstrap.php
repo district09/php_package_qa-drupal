@@ -74,7 +74,7 @@ function drupal_phpunit_find_extension_directories(string $scanDirectory): array
   $iterator = new RecursiveCallbackFilterIterator(
     new RecursiveDirectoryIterator(
       $scanDirectory,
-      RecursiveDirectoryIterator::FOLLOW_SYMLINKS | RecursiveDirectoryIterator::SKIP_DOTS
+      RecursiveDirectoryIterator::SKIP_DOTS
     ),
     static function (SplFileInfo $file): bool {
       return !$file->isDir()

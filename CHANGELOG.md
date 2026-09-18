@@ -2,6 +2,24 @@
 
 All Notable changes to the **Quality Assurance - Drupal** package.
 
+## [5.0.3]
+
+### Fixed
+
+- Select the PHPUnit 11 or 12 configuration from the consumer project's
+  Composer metadata instead of the PHPUnit version bundled in GrumPHP.
+- Prevent extension bootstrap discovery from following directory symlinks,
+  avoiding recursive traversal when an extension checkout is linked into its
+  Composer-installed Drupal test root.
+- Bound PHPUnit source exclusions to extension source paths so coverage
+  mapping no longer traverses Composer dependencies or follows recursive
+  repository links.
+
+### Changed
+
+- Require QA PHP 3.1.1 or later so generated PHPStan configurations include
+  the GrumPHP API stubs required by the shared event listener.
+
 ## [5.0.2]
 
 ### Fixed
@@ -193,6 +211,7 @@ Older releases (2.x.x) see [CHANGELOG-2.x.md](CHANGELOG-1.x.md).
 
 Older releases (1.x.x) see [CHANGELOG-1.x.md](CHANGELOG-1.x.md).
 
+[5.0.3]: https://github.com/district09/php_package_qa-drupal/compare/5.0.2...5.0.3
 [5.0.2]: https://github.com/district09/php_package_qa-drupal/compare/5.0.1...5.0.2
 [5.0.1]: https://github.com/district09/php_package_qa-drupal/compare/5.0.0...5.0.1
 [5.0.0]: https://github.com/district09/php_package_qa-drupal/compare/4.1.4...5.0.0

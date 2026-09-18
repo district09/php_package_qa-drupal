@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Digipolisgent\QA\Drupal\Tests\Unit\GrumPHP;
 
 use Digipolisgent\QA\Drupal\GrumPHP\ConfigFileMerger;
+use Digipolisgent\QA\Drupal\GrumPHP\PhpunitVersionResolver;
 use GrumPHP\Task\PhpStan;
 use GrumPHP\Task\Phpunit;
 use Nette\Neon\Neon;
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Runner\Version;
 
 /**
  * Tests merging project-specific GrumPHP task configuration.
@@ -103,7 +103,7 @@ final class ConfigFileMergerTest extends TestCase {
     (new ConfigFileMerger())->mergeTaskConfig($task, TRUE);
 
     $configuration = (string) file_get_contents('phpunit.qa-drupal.xml');
-    $schemaVersion = Version::majorVersionNumber() === 11 ? '11.5' : '12.5';
+    $schemaVersion = PhpunitVersionResolver::installedMajorVersion() === 11 ? '11.5' : '12.5';
     self::assertStringContainsString(
       "https://schema.phpunit.de/$schemaVersion/phpunit.xsd",
       $configuration
@@ -123,6 +123,19 @@ final class ConfigFileMergerTest extends TestCase {
     self::assertStringContainsString('<directory suffix="Test.php">tests/src</directory>', $configuration);
     self::assertStringNotContainsString('tests/src/Kernel', $configuration);
     self::assertStringNotContainsString('<directory suffix=".php">./**/src', $configuration);
+    self::assertStringNotContainsString('>./</directory>', $configuration);
+  }
+
+  /**
+   * Tests that site source exclusions remain inside custom extension paths.
+   */
+  public function testSitePhpunitConfigurationExcludesVendorPaths(): void {
+    $task = (new \ReflectionClass(Phpunit::class))->newInstanceWithoutConstructor();
+    (new ConfigFileMerger())->mergeTaskConfig($task, FALSE);
+
+    $configuration = (string) file_get_contents('phpunit.qa-drupal.xml');
+    self::assertStringContainsString('web/modules/custom/**/tests', $configuration);
+    self::assertStringNotContainsString('>./</directory>', $configuration);
   }
 
   /**
