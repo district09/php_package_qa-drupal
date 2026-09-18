@@ -43,13 +43,5 @@
       <directory suffix=".php">./src</directory>
       <directory suffix=".php">./modules/**/src</directory>
     </include>
-    <exclude>
-      <directory suffix=".api.php">./</directory>
-      <directory suffix="Spy.php">./</directory>
-      <directory suffix="Stub.php">./</directory>
-      <directory suffix="Test.php">./</directory>
-      <directory suffix="TestBase.php">./</directory>
-      <directory suffix="TestCase.php">./</directory>
-    </exclude>
   </source>
 </phpunit>

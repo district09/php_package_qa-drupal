@@ -67,12 +67,12 @@
       <directory suffix=".php">web/themes/custom</directory>
     </include>
     <exclude>
-      <directory suffix=".api.php">./</directory>
-      <directory suffix="Spy.php">./</directory>
-      <directory suffix="Stub.php">./</directory>
-      <directory suffix="Test.php">./</directory>
-      <directory suffix="TestBase.php">./</directory>
-      <directory suffix="TestCase.php">./</directory>
+      <directory suffix=".api.php">web/modules/custom</directory>
+      <directory suffix=".api.php">web/profiles/custom</directory>
+      <directory suffix=".api.php">web/themes/custom</directory>
+      <directory>web/modules/custom/**/tests</directory>
+      <directory>web/profiles/custom/**/tests</directory>
+      <directory>web/themes/custom/**/tests</directory>
       <directory>web/themes/custom/*/source</directory>
     </exclude>
   </source>
