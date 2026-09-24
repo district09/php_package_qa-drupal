@@ -24,6 +24,64 @@ composer require --dev --with-all-dependencies digipolisgent/qa-drupal:^5.0
 Resolve Drupal and PHP upgrades before installing QA Drupal 5.x if the project
 still uses Drupal 10 or PHP 8.2 and earlier.
 
+## Required migration steps
+
+Follow these steps in the root of the consuming Drupal project. The exact
+Drupal package set varies by project, so keep using the core packages already
+present in its `composer.json` (for example `drupal/core-recommended` rather
+than `drupal/core` when applicable).
+
+1. Choose the supported Drupal and PHP combination:
+
+   - For Drupal 11, require Drupal `^11.4` and run PHP 8.3, 8.4, or 8.5.
+   - For Drupal 12, require Drupal `^12.0` and run PHP 8.5. Remove Behat and
+     Drupal Extension first; they cannot currently resolve with Symfony 8.
+
+2. Remove dependencies that QA Drupal 5 no longer uses, if they are direct
+   project dependencies:
+
+   ```bash
+   composer remove --dev enlightn/security-checker
+   ```
+
+   For Drupal 12 projects that use Behat, also remove the incompatible
+   integration and task before updating:
+
+   ```bash
+   composer remove --dev drupal/drupal-extension behat/behat
+   ```
+
+3. Remove obsolete project-level GrumPHP overrides for
+   `securitychecker_enlightn`. If the project overrides the QA task list, use
+   `securitychecker_composeraudit` instead, as shown in the Composer Audit
+   section below.
+
+4. Install QA Drupal and let Composer update the complete dependency graph:
+
+   ```bash
+   composer require --dev --with-all-dependencies digipolisgent/qa-drupal:^5.0
+   ```
+
+5. Delete previously generated QA Drupal configuration files and regenerate
+   them. They are machine-generated and should not be committed:
+
+   ```bash
+   rm -f *.qa-drupal.*
+   vendor/bin/grumphp run --no-interaction
+   ```
+
+6. Commit the updated `composer.json` and `composer.lock`, together with any
+   intentional GrumPHP configuration changes. Confirm the upgrade with:
+
+   ```bash
+   composer validate --strict
+   vendor/bin/grumphp run --no-interaction
+   ```
+
+If Composer cannot resolve the update, check first for a PHP version below the
+selected Drupal version's requirement, an explicit Symfony dependency below
+Symfony 8 in a Drupal 12 project, or retained Behat/Drupal Extension packages.
+
 ## Behat is optional
 
 `drupal/drupal-extension` is no longer a mandatory dependency, and the Behat
