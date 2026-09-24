@@ -71,14 +71,33 @@ function drupal_phpunit_core_dir(): string {
  */
 function drupal_phpunit_find_extension_directories(string $scanDirectory): array {
   $extensions = [];
+  $visitedDirectories = [];
+  $realScanDirectory = realpath($scanDirectory);
+  if ($realScanDirectory !== FALSE) {
+    $visitedDirectories[$realScanDirectory] = TRUE;
+  }
+
   $iterator = new RecursiveCallbackFilterIterator(
     new RecursiveDirectoryIterator(
       $scanDirectory,
       RecursiveDirectoryIterator::FOLLOW_SYMLINKS | RecursiveDirectoryIterator::SKIP_DOTS
     ),
-    static function (SplFileInfo $file): bool {
-      return !$file->isDir()
-        || !in_array($file->getFilename(), ['.git', 'node_modules', 'vendor'], TRUE);
+    static function (SplFileInfo $file) use (&$visitedDirectories): bool {
+      if (!$file->isDir()) {
+        return TRUE;
+      }
+
+      if (in_array($file->getFilename(), ['.git', 'node_modules', 'vendor'], TRUE)) {
+        return FALSE;
+      }
+
+      $realPath = $file->getRealPath();
+      if ($realPath === FALSE || isset($visitedDirectories[$realPath])) {
+        return FALSE;
+      }
+
+      $visitedDirectories[$realPath] = TRUE;
+      return TRUE;
     }
   );
   $directories = new RecursiveIteratorIterator(
